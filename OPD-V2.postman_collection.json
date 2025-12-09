@@ -1,0 +1,8282 @@
+{
+	"info": {
+		"_postman_id": "9569d740-813e-4be1-be58-02fc0ef7b490",
+		"name": "OPD-V2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33332154",
+		"_collection_link": "https://catchy-7613.postman.co/workspace/HMS---CatchySystem~41ec0329-c61d-43b1-8525-7ce51e3188d7/collection/33332154-9569d740-813e-4be1-be58-02fc0ef7b490?action=share&source=collection_link&creator=33332154"
+	},
+	"item": [
+		{
+			"name": "Allergies",
+			"item": [
+				{
+					"name": "get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "access-token",
+								"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozOCwibmFtZSI6IlByYWR1bWFuIEt1bWFyIiwiZW1haWwiOiJwcmFkdW1hbjgwMjIxM0BnbWFpbC5jb20iLCJtb2JpbGUiOiI5MTE3NDQ2NTgxIiwidXNlcl9yb2xlIjp7Im5hbWUiOiJhZG1pbiIsInJvbGVfcGVybWlzc2lvbnMiOlt7InBlcm1pc3Npb25faWQiOjEsIm5hbWUiOiJwYXRpZW50cyIsIm1vZHVsZV9uYW1lIjoicGF0aWVudHMifSx7InBlcm1pc3Npb25faWQiOjIsIm5hbWUiOiJyZXBvcnRzIiwibW9kdWxlX25hbWUiOiJyZXBvcnRzIn1dfSwiQ2xpbmljcyI6W3siaWQiOjEsImNsaW5pY19uYW1lIjoiQUJDIENsaW5pYyIsImRvY3Rvcl9uYW1lIjoiRHIuIEpvaG4gRG9lIiwiYWRkcmVzcyI6IlN1cmF0IiwiZW1haWwiOiJjb250YWN0QGFiY2NsaW5pYy5jb20iLCJwaG9uZSI6IjEyMzQ1Njc4OTAiLCJ0aW1lX3pvbmUiOiJHTVQtNSIsInppcF9jb2RlIjoiMTAwMDEiLCJjcmVhdGVkX2F0IjoiMjAyNS0wNC0xN1QxMTozNToyNi4wMDBaIiwic3RhdHVzIjoxfV0sImlhdCI6MTc0NTkxOTk2MSwiZXhwIjoxNzQ2MDA2MzYxfQ.FY6-apP3vBU93tMT8_zCjvdb6jL7RhAd2Dmexg1KHYH-Tpoixb64lEsK6YpUPhwybYLQ4wIRgbFlvvBS0GI1jdDjv7sDLQ_Pj4G6pFM-VJ40PgHIBvktHjGKrrhKeCnJniQZhAbZ2zZSeSrDjF6XrbheBuALtgST57e361Lpjgq-KVtHgl7Fs9DbG2yGyRE9ZeF53In8dDRAWGWWgngEXc1XlB2eD7Dla8m0krUOPWUa31UJNYu9OwtpyZBW88LI1S7yJhGKUIHAg5115YVW-Bh_apl5p8YS5tq7ImB54jz_Cgt_I4mBKqwxGIvA1VQab0P11n02X3BeEcu3ZJ2audqGMkHJqQ-67Rq_q2iOPDpyFg-v82JhwXY1yb25XC_bSQsHMF0mXzYNW7j9HlRasaQxa70R4g_0q893fNNuH9RiaFp_eAmsf48mIcCxGD_0HhDmJCNRXVt2Ri-lDW0mgstlmaO56IK8ISmhR5mSZnPaXZXVCpBCCvggco009SnQNNLOPJqspn5eIw7ld45BOGiza2krRk5vX_r8uXRWfY9amsLcXpXP956BRBJ6tgwPf52EHhME4YPORIDGfTYMWqvpIrS4xIXXIqclP7QOTht6F6h_-mmkgrk5511TVYPMKMmD-38D14S4BeonT5vmZ5ddZbtVz4z0z1qUY3Pk-80",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{opd-host}}/Allergies?clinic_id=5&client_id=57&page=1&limit=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"Allergies"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "5"
+								},
+								{
+									"key": "client_id",
+									"value": "57"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"Peanut Allergy\",\r\n  \"clinic_id\": \"1\",\r\n  \"client_id\": \"38\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/api/Allergies",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"api",
+								"Allergies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "put",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"Allergy\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/Allergies/31",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"Allergies",
+								"31"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/Allergies/2",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"Allergies",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/Allergies/3?sts=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"Allergies",
+								"3"
+							],
+							"query": [
+								{
+									"key": "sts",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by clinic_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/Allergies?clinic_id=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"Allergies"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by client_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/Allergies?client_id=38",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"Allergies"
+							],
+							"query": [
+								{
+									"key": "client_id",
+									"value": "38"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Banks",
+			"item": [
+				{
+					"name": "get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/Banks?clinic_id=1&client_id=38&page=1&limit=3",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"Banks"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "1"
+								},
+								{
+									"key": "client_id",
+									"value": "38"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"bank_name\": \"ICICI Bank\",\r\n  \"ac_no\": \"987654321098\",\r\n  \"ifsc_code\": \"ICIC0004567\",\r\n  \"branch\": \"Andheri West Branch\",\r\n  \"addrress\": \"456 Andheri West, Mumbai, India\",\r\n  \"ac_type\": \"current\",\r\n  \"clinic_id\": \"1\",\r\n  \"client_id\": \"38\",\r\n  \"status\": true\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/api/Banks",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"api",
+								"Banks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/banks/2",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"banks",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"branch\":\"Surat\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/banks/3",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"banks",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/banks/3?sts=0",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"banks",
+								"3"
+							],
+							"query": [
+								{
+									"key": "sts",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter By clinic_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/Banks?clinic_id=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"Banks"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter By client_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/Banks?client_id=38&page=1&limit=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"Banks"
+							],
+							"query": [
+								{
+									"key": "client_id",
+									"value": "38"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Chairs",
+			"item": [
+				{
+					"name": "get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/Chairs?clinic_id=1&client_id=38&page=1&limit=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"Chairs"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "1"
+								},
+								{
+									"key": "client_id",
+									"value": "38"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"Chair 2\",\r\n  \"description\": \"Secondary dental chair in Cabin 2\",\r\n  \"start_time\": \"10:00:00\",\r\n  \"end_time\": \"18:00:00\",\r\n  \"cabin_no\": 2,\r\n  \"intervel\": 20,\r\n  \"clinic_id\": \"1\",\r\n  \"client_id\": \"38\",\r\n  \"status\": true\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/Chairs",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"Chairs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/chairs/2",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"chairs",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cabin_no\":7\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/chairs/2",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"chairs",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/chairs/2?sts=0",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"chairs",
+								"2"
+							],
+							"query": [
+								{
+									"key": "sts",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by clinic_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/Chairs?clinic_id=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"Chairs"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by client_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/Chairs?client_id=38",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"Chairs"
+							],
+							"query": [
+								{
+									"key": "client_id",
+									"value": "38"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Communication_Group",
+			"item": [
+				{
+					"name": "get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/Communication-Group?clinic_id&page=1&limit=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"Communication-Group"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": null
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"Follow-Up Patients\",\r\n  \"clinic_id\": \"clinic-1234\",\r\n  \"client_id\": \"client-5678\",\r\n  \"status\": true\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}Communication-Group",
+							"host": [
+								"{{opd-host}}Communication-Group"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/communication-group/1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"communication-group",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"Follow-Up Patients\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/communication-group/1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"communication-group",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/communication-group/1?sts=0",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"communication-group",
+								"1"
+							],
+							"query": [
+								{
+									"key": "sts",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by clinic_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/Communication-Group?clinic_id=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"Communication-Group"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by client_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/Communication-Group?client_id=38",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"Communication-Group"
+							],
+							"query": [
+								{
+									"key": "client_id",
+									"value": "38"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Doctors",
+			"item": [
+				{
+					"name": "get",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/Doctors?clinic_id=5&client_id=57&page=1&limit=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"Doctors"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "5"
+								},
+								{
+									"key": "client_id",
+									"value": "57"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"code\": \"DOC001\",\r\n  \"name\": \"Dr. Priya Sharma\",\r\n  \"mobile\": \"9876543210\",\r\n  \"email\": \"priya.sharma@example.com\",\r\n  \"registration_no\": \"MCI2025001\",\r\n  \"color_code\": \"#00AEEF\",\r\n  \"signature\": \"Dr. Priya Sharma Signature Base64\",\r\n  \"clinic_id\": \"clinic-1234\",\r\n  \"client_id\": \"client-5678\",\r\n  \"status\": true\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/Doctors",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"Doctors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/Doctors/1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"Doctors",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Dr. Priya Sharma\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/Doctors/15",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"Doctors",
+								"15"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/Doctors/1?sts=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"Doctors",
+								"1"
+							],
+							"query": [
+								{
+									"key": "sts",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by clinic_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/Doctors?clinic_id=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"Doctors"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by client_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/Doctors?client_id=38",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"Doctors"
+							],
+							"query": [
+								{
+									"key": "client_id",
+									"value": "38"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Doctor Options",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/doctors/options",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"doctors",
+								"options"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Doctor-Timings",
+			"item": [
+				{
+					"name": "get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/Doctor-Timings?clinic_id=1&client_id=38&doctor_code=DOC001&page=1&limit=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"Doctor-Timings"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "1"
+								},
+								{
+									"key": "client_id",
+									"value": "38"
+								},
+								{
+									"key": "doctor_code",
+									"value": "DOC001"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"doctor_code\": \"DOC001\",\r\n  \"start_time\": \"01:00:00\",\r\n  \"end_time\": \"4:00:00\",\r\n  \"exe_time\": 20,\r\n  \"clinic_id\": \"clinic-1234\",\r\n  \"client_id\": \"client-5678\",\r\n  \"status\":1\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/Doctor-Timings",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"Doctor-Timings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/Doctor-Timings/1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"Doctor-Timings",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"exe_time\":20\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/Doctor-Timings/1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"Doctor-Timings",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/Doctor-Timings/2?sts=0",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"Doctor-Timings",
+								"2"
+							],
+							"query": [
+								{
+									"key": "sts",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by clinic_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/Doctor-Timings?clinic_id=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"Doctor-Timings"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by client_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/Doctor-Timings?client_id=38",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"Doctor-Timings"
+							],
+							"query": [
+								{
+									"key": "client_id",
+									"value": "38"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by doctor_code",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/Doctor-Timings?doctor_code=DOC001",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"Doctor-Timings"
+							],
+							"query": [
+								{
+									"key": "doctor_code",
+									"value": "DOC001"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Patient-Tags",
+			"item": [
+				{
+					"name": "get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/Tags?clinic_id=5&client_id=57&page=1&limit=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"Tags"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "5"
+								},
+								{
+									"key": "client_id",
+									"value": "57"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"Morning Shift\",\r\n  \"description\": \"Tags for the morning shift appointments.\",\r\n  \"start_time\": \"09:00:00\",\r\n  \"end_time\": \"12:00:00\",\r\n  \"cabin_no\": 101,\r\n  \"intervel\": 15,\r\n  \"clinic_id\": \"clinic-1234\",\r\n  \"client_id\": \"client-5678\",\r\n  \"status\": true\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/Patient-Tags",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"Patient-Tags"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/Patient-Tags/1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"Patient-Tags",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cabin_no\":6\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/Patient-Tags/1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"Patient-Tags",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/Patient-Tags/1?sts=0",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"Patient-Tags",
+								"1"
+							],
+							"query": [
+								{
+									"key": "sts",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by clinic_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/Patient-Tags?clinic_id=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"Patient-Tags"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by client_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/Patient-Tags?client_id=38",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"Patient-Tags"
+							],
+							"query": [
+								{
+									"key": "client_id",
+									"value": "38"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reference_Types",
+			"item": [
+				{
+					"name": "get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/reference-types?clinic_id=1&client_id=38&page=1&limit=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"reference-types"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "1"
+								},
+								{
+									"key": "client_id",
+									"value": "38"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"New Reference Type\",\r\n  \"clinic_id\": \"clinic-12345\",\r\n  \"client_id\": \"client-5678\",\r\n  \"status\": 1\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/reference-types",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"reference-types"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/reference-types/1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"reference-types",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"New Reference Type\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}i/reference-types/1",
+							"host": [
+								"{{opd-host}}i"
+							],
+							"path": [
+								"reference-types",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/reference-types/1?sts=0",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"reference-types",
+								"1"
+							],
+							"query": [
+								{
+									"key": "sts",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter By clinic_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/prescriptions?clinic_id=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"prescriptions"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter By client_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/prescriptions?client_id=38",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"prescriptions"
+							],
+							"query": [
+								{
+									"key": "client_id",
+									"value": "38"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Appointments",
+			"item": [
+				{
+					"name": "get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/appointment?clinic_id=1&client_id=38&page=1&limit=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"appointment"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "1"
+								},
+								{
+									"key": "client_id",
+									"value": "38"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"patient_code\": \"PAT001\",\r\n  \"doctor_code\": \"DOC001\",\r\n  \"appointment_date\": \"2025-04-20T10:30:00Z\",\r\n  \"chair_code\": \"CHAIR01\",\r\n  \"treatment_code\": \"TREAT001\",\r\n  \"notes\": \"Follow-up appointment.\",\r\n  \"notification_status\": 1,\r\n  \"notification_for_patient\": 1,\r\n  \"notification_for_doctor\": 0,\r\n  \"clinic_id\":1,\r\n  \"client_id\": 38,\r\n  \"status\": 1\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/appointment",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"appointment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/appointment/1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"appointment",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"notes\":\"Follow-up appointment.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/appointment/2",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"appointment",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/appointment/1?sts=0",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"appointment",
+								"1"
+							],
+							"query": [
+								{
+									"key": "sts",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by clinic_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/appointment?clinic_id=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"appointment"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by client_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/appointment?client_id=38",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"appointment"
+							],
+							"query": [
+								{
+									"key": "client_id",
+									"value": "38"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by patient_code",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/appointment?patient_id=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"appointment"
+							],
+							"query": [
+								{
+									"key": "patient_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by doctor code",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/appointment?doctor_code=DOC001",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"appointment"
+							],
+							"query": [
+								{
+									"key": "doctor_code",
+									"value": "DOC001"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tretments",
+			"item": [
+				{
+					"name": "get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/tretments?clinic_id=1&client_id=38&page=1&limit=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"tretments"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "1"
+								},
+								{
+									"key": "client_id",
+									"value": "38"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"Dental Cleaning\",\r\n  \"cost\": \"100\",\r\n  \"clinic_id\": \"clinic-1234\",\r\n  \"client_id\": \"client-5678\",\r\n  \"status\": 1\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/Tretments",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"Tretments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/Tretments/1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"Tretments",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"Dental Cleaning\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/tretments/1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"tretments",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/Tretments/1?sts=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"Tretments",
+								"1"
+							],
+							"query": [
+								{
+									"key": "sts",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by clinic_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/Tretments?clinic_id=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"Tretments"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by client_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/Tretments?client_id=38&page=1&limit=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"Tretments"
+							],
+							"query": [
+								{
+									"key": "client_id",
+									"value": "38"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Medicines",
+			"item": [
+				{
+					"name": "get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/Mediciens?clinic_id=1&client_id=38&page=1&limit=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"Mediciens"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "1"
+								},
+								{
+									"key": "client_id",
+									"value": "38"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Paracetamol\",\r\n  \"molucule\": \"Acetaminophen\",\r\n  \"dose\": \"500mg\",\r\n  \"frequent\": \"2 times\",\r\n  \"duration\": \"5 days\",\r\n  \"is_fevrate\": 1,\r\n  \"clinic_id\": \"clinic-1234\",\r\n  \"client_id\": \"client-5678\",\r\n  \"status\": 1\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/mediciens",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"mediciens"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/mediciens/1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"mediciens",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Paracetamol\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/mediciens/1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"mediciens",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/mediciens/1?sts=0",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"mediciens",
+								"1"
+							],
+							"query": [
+								{
+									"key": "sts",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by clinic_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/mediciens?clinic_id=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"mediciens"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by client_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/mediciens?client_id=38",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"mediciens"
+							],
+							"query": [
+								{
+									"key": "client_id",
+									"value": "38"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Feedbacks",
+			"item": [
+				{
+					"name": "get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/feedbacks?clinic_id=1&client_id=38&page=1&limit=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"feedbacks"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "1"
+								},
+								{
+									"key": "client_id",
+									"value": "38"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"patinet_code\": \"PAT001\",\r\n  \"doctor_code\": \"DOC001\",\r\n  \"queation_code\": \"Q9876\",\r\n  \"remark\": \"Good experience\",\r\n  \"clinic_id\": \"clinic-1234\",\r\n  \"client_id\": \"client-5678\",\r\n  \"status\": 1\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/feedbacks",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"feedbacks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/feedbacks/2",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"feedbacks",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"remark\":\"Good experienc\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/feedbacks/2",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"feedbacks",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/feedbacks/2?sts=0",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"feedbacks",
+								"2"
+							],
+							"query": [
+								{
+									"key": "sts",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by clinic_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/feedbacks?clinic_id=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"feedbacks"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by client_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/feedbacks?client_id=38",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"feedbacks"
+							],
+							"query": [
+								{
+									"key": "client_id",
+									"value": "38"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter By Patient_code",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/feedbacks?patient_id=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"feedbacks"
+							],
+							"query": [
+								{
+									"key": "patient_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter By doctor_code",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/feedbacks?doctor_code=DOC001",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"feedbacks"
+							],
+							"query": [
+								{
+									"key": "doctor_code",
+									"value": "DOC001"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "FeedbackQuestions",
+			"item": [
+				{
+					"name": "get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/feedback-quations?clinic_id=1&client_id=38&page=1limit=2",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"feedback-quations"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "1"
+								},
+								{
+									"key": "client_id",
+									"value": "38"
+								},
+								{
+									"key": "page",
+									"value": "1limit=2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"Cleanliness of Clinic\",\r\n  \"type\": 1,\r\n  \"clinic_id\": \"clinic-1234\",\r\n  \"client_id\": \"client-5678\",\r\n  \"status\": 1\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/feedback-quations",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"feedback-quations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/feedback-quations/2",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"feedback-quations",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"clinic\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/feedback-quations/2",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"feedback-quations",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/feedback-quations/2?sts=0",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"feedback-quations",
+								"2"
+							],
+							"query": [
+								{
+									"key": "sts",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by clinic_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/feedback-quations?clinic_id=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"feedback-quations"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by client_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/feedback-quations?client_id=38",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"feedback-quations"
+							],
+							"query": [
+								{
+									"key": "client_id",
+									"value": "38"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Login",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "access",
+								"value": "",
+								"type": "text"
+							},
+							{
+								"key": "access_token",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"demo@demo.com\",\r\n  \"password\": \"123456\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4017/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4017",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Clinics",
+			"item": [
+				{
+					"name": "get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/Clinics",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"Clinics"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"clinic_name\": \"General Hospital\",\r\n  \"doctor_code\": \"DOC001\",\r\n  \"slug\":\"General Hospital\",\r\n  \"address\": \"123 Clinic Surat.\",\r\n  \"city\": \"Surat\",\r\n  \"state\": \"Gujarat\",\r\n  \"country\": \"India\",\r\n  \"email\": \"contact@generalclinic.com\",\r\n  \"phone\": \"9117446581\",\r\n  \"time_zone\": \"GMT-5\",\r\n  \"zip_code\": \"10002\",\r\n  \"client_id\": \"38\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/clinics",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"clinics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/clinics/1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"clinics",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"address\":\"Patna\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/clinics/1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"clinics",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/clinics/1?sts=0",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"clinics",
+								"1"
+							],
+							"query": [
+								{
+									"key": "sts",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filteration by client_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/clinics?client_id=38",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"clinics"
+							],
+							"query": [
+								{
+									"key": "client_id",
+									"value": "38"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload clinic image",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "dir",
+									"value": "csteam",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/DELL/Desktop/image-1745417358113-736877365"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:4017/api/clinics/clinic-image",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4017",
+							"path": [
+								"api",
+								"clinics",
+								"clinic-image"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Investigations",
+			"item": [
+				{
+					"name": "get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/investigations?patient_id=1&clinic_id=1&patient_id&page=1&limit=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"investigations"
+							],
+							"query": [
+								{
+									"key": "patient_id",
+									"value": "1"
+								},
+								{
+									"key": "clinic_id",
+									"value": "1"
+								},
+								{
+									"key": "patient_id",
+									"value": null
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"date\": \"2025-06-03\",\r\n  \"temperature\": \"98.6\",\r\n  \"weight\": 72.5,\r\n  \"oxygen_saturation\": 97,\r\n  \"blood_pressure\": \"120/80\",\r\n  \"blood_sugar\": \"90\",\r\n  \"auscultation\": \"Normal\",\r\n  \"patient_id\": 1,\r\n  \"clinic_id\": 1,\r\n  \"client_id\":38,\r\n  \"doctor_code\": \"DOC001\",\r\n  \"examination_id\": 1,\r\n  \"chief_complaint\": \"Fever and cough\",\r\n  \"diagnosis_type\": \"Provisional\",\r\n  \"note\": \"Patient advised to rest and hydrate\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/investigations",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"investigations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/investigations/1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"investigations",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"diagnosis_type\":\"Primary Case\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/investigations/1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"investigations",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/investigations/1?sts=0",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"investigations",
+								"1"
+							],
+							"query": [
+								{
+									"key": "sts",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by clinic_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/investigations?clinic_id=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"investigations"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by patient_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/investigations?patient_id=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"investigations"
+							],
+							"query": [
+								{
+									"key": "patient_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by doctor_code",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/investigations?doctor_code=DOC001",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"investigations"
+							],
+							"query": [
+								{
+									"key": "doctor_code",
+									"value": "DOC001"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter By Client_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/Investigations?client_id=38",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"Investigations"
+							],
+							"query": [
+								{
+									"key": "client_id",
+									"value": "38"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Dental_Charts",
+			"item": [
+				{
+					"name": "get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/dental-charts?clinic_id=1&client_id=38&page=1&limit=2",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"dental-charts"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "1"
+								},
+								{
+									"key": "client_id",
+									"value": "38"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"treatment_plan\": \"Root Canal Therapy\",\r\n  \"name\": \"Praduman Kumar\",\r\n  \"doctor_code\":\"DOC001\",\r\n  \"date\": \"2025-04-18\",\r\n  \"treatment_type\": \"Endodontics\",\r\n  \"treatment\": \"Canal cleaning and filling\",\r\n  \"total_cost\": \"1500.00\",\r\n  \"total_discount\": \"100.00\",\r\n  \"final_amount\": \"1400.00\",\r\n  \"is_multiply\": false,\r\n  \"is_confirm\": true,\r\n  \"is_patient\": true,\r\n  \"is_approved\": false,\r\n  \"is_treatment_plan\": true,\r\n  \"is_billed\": false,\r\n  \"clinic_id\": \"clinic_1234\",\r\n  \"client_id\": \"client_5678\",\r\n  \"status\": 1\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/dental-charts",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"dental-charts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/dental-charts/2",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"dental-charts",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"treatment_plan\":\"Root\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/dental-charts/2",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"dental-charts",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/dental-charts/2?sts=0",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"dental-charts",
+								"2"
+							],
+							"query": [
+								{
+									"key": "sts",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by doctor_code",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/prescriptions?doctor_code=DOC001",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"prescriptions"
+							],
+							"query": [
+								{
+									"key": "doctor_code",
+									"value": "DOC001"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by clinic_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/dental-charts?clinic_id=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"dental-charts"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by client_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/dental-charts?client_id=38",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"dental-charts"
+							],
+							"query": [
+								{
+									"key": "client_id",
+									"value": "38"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Prescriptions",
+			"item": [
+				{
+					"name": "Prescriptions",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/prescriptions?clinic_id=1&client_id=38&doctor_Id=1&page=1&limit=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"prescriptions"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "1"
+								},
+								{
+									"key": "client_id",
+									"value": "38"
+								},
+								{
+									"key": "doctor_Id",
+									"value": "1"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"doctor_code\":\"DOC001\",\r\n  \"medicine_id\":1,\r\n  \"title\": \"Initial Consultation\",\r\n  \"investigation_att\": \"Blood test, X-ray chest\",\r\n  \"note\": \"Patient advised to rest and follow-up in 5 days.\",\r\n  \"clinic_id\":1,\r\n  \"client_id\":38\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/prescriptions",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"prescriptions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/prescriptions/1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"prescriptions",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/prescriptions/1?sts=0",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"prescriptions",
+								"1"
+							],
+							"query": [
+								{
+									"key": "sts",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by clinic_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/prescriptions?clinic_id=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"prescriptions"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by client_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/prescriptions?client_id=38",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"prescriptions"
+							],
+							"query": [
+								{
+									"key": "client_id",
+									"value": "38"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by doctor_code",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/prescriptions?doctor_code=DOC001",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"prescriptions"
+							],
+							"query": [
+								{
+									"key": "doctor_code",
+									"value": "DOC001"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"note\":\"Patient advised to rest \"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/prescriptions/1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"prescriptions",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter By medicine_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/prescriptions?medicine_id=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"prescriptions"
+							],
+							"query": [
+								{
+									"key": "medicine_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Files",
+			"item": [
+				{
+					"name": "get",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/files?clinic_id=1&client_id=38&page=1&limit=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"files"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "1"
+								},
+								{
+									"key": "client_id",
+									"value": "38"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"file_type\": \"image\",\r\n  \"description\": \"Sample file description\",\r\n  \"file_path\": \"/path/to/file.jpg\",\r\n  \"status\": true,\r\n  \"clinic_id\":\"clinic-1234\",\r\n  \"client_id\":\"client-5678\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/Files",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"Files"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/files/1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"files",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/files/1?sts=0",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"files",
+								"1"
+							],
+							"query": [
+								{
+									"key": "sts",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by clinic_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/files?clinic_id=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"files"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by client_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/files?client_id=38",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"files"
+							],
+							"query": [
+								{
+									"key": "client_id",
+									"value": "38"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "put by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\":\"Sample Description\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/files/1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"files",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Patients",
+			"item": [
+				{
+					"name": "Get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/patients?clinic_id=5&client_id=57&page=1&limit=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"patients"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "5"
+								},
+								{
+									"key": "client_id",
+									"value": "57"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"date\": \"2025-04-28\",\r\n  \"case_no\": \"12345\",\r\n  \"title\": \"Mr.\",\r\n  \"first_name\": \"John\",\r\n  \"last_name\": \"Doe\",\r\n  \"dob\": \"1990-01-01\",\r\n  \"age\": 35,\r\n  \"gender\": \"Male\",\r\n  \"mobile\": \"+1234567890\",\r\n  \"email\": \"john.doe@example.com\",\r\n  \"profile_pic\": \"profile_pic_url.jpg\",\r\n  \"communication_group_id\": 1,\r\n  \"language\": \"English\",\r\n  \"patient_tags\": \"General Checkup\",\r\n  \"allergies\": \"Penicillin\",\r\n  \"address\": \"123 Main St, Springfield\",\r\n  \"state\": \"Illinois\",\r\n  \"city\": \"Springfield\",\r\n  \"country\": \"USA\",\r\n  \"alternative_email\": \"john.doe.alternative@example.com\",\r\n  \"alternative_mobile\": \"+0987654321\",\r\n  \"reference_type\": \"Self-Referral\",\r\n  \"patient_relationship\": \"Self\",\r\n  \"clinic_id\": \"1\",\r\n  \"client_id\": \"38\",\r\n  \"status\": 1\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/patients",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"patients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get By Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/patients?clunic_id=1&client_id=38",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"patients"
+							],
+							"query": [
+								{
+									"key": "clunic_id",
+									"value": "1"
+								},
+								{
+									"key": "client_id",
+									"value": "38"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update BY Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"last_name\":\"KKK\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/patients/3",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"patients",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete BY Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/patients/4?sts=0",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"patients",
+								"4"
+							],
+							"query": [
+								{
+									"key": "sts",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter By Clinic_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/patients?clinic_id=1&page=1&limit=2",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"patients"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "1"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filteration By Client_Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/patients?client_id=38&page=1&limit=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"patients"
+							],
+							"query": [
+								{
+									"key": "client_id",
+									"value": "38"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter By CommunicationGroup_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/patients?communication_group_id=1&client_id=38&page=1&limit=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"patients"
+							],
+							"query": [
+								{
+									"key": "communication_group_id",
+									"value": "1"
+								},
+								{
+									"key": "client_id",
+									"value": "38"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Roles",
+			"item": [
+				{
+					"name": "Get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/roles?clinic_id=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"roles"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  //  \"role_id\":\"\"\r\n  \"clinic_id\":1,\r\n  \"name\":\"user\",\r\n  \"status\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/roles",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"roles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get By Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/roles/2",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"roles",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update By Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"users\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/roles/2",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"roles",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete By Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/roles/2?sts=0",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"roles",
+								"2"
+							],
+							"query": [
+								{
+									"key": "sts",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter By Clinic_Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/roles?clinic_id=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"roles"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter By Client_Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/roles?client_id=38",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"roles"
+							],
+							"query": [
+								{
+									"key": "client_id",
+									"value": "38"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Permission",
+			"item": [
+				{
+					"name": "Get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/permissions?clinic_id=1&client_id=38&page=1&limit=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"permissions"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "1"
+								},
+								{
+									"key": "client_id",
+									"value": "38"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"patient_follow_up\",\r\n  \"role_id\": 1,\r\n  \"clinic_id\": 1,\r\n  \"client_id\": \"38\",\r\n  \"module_name\": \"patient_follow_up\",\r\n  \"is_accessable\": true,\r\n  \"is_creatable\": true,\r\n  \"is_readable\": true,\r\n  \"is_writable\": true,\r\n  \"is_deletable\":true,\r\n  \"is_creatable_checkbox\": true,\r\n  \"is_readable_checkbox\": true,\r\n  \"is_writable_checkbox\": true,\r\n  \"is_deletable_checkbox\":true,\r\n  \"status\": true\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/permissions",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"permissions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get By Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/permissions/1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"permissions",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update By Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"patients\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/permissions/1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"permissions",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete By Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/permissions/23?sts=0",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"permissions",
+								"23"
+							],
+							"query": [
+								{
+									"key": "sts",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter By Clinic_Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/permissions?clinic_id=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"permissions"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter By client_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/permissions?client_id=38",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"permissions"
+							],
+							"query": [
+								{
+									"key": "client_id",
+									"value": "38"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter By role_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/permissions?role_id=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"permissions"
+							],
+							"query": [
+								{
+									"key": "role_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Health",
+			"item": [
+				{
+					"name": "Get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/health?clinic_id=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"health"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Examinations",
+			"item": [
+				{
+					"name": "Get",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "auth-key",
+								"value": "{{access_id}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\":\"United State\"\r\n}"
+						},
+						"url": {
+							"raw": "{{opd-host}}/examinations",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"examinations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Examination",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "auth-key",
+								"value": "{{access_id}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"examination_date\": \"2025-05-13T10:30:00Z\",\r\n  \"doctor_code\":\"DOC001\",\r\n  \"examination\": \"Routine dental check-up\",\r\n  \"treatment\": \"Cleaning and polishing\",\r\n  \"tooth\": \"Upper-left molar\",\r\n  \"client_id\": 38,\r\n  \"patient_id\": 1,\r\n  \"clinic_id\": 1,\r\n  \"remark\": \"Patient advised to floss daily\",\r\n  \"status\": 1\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/examinations",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"examinations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get By Id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "auth-key",
+								"value": "{{access_id}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{opd-host}}/examinations/1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"examinations",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update By Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "auth-key",
+								"value": "{{access_id}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"doctor\":\"Dr. Praduman Kumar\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/examinations/1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"examinations",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete By Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "auth-key",
+								"value": "{{access_id}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"doctor\":\"Dr. Praduman Kumar\"\r\n}"
+						},
+						"url": {
+							"raw": "{{opd-host}}/examinations/1?sts=0",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"examinations",
+								"1"
+							],
+							"query": [
+								{
+									"key": "sts",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "RX_Templates",
+			"item": [
+				{
+					"name": "Get All RX_Templates",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/rx_templates?clinic_id=1&client_id=38&page=1&limit=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"rx_templates"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "1"
+								},
+								{
+									"key": "client_id",
+									"value": "38"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create RX_Templates",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"General Fever Treatment\",\r\n  \"medicine_id\":1,\r\n  \"doctor_code\": \"DOC001\",\r\n  \"note\": \"Take after meals\",\r\n  \"client_id\": 1,\r\n  \"clinic_id\": 2,\r\n  \"prescription_id\":1\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/rx_templates",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"rx_templates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get By Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/rx_templates/1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"rx_templates",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update RX_Templates By Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"General Fever Treatment\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/rx_templates/1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"rx_templates",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete RX_Templates By Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"General Fever Treatment\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4017/api/rx_templates/1?sts=0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4017",
+							"path": [
+								"api",
+								"rx_templates",
+								"1"
+							],
+							"query": [
+								{
+									"key": "sts",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter By Clinic_id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"General Fever Treatment\"\r\n}"
+						},
+						"url": {
+							"raw": "{{opd-host}}/rx_templates?clinic_id=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"rx_templates"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter By Client Id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"General Fever Treatment\"\r\n}"
+						},
+						"url": {
+							"raw": "{{opd-host}}/rx_templates?client_id=38",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"rx_templates"
+							],
+							"query": [
+								{
+									"key": "client_id",
+									"value": "38"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter By Medicine_name",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"General Fever Treatment\"\r\n}"
+						},
+						"url": {
+							"raw": "{{opd-host}}/rx_templates?medicine_name=Paracetamol",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"rx_templates"
+							],
+							"query": [
+								{
+									"key": "medicine_name",
+									"value": "Paracetamol"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter By Doctor_code",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"General Fever Treatment\"\r\n}"
+						},
+						"url": {
+							"raw": "{{opd-host}}/rx_templates?doctor_code=DOC001",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"rx_templates"
+							],
+							"query": [
+								{
+									"key": "doctor_code",
+									"value": "DOC001"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter By Prescription_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/rx_templates?prescription_id=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"rx_templates"
+							],
+							"query": [
+								{
+									"key": "prescription_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Bank_Deposits",
+			"item": [
+				{
+					"name": "Get Bank_Deposits",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/bank-deposits?page=1&limit=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"bank-deposits"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Bank_Deposits",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 1,\r\n  \"bank_id\": 1,\r\n  \"deposit_amount\": 5000.00,\r\n  \"deposit_date\": \"2025-05-21\",\r\n  \"deposit_type\": \"online\",\r\n  \"reference_no\": \"TXN123456789\",\r\n  \"clinic_id\":1,\r\n  \"client_id\":38\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/bank-deposits",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"bank-deposits"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get By Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/bank-deposits/1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"bank-deposits",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update By Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"deposit_amount\":10000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/bank-deposits/1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"bank-deposits",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete By Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"deposit_amount\":10000\r\n}"
+						},
+						"url": {
+							"raw": "{{opd-host}}/bank-deposits/1?sts=0",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"bank-deposits",
+								"1"
+							],
+							"query": [
+								{
+									"key": "sts",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter By Clinic_id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"deposit_amount\":10000\r\n}"
+						},
+						"url": {
+							"raw": "{{opd-host}}/bank-deposits?clinic_id=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"bank-deposits"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter By Client_id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"deposit_amount\":10000\r\n}"
+						},
+						"url": {
+							"raw": "{{opd-host}}/bank-deposits?client_id=38",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"bank-deposits"
+							],
+							"query": [
+								{
+									"key": "client_id",
+									"value": "38"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter By Bank_id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"deposit_amount\":10000\r\n}"
+						},
+						"url": {
+							"raw": "{{opd-host}}/bank-deposits?bank_id=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"bank-deposits"
+							],
+							"query": [
+								{
+									"key": "bank_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Notifications",
+			"item": [
+				{
+					"name": "Update Notifications",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"n_status\":1\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/notifications/1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"notifications",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Accounts",
+			"item": [
+				{
+					"name": "Get Accounts",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"n_type\":1\r\n}\r\n"
+						},
+						"url": {
+							"raw": "http://localhost:4017/api/accounts/voucher",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4017",
+							"path": [
+								"api",
+								"accounts",
+								"voucher"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Accounts",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"datetime\": \"2025-05-22\",\r\n  \"receipt\": 150.75,\r\n  \"payment\": 150.75,\r\n  \"no_of_entries\": 3,\r\n  \"total_value\": 150.75,\r\n  \"clinic_id\":1,\r\n  \"client_id\":38\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4017/api/Accounts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4017",
+							"path": [
+								"api",
+								"Accounts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Accounts By Id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"datetime\": \"2025-05-22\",\r\n  \"receipt\": 150.75,\r\n  \"payment\": 150.75,\r\n  \"no_of_entries\": 3,\r\n  \"total_value\": 150.75,\r\n  \"clinic_id\":1,\r\n  \"client_id\":38\r\n}\r\n"
+						},
+						"url": {
+							"raw": "{{opd-host}}/accounts/voucher/1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"accounts",
+								"voucher",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Accounts By Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"payment\":500.00\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/accounts/voucher/1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"accounts",
+								"voucher",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Accounts By Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"payment\":500.00\r\n}"
+						},
+						"url": {
+							"raw": "{{opd-host}}/accounts/voucher/1?sts=0",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"accounts",
+								"voucher",
+								"1"
+							],
+							"query": [
+								{
+									"key": "sts",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Examination_Types",
+			"item": [
+				{
+					"name": "Read Examination-Types",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Examination_Types\",\r\n  \"role_id\": 1,\r\n  \"clinic_id\": 1,\r\n  \"module_name\": \"Examination_Types\",\r\n  \"is_accessable\": true,\r\n  \"is_creatable\": true,\r\n  \"is_readable\": true,\r\n  \"is_writable\": true,\r\n  \"is_deletable\":true,\r\n  \"is_creatable_checkbox\": true,\r\n  \"is_readable_checkbox\": true,\r\n  \"is_writable_checkbox\": true,\r\n  \"is_deletable_checkbox\":true,\r\n  \"status\": true\r\n}\r\n"
+						},
+						"url": {
+							"raw": "{{opd-host}}/examination_types?page=1&limit=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"examination_types"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter By Client_id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Examination_Types\",\r\n  \"role_id\": 1,\r\n  \"clinic_id\": 1,\r\n  \"module_name\": \"Examination_Types\",\r\n  \"is_accessable\": true,\r\n  \"is_creatable\": true,\r\n  \"is_readable\": true,\r\n  \"is_writable\": true,\r\n  \"is_deletable\":true,\r\n  \"is_creatable_checkbox\": true,\r\n  \"is_readable_checkbox\": true,\r\n  \"is_writable_checkbox\": true,\r\n  \"is_deletable_checkbox\":true,\r\n  \"status\": true\r\n}\r\n"
+						},
+						"url": {
+							"raw": "{{opd-host}}/examination_types?client_id=38",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"examination_types"
+							],
+							"query": [
+								{
+									"key": "client_id",
+									"value": "38"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter By Clinic_id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Examination_Types\",\r\n  \"role_id\": 1,\r\n  \"clinic_id\": 1,\r\n  \"module_name\": \"Examination_Types\",\r\n  \"is_accessable\": true,\r\n  \"is_creatable\": true,\r\n  \"is_readable\": true,\r\n  \"is_writable\": true,\r\n  \"is_deletable\":true,\r\n  \"is_creatable_checkbox\": true,\r\n  \"is_readable_checkbox\": true,\r\n  \"is_writable_checkbox\": true,\r\n  \"is_deletable_checkbox\":true,\r\n  \"status\": true\r\n}\r\n"
+						},
+						"url": {
+							"raw": "{{opd-host}}/examination_types?clinic_id=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"examination_types"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Dental_Chart_Examinations",
+			"item": [
+				{
+					"name": "Get Dental_Chart_Examinations",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/dental_chart_examinations?clinic_id=1&client_id=38&page=1&limit=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"dental_chart_examinations"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "1"
+								},
+								{
+									"key": "client_id",
+									"value": "38"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Dental_Chart_Examinations",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"tooth\": \"M2\",\r\n  \"examination\": \"Cavity observed on molar\",\r\n  \"treatment_type\": \"Filling\",\r\n  \"note\": \"Patient advised to avoid sweets\",\r\n  \"is_saved\": 1,\r\n  \"clinic_id\":1,\r\n  \"client_id\":38\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/dental_chart_examinations",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"dental_chart_examinations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Dental_Chart_Examination By Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/dental_chart_examinations/1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"dental_chart_examinations",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Dental_Chart_Examination By Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tooth\":\"M2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/dental_chart_examinations/1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"dental_chart_examinations",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Dental_Chart_Examinations By Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tooth\":\"M3\"\r\n}"
+						},
+						"url": {
+							"raw": "{{opd-host}}/dental_chart_examinations/1?sts=0",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"dental_chart_examinations",
+								"1"
+							],
+							"query": [
+								{
+									"key": "sts",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter By Clinic_Id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tooth\":\"M3\"\r\n}"
+						},
+						"url": {
+							"raw": "{{opd-host}}/dental_chart_examinations?clinic_id=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"dental_chart_examinations"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter By Client_id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tooth\":\"M3\"\r\n}"
+						},
+						"url": {
+							"raw": "{{opd-host}}/dental_chart_examinations?client_id=38",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"dental_chart_examinations"
+							],
+							"query": [
+								{
+									"key": "client_id",
+									"value": "38"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Examination_options",
+			"item": [
+				{
+					"name": "create option",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\":2,\r\n    \"title\":\"treatment\",\r\n    \"client_id\":38,\r\n    \"clinic_id\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/examination_options",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"examination_options"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get Examination options",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/examination_options?clinic_id=1&client_id=38&page=1&limit=5",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"examination_options"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "1"
+								},
+								{
+									"key": "client_id",
+									"value": "38"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Periodical Charts",
+			"item": [
+				{
+					"name": "create periodical chart",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"doctor_code\":\"DOC001\",\r\n  \"chart_data\": \"{\\\"tooth_11\\\": {\\\"status\\\": \\\"healthy\\\"}, \\\"tooth_12\\\": {\\\"status\\\": \\\"cavity\\\"}}\",\r\n  \"date\": \"2025-05-30\",\r\n  \"clinic_id\":1,\r\n  \"client_id\":38\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/dental-charts/periodical_chart",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"dental-charts",
+								"periodical_chart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit periodical chart data",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"clinic_id\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/dental-charts/periodical_chart/1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"dental-charts",
+								"periodical_chart",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete periodical chart",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/dental-charts/periodical_chart/1?sts=0",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"dental-charts",
+								"periodical_chart",
+								"1"
+							],
+							"query": [
+								{
+									"key": "sts",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Patient_Notes",
+			"item": [
+				{
+					"name": "get Patient_Notes",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{opd-host}}/patient_notes",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"patient_notes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get Patient_Notes Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"patient_id\": 1,\r\n  \"doctor_code\": \"DOC001\",\r\n  \"note_date\": \"2025-06-04\",\r\n  \"note\": \"Follow-up visit completed.\",\r\n  \"clinic_id\":1,\r\n  \"client_id\":38\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/patient_notes",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"patient_notes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Patient_Notes By Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"patient_id\": 1,\r\n  \"doctor_code\": \"DOC001\",\r\n  \"note_date\": \"2025-06-04\",\r\n  \"note\": \"Follow-up visit completed.\",\r\n  \"clinic_id\":1,\r\n  \"client_id\":38\r\n}\r\n"
+						},
+						"url": {
+							"raw": "{{opd-host}}/patient_notes/1?sts=0",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"patient_notes",
+								"1"
+							],
+							"query": [
+								{
+									"key": "sts",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter By Patient_id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"patient_id\":1,\r\n  \"followup_date\": \"2025-06-10\",\r\n  \"added_by\": 1,\r\n  \"clinic_id\":1,\r\n  \"client_id\":38\r\n}\r\n"
+						},
+						"url": {
+							"raw": "{{opd-host}}/patient_notes?patient_id=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"patient_notes"
+							],
+							"query": [
+								{
+									"key": "patient_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter By Doctor_code",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"patient_id\":1,\r\n  \"followup_date\": \"2025-06-10\",\r\n  \"added_by\": 1,\r\n  \"clinic_id\":1,\r\n  \"client_id\":38\r\n}\r\n"
+						},
+						"url": {
+							"raw": "{{opd-host}}/patient_notes?doctor_code=DOC001",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"patient_notes"
+							],
+							"query": [
+								{
+									"key": "doctor_code",
+									"value": "DOC001"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Patient_Follow_Up",
+			"item": [
+				{
+					"name": "Get Patient_Follow_Up",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"patient_id\": 1,\r\n  \"doctor_code\": \"DOC001\",\r\n  \"note_date\": \"2025-06-04\",\r\n  \"note\": \"Follow-up visit completed.\",\r\n  \"clinic_id\":1,\r\n  \"client_id\":38\r\n}\r\n"
+						},
+						"url": {
+							"raw": "{{opd-host}}/patient_follow_up",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"patient_follow_up"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Patient_Follow_Up",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"patient_id\":1,\r\n  \"followup_date\": \"2025-06-10\",\r\n  \"remark\": \"nothing\",\r\n  \"added_by\": 1,\r\n  \"clinic_id\":1,\r\n  \"client_id\":38\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{opd-host}}/patient_follow_up",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"patient_follow_up"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Patient_Follow_Up By Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"patient_id\":1,\r\n  \"followup_date\": \"2025-06-10\",\r\n  \"added_by\": 1,\r\n  \"clinic_id\":1,\r\n  \"client_id\":38\r\n}\r\n"
+						},
+						"url": {
+							"raw": "{{opd-host}}/patient_follow_up/1?sts=0",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"patient_follow_up",
+								"1"
+							],
+							"query": [
+								{
+									"key": "sts",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter By Patient_id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{opd_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"patient_id\":1,\r\n  \"followup_date\": \"2025-06-10\",\r\n  \"added_by\": 1,\r\n  \"clinic_id\":1,\r\n  \"client_id\":38\r\n}\r\n"
+						},
+						"url": {
+							"raw": "{{opd-host}}/patient_follow_up?patient_id=1",
+							"host": [
+								"{{opd-host}}"
+							],
+							"path": [
+								"patient_follow_up"
+							],
+							"query": [
+								{
+									"key": "patient_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "reports",
+			"item": [
+				{
+					"name": "doctor-wise-Patients-report",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4017/api/reports/patients?clinic_id=5&limit=1&page=1&doctor=fvF5K8&dates",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4017",
+							"path": [
+								"api",
+								"reports",
+								"patients"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "5"
+								},
+								{
+									"key": "limit",
+									"value": "1"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "doctor",
+									"value": "fvF5K8"
+								},
+								{
+									"key": "dates",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "patients-report",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4017/api/reports/patients?clinic_id=5&limit=10&page=1&doctor=fvF5K8&dates",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4017",
+							"path": [
+								"api",
+								"reports",
+								"patients"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "5"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "doctor",
+									"value": "fvF5K8"
+								},
+								{
+									"key": "dates",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "appointments-reports",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4017/api/reports/appointments?clinic_id=5&limit=10&page=1&doctor=fvF5K8&dates&=",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4017",
+							"path": [
+								"api",
+								"reports",
+								"appointments"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "5"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "doctor",
+									"value": "fvF5K8"
+								},
+								{
+									"key": "dates",
+									"value": null
+								},
+								{
+									"key": "",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "appointment-waiting",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4017/api/reports/appointment-waiting?clinic_id=5&limit=10&page=1&doctor&dates",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4017",
+							"path": [
+								"api",
+								"reports",
+								"appointment-waiting"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "5"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "doctor",
+									"value": null
+								},
+								{
+									"key": "dates",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "doctors-work",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4017/api/reports/doctors-work?clinic_id=5&limit=10&page=1&doctor=&dates",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4017",
+							"path": [
+								"api",
+								"reports",
+								"doctors-work"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "5"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "doctor",
+									"value": ""
+								},
+								{
+									"key": "dates",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "patient-files-report",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4017/api/reports/patient-files?clinic_id=5&limit=1&page=1&doctor&dates",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4017",
+							"path": [
+								"api",
+								"reports",
+								"patient-files"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "5"
+								},
+								{
+									"key": "limit",
+									"value": "1"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "doctor",
+									"value": null
+								},
+								{
+									"key": "dates",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ReferenceType-report",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4017/api/reports/references-reports?clinic_id=5&limit=10&page=1&doctor=&dates",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4017",
+							"path": [
+								"api",
+								"reports",
+								"references-reports"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "5"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "doctor",
+									"value": ""
+								},
+								{
+									"key": "dates",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "birthday-reports",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4017/api/reports/birthdays?clinic_id=5&limit=10&page=1&dates=",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4017",
+							"path": [
+								"api",
+								"reports",
+								"birthdays"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "5"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "dates",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "folloup",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4017/api/reports/follows?clinic_id=5&limit=10&page=1&patient_id=1&dates",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4017",
+							"path": [
+								"api",
+								"reports",
+								"follows"
+							],
+							"query": [
+								{
+									"key": "clinic_id",
+									"value": "5"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "patient_id",
+									"value": "1"
+								},
+								{
+									"key": "dates",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

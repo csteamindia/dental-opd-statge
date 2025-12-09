@@ -1,0 +1,162 @@
+tags:
+  - name: Doctors
+    description: Doctors management endpoints
+
+paths:
+  /api/v1/doctors:
+    post:
+      tags: [Doctors]
+      summary: Create new doctor
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DoctorInput'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DoctorResponse'
+
+    get:
+      tags: [Doctors]
+      summary: Get all doctors
+      parameters:
+        - name: clinic_id
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: client_id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DoctorResponse'
+
+  /api/v1/doctors/{id}:
+    get:
+      tags: [Doctors]
+      summary: Get doctor by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DoctorResponse'
+
+    put:
+      tags: [Doctors]
+      summary: Update doctor
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DoctorInput'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DoctorResponse'
+
+    delete:
+      tags: [Doctors]
+      summary: Delete doctor
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Doctor deleted successfully"
+
+components:
+  schemas:
+    DoctorInput:
+      type: object
+      properties:
+        code:
+          type: string
+        name:
+          type: string
+        mobile:
+          type: string
+        email:
+          type: string
+        registration_no:
+          type: string
+        color_code:
+          type: string
+        signature:
+          type: string
+        clinic_id:
+          type: string
+        client_id:
+          type: string
+        status:
+          type: boolean
+
+    DoctorResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        code:
+          type: string
+        name:
+          type: string
+        mobile:
+          type: string
+        email:
+          type: string
+        registration_no:
+          type: string
+        color_code:
+          type: string
+        signature:
+          type: string
+        clinic_id:
+          type: string
+        client_id:
+          type: string
+        status:
+          type: boolean
+        created_at:
+          type: string
+        updated_at:
+          type: string

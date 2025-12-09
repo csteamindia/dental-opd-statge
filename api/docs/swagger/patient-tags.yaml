@@ -1,0 +1,162 @@
+tags:
+  - name: Patient Tags
+    description: Patient tags management endpoints
+
+paths:
+  /patient-tags:
+    post:
+      tags: [Patient Tags]
+      summary: Create new patient tag
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatientTagsInput'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatientTagsResponse'
+
+    get:
+      tags: [Patient Tags]
+      summary: Get all patient tags
+      parameters:
+        - name: clinic_id
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: client_id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PatientTagsResponse'
+
+  /patient-tags/{id}:
+    get:
+      tags: [Patient Tags]
+      summary: Get patient tag by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatientTagsResponse'
+
+    put:
+      tags: [Patient Tags]
+      summary: Update patient tag
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatientTagsInput'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatientTagsResponse'
+
+    delete:
+      tags: [Patient Tags]
+      summary: Delete patient tag
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Patient tag deleted successfully"
+
+components:
+  schemas:
+    PatientTagsInput:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        start_time:
+          type: string
+          format: time
+        end_time:
+          type: string
+          format: time
+        cabin_no:
+          type: integer
+        intervel:
+          type: integer
+        clinic_id:
+          type: string
+        client_id:
+          type: string
+        status:
+          type: boolean
+
+    PatientTagsResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        start_time:
+          type: string
+          format: time
+        end_time:
+          type: string
+          format: time
+        cabin_no:
+          type: integer
+        intervel:
+          type: integer
+        clinic_id:
+          type: string
+        client_id:
+          type: string
+        status:
+          type: boolean
+        created_at:
+          type: string
+        updated_at:
+          type: string

@@ -1,0 +1,162 @@
+tags:
+  - name: Chairs
+    description: Chairs management endpoints
+
+paths:
+  /chairs:
+    post:
+      tags: [Chairs]
+      summary: Create new chair
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChairInput'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChairResponse'
+
+    get:
+      tags: [Chairs]
+      summary: Get all chairs
+      parameters:
+        - name: clinic_id
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: client_id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ChairResponse'
+
+  /chairs/{id}:
+    get:
+      tags: [Chairs]
+      summary: Get chair by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChairResponse'
+
+    put:
+      tags: [Chairs]
+      summary: Update chair
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChairInput'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChairResponse'
+
+    delete:
+      tags: [Chairs]
+      summary: Delete chair
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Chair deleted successfully"
+
+components:
+  schemas:
+    ChairInput:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        start_time:
+          type: string
+          format: time
+        end_time:
+          type: string
+          format: time
+        cabin_no:
+          type: integer
+        intervel:
+          type: integer
+        clinic_id:
+          type: string
+        client_id:
+          type: string
+        status:
+          type: boolean
+
+    ChairResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        start_time:
+          type: string
+          format: time
+        end_time:
+          type: string
+          format: time
+        cabin_no:
+          type: integer
+        intervel:
+          type: integer
+        clinic_id:
+          type: string
+        client_id:
+          type: string
+        status:
+          type: boolean
+        created_at:
+          type: string
+        updated_at:
+          type: string

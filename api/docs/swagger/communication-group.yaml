@@ -1,0 +1,138 @@
+tags:
+  - name: Communication Groups
+    description: Communication group management endpoints
+
+paths:
+  /communication-group:
+    post:
+      tags: [Communication Groups]
+      summary: Create new communication group
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommunicationGroupInput'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommunicationGroupResponse'
+
+    get:
+      tags: [Communication Groups]
+      summary: Get all communication groups
+      parameters:
+        - name: clinic_id
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: client_id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CommunicationGroupResponse'
+
+  /communication-group/{id}:
+    get:
+      tags: [Communication Groups]
+      summary: Get communication group by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommunicationGroupResponse'
+
+    put:
+      tags: [Communication Groups]
+      summary: Update communication group
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommunicationGroupInput'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommunicationGroupResponse'
+
+    delete:
+      tags: [Communication Groups]
+      summary: Delete communication group
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Communication group deleted successfully"
+
+components:
+  schemas:
+    CommunicationGroupInput:
+      type: object
+      properties:
+        title:
+          type: string
+        clinic_id:
+          type: string
+        client_id:
+          type: string
+        status:
+          type: boolean
+
+    CommunicationGroupResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        clinic_id:
+          type: string
+        client_id:
+          type: string
+        status:
+          type: boolean
+        created_at:
+          type: string
+        updated_at:
+          type: string

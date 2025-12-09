@@ -1,0 +1,160 @@
+tags:
+  - name: Banks
+    description: Bank accounts management endpoints
+
+paths:
+  /banks:
+    post:
+      tags: [Banks]
+      summary: Create new bank account
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BankInput'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BankResponse'
+
+    get:
+      tags: [Banks]
+      summary: Get all bank accounts
+      parameters:
+        - name: clinic_id
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: client_id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BankResponse'
+
+  /banks/{id}:
+    get:
+      tags: [Banks]
+      summary: Get bank account by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BankResponse'
+
+    put:
+      tags: [Banks]
+      summary: Update bank account
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BankInput'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BankResponse'
+
+    delete:
+      tags: [Banks]
+      summary: Delete bank account
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Bank account deleted successfully"
+
+components:
+  schemas:
+    BankInput:
+      type: object
+      properties:
+        bank_name:
+          type: string
+        ac_no:
+          type: string
+        ifsc_code:
+          type: string
+        branch:
+          type: string
+        addrress:
+          type: string
+        ac_type:
+          type: string
+          enum: [savings, current]
+        clinic_id:
+          type: string
+        client_id:
+          type: string
+        status:
+          type: boolean
+
+    BankResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        bank_name:
+          type: string
+        ac_no:
+          type: string
+        ifsc_code:
+          type: string
+        branch:
+          type: string
+        addrress:
+          type: string
+        ac_type:
+          type: string
+          enum: [savings, current]
+        clinic_id:
+          type: string
+        client_id:
+          type: string
+        status:
+          type: boolean
+        created_at:
+          type: string
+        updated_at:
+          type: string

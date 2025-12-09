@@ -1,0 +1,16 @@
+openapi: 3.0.3
+info:
+  title: SSO - Apis
+  version: 1.0.0
+  description: Advance Dental Export app - SSO apis.
+  contact:
+    name: Catchysystem Technologies Pvt. Ltd.
+    url: https://github.com/cstemindia
+servers:
+  - url: https://localhost:4000
+    description: Development server
+  - url: https://sso.ademanagement.in
+    description: Production server
+paths: {}
+components: {}
+tags: []

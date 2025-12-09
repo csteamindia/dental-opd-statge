@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 5mm 10mm;
+            line-height: 1.6;
+            box-sizing: border-box;
+            width: 210mm;
+            /* height: 297mm; */
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .left{ 
+            width: 50%;
+            box-sizing: border-box;
+        }
+        .right {
+            width: 50%;
+            box-sizing: border-box;
+        }
+        .left img {
+            margin-top: 8%;
+            max-width: 240px;
+            height: auto;
+        }
+        .right {
+            padding-left: 20px;
+        }
+        .right span {
+            font-size: 22px;
+            font-weight: 700;
+            display: block;
+        }
+        .right p {
+            font-size: 10px;
+            margin: 0px;
+            width: 320px;
+            text-align-last: justify;
+        }
+        hr {
+            margin: 20px 0;
+        }
+        .order-title {
+            text-align: center;
+            font-size: 22px;
+            font-weight: 800;
+            margin: 0px;
+        }
+        .date-section {
+            width: 100%;
+            text-align: right;
+            font-size: 8px;
+        }
+        .patient-section {
+            width: 100%;
+            font-size: 12px;
+        }
+        .order-details {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .order-details p {
+            font-size: 12px;
+        }
+        .barcode {
+            text-align: right;
+        }
+        .barcode img {
+            width: 142px;
+            height: auto;
+        }
+        .product-section {
+            margin-top: 20px;
+        }
+        table {
+            width: 99%;
+            border-collapse: collapse;
+        }
+        th, td {
+            word-wrap: break-word;
+            white-space: normal;
+            max-width: 200px; /* You can adjust the width based on your layout */
+            overflow-wrap: break-word;
+            border: 1px solid #000;
+            padding: 4px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        td[colspan="2"] {
+            text-align: center;
+        }
+        .acc-section{
+            margin-right: 8px;
+            border: 1px solid #000;
+            margin-top: 16px;
+            font-size: 12px;
+            padding: 6px;
+        }
+        .teeth-section{
+            margin-right: 8px;
+            margin-top: 16px;
+            font-size: 12px;
+        }
+        .footer-section{
+            margin-right: 8px;
+            margin-top: 16px;
+            font-size: 12px;
+            justify-content: space-between;
+            display: flex;
+        }
+        .remark-section{
+            margin-top: 16px;
+            margin-right: 8px;
+            border: 1px solid #000;
+            padding: 6px;
+            font-size: 12px;
+        }
+        .pontic_design_img {
+            width: 16px;
+            padding: 5px;
+        }
+        .pontic_design_img.img-11{
+            width: 11px !important;
+        }
+        .pontic_design_img.active{
+            border: 2px solid #000;
+            border-radius: 22px
+        }
+        .btn{
+            padding: 8px
+        }
+        .btn.active{
+            border: 2px solid #000;
+            border-radius: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            <img src="https://adesurat.com/img/Advance.png" alt="Advance Dental Export">
+        </div>
+        <div class="right">
+            <span>Advance Dental Export</span>
+            <div style="text-align: justify; width:320px; font-size: 10px;">Maruti Dham industrial estate, plot no 1-8, Velanja - Gothan Rd, behind hotel royal, Umra, Gujarat 394130</div>
+            <p>https://advancedentalexport.com | https://ultimatesmiledesign.com</p>
+            <p>advancedentalexport@gmail.com | info@advancedentalexport.com</p>
+            <div style="font-size: 14px">+91 8469888877 | +91 8469888877</div>
+        </div>
+    </div>
+    
+    <hr>
+    
+    <p class="order-title">Order Form</p>
+    
+    <div class="date-section" style="font-size: 12px;">
+        <b>Date:</b> {{orderDate}}<br />
+        <span><b>Referance Number:</b> {{refNum}}</span><br />
+        {{acc_date}}
+    </div>
+    
+    <div class="order-details">
+        <div style="width: 50%">
+            <b>To,</b>
+            <b>{{clientName}}</b>
+            <p>{{address}}</p>
+        </div>
+        <div class="barcode">
+            {{barcode}}
+        </div>
+    </div>
+
+    <div class="patient-section">
+        <b>Patient Name :</b> {{patient}}
+    </div>
+
+    <div class="product-section">
+        <table style="font-size: 12px;">
+            <tr>
+                <th>#</th>
+                <th>Category</th>
+                <th>Product Name</th>
+                <th>Teeth</th>
+            </tr>
+            {{htmltable}}
+            <tr>
+                <td colspan="4">
+                    <b>Units: </b> {{units}}
+                </td>
+            </tr>
+        </table>
+    </div>
+    
+    <div class="teeth-section">
+        {{htmlTeeth}}
+    </div>
+
+    <div class="acc-section" style="display: flex;">
+        <div style="width: 50%;">
+            <span><b>Pontic Design:</b>
+                <br />
+                {{pontic_design}}
+            </span><br />
+            <span><b>Occulusal Staining:</b> {{OS}}</span><br />
+        </div>
+        <div style="width: 50%;">
+            <span><b>Shade Instructions:</b> {{shade_instructions}}</span><br />
+            <span><b>Shade:</b> {{shades}}</span><br />
+            <span><b>Trail Requirement:</b> {{trail}}</span><br />
+            <span><b>Photograph :</b> {{photograph}}</span>
+        </div>
+    </div>
+
+    <div class="remark-section">
+        <span><b>Note: </b>{{note}}</span>        
+    </div>
+
+    <div class="footer-section">
+        <div>
+            <b>For, Advance Dental Export</b><br />
+            <br />
+            <br />
+            <b>Authorized Signatory</b>
+        </div>        
+        <div><b>Accepted By</b><br /> {{acc_emp}}</div>        
+    </div>
+
+</body>
+</html>

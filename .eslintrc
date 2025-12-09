@@ -1,0 +1,20 @@
+{
+  "rules": {
+    "no-undef": "off",
+    "react/prop-types": "off",
+    "react/display-name": "off"
+  },
+  "extends": [
+    "plugin:react/recommended"
+  ],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true,
+      "modules": true,
+      "experimentalObjectRestSpread": true
+    }
+  }
+}

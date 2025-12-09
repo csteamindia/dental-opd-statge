@@ -1,0 +1,144 @@
+openapi: 3.0.0
+info:
+  title: Allergies API
+  version: 1.0.0
+  description: API endpoints for managing allergies
+
+tags:
+  - name: Allergies
+    description: Allergies management endpoints
+
+paths:
+  /allergies:
+    post:
+      tags: [Allergies]
+      summary: Create new allergy
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AllergyInput'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllergyResponse'
+
+    get:
+      tags: [Allergies]
+      summary: Get all allergies
+      parameters:
+        - name: clinic_id
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: client_id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AllergyResponse'
+
+  /allergies/{id}:
+    get:
+      tags: [Allergies]
+      summary: Get allergy by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllergyResponse'
+
+    put:
+      tags: [Allergies]
+      summary: Update allergy
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AllergyInput'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllergyResponse'
+
+    delete:
+      tags: [Allergies]
+      summary: Delete allergy
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Allergy deleted successfully"
+
+components:
+  schemas:
+    AllergyInput:
+      type: object
+      properties:
+        title:
+          type: string
+        clinic_id:
+          type: string
+        client_id:
+          type: string
+        status:
+          type: boolean
+
+    AllergyResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        clinic_id:
+          type: string
+        client_id:
+          type: string
+        status:
+          type: boolean
+        created_at:
+          type: string
+        updated_at:
+          type: string

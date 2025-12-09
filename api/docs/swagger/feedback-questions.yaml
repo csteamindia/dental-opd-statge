@@ -1,0 +1,147 @@
+tags:
+  - name: Feedback Questions
+    description: Feedback questions management endpoints
+
+paths:
+  /feedback-questions:
+    post:
+      tags: [Feedback Questions]
+      summary: Create new feedback question
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FeedbackQuestionInput'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeedbackQuestionResponse'
+
+    get:
+      tags: [Feedback Questions]
+      summary: Get all feedback questions
+      parameters:
+        - name: clinic_id
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: client_id
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: feedback_id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FeedbackQuestionResponse'
+
+  /feedback-questions/{id}:
+    get:
+      tags: [Feedback Questions]
+      summary: Get feedback question by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeedbackQuestionResponse'
+
+    put:
+      tags: [Feedback Questions]
+      summary: Update feedback question
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FeedbackQuestionInput'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeedbackQuestionResponse'
+
+    delete:
+      tags: [Feedback Questions]
+      summary: Delete feedback question
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Feedback question deleted successfully"
+
+components:
+  schemas:
+    FeedbackQuestionInput:
+      type: object
+      properties:
+        feedback_id:
+          type: string
+        question:
+          type: string
+        clinic_id:
+          type: string
+        client_id:
+          type: string
+        status:
+          type: boolean
+
+    FeedbackQuestionResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        feedback_id:
+          type: string
+        question:
+          type: string
+        clinic_id:
+          type: string
+        client_id:
+          type: string
+        status:
+          type: boolean
+        created_at:
+          type: string
+        updated_at:
+          type: string

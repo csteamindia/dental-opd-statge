@@ -1,0 +1,159 @@
+tags:
+  - name: Doctor Timings
+    description: Doctor timings management endpoints
+
+paths:
+  /doctor-timings:
+    post:
+      tags: [Doctor Timings]
+      summary: Create new doctor timing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DoctorTimingInput'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DoctorTimingResponse'
+
+    get:
+      tags: [Doctor Timings]
+      summary: Get all doctor timings
+      parameters:
+        - name: clinic_id
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: client_id
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: doctor_code
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DoctorTimingResponse'
+
+  /doctor-timings/{id}:
+    get:
+      tags: [Doctor Timings]
+      summary: Get doctor timing by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DoctorTimingResponse'
+
+    put:
+      tags: [Doctor Timings]
+      summary: Update doctor timing
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DoctorTimingInput'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DoctorTimingResponse'
+
+    delete:
+      tags: [Doctor Timings]
+      summary: Delete doctor timing
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Doctor timing deleted successfully"
+
+components:
+  schemas:
+    DoctorTimingInput:
+      type: object
+      properties:
+        doctor_code:
+          type: string
+        start_time:
+          type: string
+          format: time
+        end_time:
+          type: string
+          format: time
+        exe_time:
+          type: integer
+        clinic_id:
+          type: string
+        client_id:
+          type: string
+        status:
+          type: boolean
+
+    DoctorTimingResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        doctor_code:
+          type: string
+        start_time:
+          type: string
+          format: time
+        end_time:
+          type: string
+          format: time
+        exe_time:
+          type: integer
+        clinic_id:
+          type: string
+        client_id:
+          type: string
+        status:
+          type: boolean
+        created_at:
+          type: string
+        updated_at:
+          type: string
