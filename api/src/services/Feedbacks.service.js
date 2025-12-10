@@ -1,5 +1,5 @@
 import db from "../models/index.js";
-const { Feedback, Clinics, User, Patients, Doctors } = db;
+const { Feedback, Clinics, User, Patients, Doctors, GeneralFeedback } = db;
 
 // Create new feedback
 const createFeedbackService = async (req) => {
@@ -13,7 +13,70 @@ const createFeedbackService = async (req) => {
   }
 };
 
+// Create new feedback
+const createGenralFeedbackService = async (req) => {
+  try {
+    const { body } = req;
+    const result = await GeneralFeedback.create(body);
+    return result;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
 // Get all feedbacks
+const getAllGenralFeedbacksService = async (req) => {
+  try {
+    const { client_id, page = 1, limit = 10, query } = req.query;
+    const parsedPage = parseInt(page, 10) || 1;
+    const parsedLimit = limit === "all" ? null : parseInt(limit, 10) || 10;
+    const offset = parsedLimit ? (parsedPage - 1) * parsedLimit : null;
+
+    const where = { status: 0 };
+    if (client_id) where.client_id = client_id;
+
+    const condition = {
+      where,
+      attributes: { exclude: ["created_at", "updated_at"] },
+      include: [
+        {
+          model: User,
+          as: "client",
+          required: false,
+          attributes: { exclude: ["created_at", "updated_at"] },
+        },
+      ],
+      order: [["id", "DESC"]],
+    };
+    if (query?.client_id) {
+      condition.where = [
+        {
+          client_id: query?.client_id,
+        },
+      ];
+    }
+    
+    if (parsedLimit) {
+      condition.limit = parsedLimit;
+      condition.offset = offset;
+    }
+
+    const result = await GeneralFeedback.findAndCountAll(condition);
+
+    return {
+      totalItems: result.count,
+      totalPages: parsedLimit ? Math.ceil(result.count / parsedLimit) : 1,
+      currentPage: parsedPage,
+      items: result.rows,
+    };
+  } catch (error) {
+    console.error(error);
+    return { success: false, message: error.message };
+  }
+};
+
+// Get all Genral feedbacks
 const getAllFeedbacksService = async (req) => {
   try {
     const {
@@ -176,4 +239,6 @@ export {
   getFeedbackByIdService,
   updateFeedbackService,
   deleteFeedbackService,
+  createGenralFeedbackService,
+  getAllGenralFeedbacksService
 };

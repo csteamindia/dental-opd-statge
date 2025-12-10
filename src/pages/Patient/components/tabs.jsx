@@ -31,7 +31,9 @@ const Tabs = ({patientData, configData=null, role = 'admin'}) => {
 
     let tabs = [];
 
-    if(!configData?.user?.config.billing_info){
+    console.log(configData);
+
+    if(!configData?.user?.config?.billing_info){
         removeComponents = ["Bills", "Payments", "Ledger"]
         tabs = Profiletabs[role].filter(v => !removeComponents.includes(v));
     }else{

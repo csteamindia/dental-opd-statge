@@ -1,7 +1,7 @@
 import React, { useState, lazy, Suspense } from "react";
 import MetaTags from 'react-meta-tags';
 import { Container, Row, Col, Card, CardBody, ListGroup, ListGroupItem } from "reactstrap";
-import { FaUsers, FaUserMd, FaCog, FaFileAlt, FaComments, FaEnvelope, FaFileImport, FaCalendarAlt, FaChartLine, FaChartPie, FaCreditCard, FaClipboardList, FaWhatsapp, FaBirthdayCake, FaPhoneVolume } from "react-icons/fa";
+import { FaUsers, FaUserMd, FaCog, FaFileAlt, FaComments, FaEnvelope, FaFileImport, FaCalendarAlt, FaChartLine, FaChartPie, FaCreditCard, FaClipboardList, FaWhatsapp, FaBirthdayCake, FaPhoneVolume, FaStar, FaArtstation, FaStarAndCrescent } from "react-icons/fa";
 
 const Reports = () => {
   const [selectedReports, setSelectedReports] = useState("appointments");
@@ -40,12 +40,16 @@ const Reports = () => {
     "labwork": [
       { module: "LabworkReport", title: "Labwork Report", icon: FaFileImport, color: colors[0], id: 23, isActive: 1 },
     ],
+    "feedback": [
+      { module: "PatientFeedback", title: "Patient Feedback", icon: FaStar, color: colors[0], id: 23, isActive: 1 },
+    ],
   };
 
   const reports = [
     { id: "appointments", title: "Appointments", icon: FaUsers, color: "primary" },
     { id: "patients", title: "Patients", icon: FaCog, color: "success" },
     { id: "communications", title: "Communications", icon: FaComments, color: "info" },
+    { id: "feedback", title: "Feedback", icon: FaArtstation, color: "success" },
     // { id: "labwork", title: "Lab Work", icon: FaList, color: "warning" },
   ];
 
@@ -69,11 +73,9 @@ const Reports = () => {
   return (
     <div className="page-content">
       <MetaTags>
-        <title>Settings | {process.env.REACT_APP_TITLE}</title>
+        <title>Reports | {process.env.REACT_APP_TITLE}</title>
       </MetaTags>
       <Container fluid>
-        <h4>Settings</h4>
-
         {selectedSubReports ? (
           <Row>
             <Col lg={3}>

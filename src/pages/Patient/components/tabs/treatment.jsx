@@ -259,7 +259,7 @@ const Prescription = ({ patientData }) => {
                                     <div className="form-group mb-4">
                                         <label>Select Date</label>
                                         <Flatpickr className="form-control d-block" options={{ altInput: true, dateFormat: "Y-m-d H:i" }} placeholder="MM, DD, YYYY"
-                                            value={formData.treatment_date}
+                                            value={formData.tretment_date}
                                             onChange={(date) => { setFormData(prev => ({ ...prev, tretment_date: date[0]?.toISOString() })) }} />
                                     </div>
                                 </Col>

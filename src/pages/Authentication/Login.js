@@ -148,8 +148,7 @@ const Login = props => {
                   </Link>{" "}
                 </p>
                 <p>
-                  © {new Date().getFullYear()} Dental OPD. Crafted with{" "}
-                  <i className="mdi mdi-heart text-danger" /> by keepsmiles.in
+                  © {new Date().getFullYear()} Oralstop.com. <br />powered by{" "} Catchysystem Technologies Pvt. Ltd
                 </p>
               </div>
             </Col>

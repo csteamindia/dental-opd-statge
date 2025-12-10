@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import MetaTags from 'react-meta-tags';
 import { Container, Modal, Row, Col } from "reactstrap"
 import moment from "moment";
-import cookieHelper from "helpers/getCookieData";
 import { get, post } from "../helpers/api_helper";
 import { CLINIC_URL, PATIENT_URL } from "helpers/url_helper";
 import { showSuccessAlert } from "pages/utils/alertMessages";
 import Select from "react-select"
 import { timeZones } from "assets/timezones";
+import { getConfigData } from "./basic";
+import cookieHelper from "helpers/getCookieData";
 
 const WelcomeClinicScreen = () => {
   const [modalLarge, setModalLarge] = useState(false)
@@ -19,8 +20,8 @@ const WelcomeClinicScreen = () => {
   const [loader, setLoader] = useState(false)
   const [selectedDoc, setSelectedDoc] = useState([])
   const [DDoptions, setDDOptions] = useState([]);
-  const selectedClinic = localStorage.getItem('clinic');
-  const configData = JSON.parse(cookieHelper.getCookie('authUser'))
+
+  const consfigData  = getConfigData();
 
   const fetchClinics = async () => {
     try {
@@ -30,9 +31,8 @@ const WelcomeClinicScreen = () => {
       if (success) {
         setIsVeriified(success);
         if (success == 1) {
-          const { user } = cookieHelper.getCookie('authUser') ? JSON.parse(cookieHelper.getCookie('authUser')) : null;
-          const response = await get(`clinics?_q=${user?.user_id}`);
-          setUseData(user);
+          setUseData(consfigData?.user);
+          const response = await get(`clinics?_q=${consfigData?.user?.user_id}`);
           if (response?.success) {
             setClinics(response?.body?.items);
             setDefaultClinic(response?.body?.items?.find(clinic => clinic.is_default == 1)?.id);
@@ -104,9 +104,9 @@ const WelcomeClinicScreen = () => {
     </div>
   }
 
-  // if(configData?.user?.config?.clinics == 1){
-  //   handleChnageClinic(clinics[0])
-  // }
+  if(consfigData?.user?.config == 1 || consfigData?.user?.role != "Admin"){
+    handleChnageClinic(clinics[0])
+  }
 
   return (
     <React.Fragment>
@@ -170,7 +170,7 @@ const WelcomeClinicScreen = () => {
                     </div>
                     {
                       clinics?.map((clinic, index) => {
-                        return <div role="button" className="col-sm-6 col-xl-3" key={`CLNIC_${index}`} onClick={() => handleChnageClinic(clinic)}>
+                        return <div role="button" className="col-sm-6 col-xl-3" key={`CLNIC_${clinic.id}`} onClick={() => handleChnageClinic(clinic)}>
                           <div className="card">
                             <div className="card-body">
                               <input
@@ -367,7 +367,7 @@ const WelcomeClinicScreen = () => {
                   <select className="form-control" onChange={handleChange}>
                     {
                       timeZones?.map((v, i) => {
-                        return <option value={v.offset} key={v.abbr}>{v.timezone}</option>
+                        return <option  key={v.timezone} value={v.offset}>{v.timezone}</option>
                       })
                     }
                   </select>

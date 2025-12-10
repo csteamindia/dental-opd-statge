@@ -14,9 +14,8 @@ const options = {
 
 const Files = ({patientData}) => {
     const [rows, setRows] = useState({});
-    const [formData, setFormData] = useState({ file_type: '', remark: '', files: ''});
-    const [pagination, setPagination] = useState({ page: 1, limit: 10, Search: '' });
-
+    const [formData, setFormData] = useState({ file_type: '1', remark: '', files: ''});
+    
     const fatchFiles = async() => {
         const {success, body} = await get(`${FILES_URL}?patient_id=${patientData?.id}`);
         if(success){

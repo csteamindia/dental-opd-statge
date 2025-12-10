@@ -7,7 +7,7 @@
 import httpStatus from 'http-status';
 
 import * as response from '../middlewares/response-handler.js';
-import { createFeedbackService, getAllFeedbacksService, getFeedbackByIdService, updateFeedbackService, deleteFeedbackService } from '../services/Feedbacks.service.js';
+import { createFeedbackService, getAllFeedbacksService, getFeedbackByIdService, updateFeedbackService, deleteFeedbackService, createGenralFeedbackService, getAllGenralFeedbacksService } from '../services/Feedbacks.service.js';
 
 const responseHandler = response.default;
 
@@ -70,10 +70,37 @@ const deleteFeedback = async (req, res) => {
   }
 };
 
+
+// Create new feedback
+const createGenralFeedback = async (req, res) => {
+  try {
+    const data = await createGenralFeedbackService(req);
+    if (data.errors) {
+      return res.status(httpStatus.NOT_IMPLEMENTED).send(responseHandler(data.errors[0].message, false));
+    }
+    res.status(httpStatus.OK).send(responseHandler(data));
+  } catch (e) {
+    res.status(httpStatus.OK).send(responseHandler([], false));
+  }
+};
+
+// Get all feedbacks
+const getAllGenralFeedbacks = async (req, res) => {
+  try {
+    const data = await getAllGenralFeedbacksService(req);
+    res.status(httpStatus.OK).send(responseHandler(data));
+  } catch (e) {
+    res.status(httpStatus.OK).send(responseHandler([], false));
+  }
+};
+
+
 export {
   createFeedback,
   getAllFeedbacks,
   getFeedbackById,
   updateFeedback,
-  deleteFeedback
+  deleteFeedback,
+  createGenralFeedback,
+  getAllGenralFeedbacks
 };

@@ -74,7 +74,6 @@ const login = async (req, res) => {
   try {
     const data = await validateUserService(req);
     if (data) {
-      console.log(data)
       const clinic = JSON.parse(JSON.stringify(data.Clinics))
       const obj = {
         user_id: data.user_id,

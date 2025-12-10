@@ -3,7 +3,7 @@ import cookieHelper from "helpers/getCookieData";
 
 // const token = cookieHelper.getCookie("access_token");
 const API_URL = `${process.env.REACT_APP_API_URL}`
-// const API_URL = "http://localhost:4017/api"
+// const API_URL = "http://localhost:4040/api"
 
 const axiosApi = axios.create({
   baseURL: API_URL,
@@ -126,11 +126,12 @@ export async function get(url, config = {}) {
 }
 
 export async function post(url, data, config = {}) {
-  const finalData = {
-    ...data,
-    client_id: localStorage.getItem('client'),
-    clinic_id: localStorage.getItem('clinic')
-  }
+  const client_id = localStorage.getItem('client');
+  const clinic_id = localStorage.getItem('clinic');
+
+  const finalData = {...data}
+  if(client_id) finalData.client_id = client_id;
+  if(clinic_id) finalData.clinic_id = clinic_id;
 
   return axiosApi
     .post(url, { ...finalData }, { ...config })

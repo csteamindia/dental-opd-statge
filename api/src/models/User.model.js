@@ -58,7 +58,8 @@ export default (sequelize, DataTypes) => {
       as: "user_role",
     });
     User.belongsTo(models.Userconfig, {
-      foreignKey: "user_id",
+      foreignKey: "client_id",
+      targetKey: "user_id",
       as: "config",
     });
     User.hasMany(models.Clinics, {

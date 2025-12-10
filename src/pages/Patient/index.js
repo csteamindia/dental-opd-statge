@@ -25,7 +25,7 @@ const Patient = () => {
           </div>
           {selectedTab === 1 && <AddPatient />}
           {selectedTab === 2 && <Patientslist />}
-          {/* {selectedTab === 3 && <PatientFeedback />} */}
+          {selectedTab === 3 && <PatientFeedback />}
         </Container>
       </div>
     </React.Fragment>

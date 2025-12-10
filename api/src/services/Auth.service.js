@@ -90,7 +90,7 @@ const newRegistrationService = async (req, isCallFromDocService = false) => {
                 <p>We are excited to have you on board. Below are your login credentials:</p>
                 
                 <div style="background-color: #f8f9fa; padding: 15px; border-radius: 6px; margin: 20px 0;">
-                    <p><strong>Login URL:</strong> <a href="https://ehrdental.oralstop.com/login" target="_blank">https://ehrdental.oralstop.com/login</a></p>
+                    <p><strong>Login URL:</strong> <a href="${APP_BASE_URL}/login" target="_blank">${APP_BASE_URL}/login</a></p>
                     <p><strong>Email:</strong> ${body.email}</p>
                     <p><strong>Password:</strong> ${password}</p>
                 </div>
@@ -101,7 +101,7 @@ const newRegistrationService = async (req, isCallFromDocService = false) => {
                 <p>To complete your registration, please verify your email address by clicking the button below:</p>
             
                 <div style="text-align: center; margin: 30px 0;">
-                    <a href="https://ehrdental.oralstop.com/verify?token=${token}"
+                    <a href="${APP_BASE_URL}/verify?token=${token}"
                     style="background-color: #3498db; color: #ffffff; text-decoration: none; padding: 12px 20px; border-radius: 5px; font-weight: bold;">
                     Verify Email
                     </a>
@@ -136,6 +136,11 @@ const newRegistrationService = async (req, isCallFromDocService = false) => {
                     client_id: user?.user_id
                 }
                 const doc = await Doctors.create(docData, { transaction });
+                
+                if(obj.role == 1){
+                    await Userconfig.create({ user_id: user?.user_id }, { transaction });
+                }
+
                 await User.update(
                     { client_id: doc.id },
                     {
@@ -220,7 +225,7 @@ const resendVerificationmailService = async(req) => {
             <p>We are excited to have you on board. Below are your login credentials:</p>
             
             <div style="background-color: #f8f9fa; padding: 15px; border-radius: 6px; margin: 20px 0;">
-                <p><strong>Login URL:</strong> <a href="http://localhost:3000/login" target="_blank">http://localhost:3000/login</a></p>
+                <p><strong>Login URL:</strong> <a href="${APP_BASE_URL}/login" target="_blank">${APP_BASE_URL}/login</a></p>
                 <p><strong>Email:</strong> ${email}</p>
                 <p><strong>Password:</strong> ${pwd.password}</p>
             </div>
@@ -231,7 +236,7 @@ const resendVerificationmailService = async(req) => {
             <p>To complete your registration, please verify your email address by clicking the button below:</p>
         
             <div style="text-align: center; margin: 30px 0;">
-                <a href="http://localhost:3000/verify?token=${token}"
+                <a href="${APP_BASE_URL}/verify?token=${token}"
                 style="background-color: #3498db; color: #ffffff; text-decoration: none; padding: 12px 20px; border-radius: 5px; font-weight: bold;">
                 Verify Email
                 </a>

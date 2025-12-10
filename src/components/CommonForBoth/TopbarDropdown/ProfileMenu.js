@@ -14,7 +14,7 @@ import { connect } from "react-redux"
 import { withRouter, Link } from "react-router-dom"
 
 // users
-import user1 from "../../../assets/images/users/avatar-1.jpg"
+import user1 from "../../../assets/images/logos/2.png"
 import cookieHelper from "helpers/getCookieData"
 
 const ProfileMenu = props => {
