@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 import db from "../models/index.js"
-const { Appointment, User, Clinics, Patients, Doctors, Sequelize } = db
+const { Ttimelogs, Appointment, User, Clinics, Patients, Doctors, Sequelize } =
+  db
 import { SendWpMessage } from "../controllers/Whatsapp.controller.js"
 import moment from "moment"
 
@@ -235,33 +236,40 @@ const getappdataService = async req => {
     return { success: false, body: null, error: error.message }
   }
 }
-const appointmentsTime = {}
+
 const startTimeAppService = async req => {
   try {
     const { id } = req.params
     const now = new Date().toISOString()
 
-    if (!appointmentsTime[id]) {
-      appointmentsTime[id] = { startTime: now }
+    // Find the first active session (end is null)
+    const activeLog = await Ttimelogs.findOne({
+      where: { app_id: id, end: null },
+      order: [["id", "ASC"]], // ASC ensures first open session
+    })
+
+    if (activeLog) {
       return {
         success: true,
         body: {
-          success: true,
-          startTime: now,
-          message: "Appointment started",
-        },
-      }
-    } else {
-      return {
-        success: true,
-        body: {
-          startTime: appointmentsTime[id].startTime,
+          startTime: activeLog.start, // returns the first start time
           message: "Appointment already started",
         },
       }
     }
+
+    // No active session, create a new log
+    const log = await Ttimelogs.create({ app_id: id, start: now })
+
+    return {
+      success: true,
+      body: {
+        startTime: now,
+        message: "Appointment started",
+      },
+    }
   } catch (error) {
-    console.error("Error deleting appointment:", error)
+    console.error("Error starting appointment:", error)
     return { success: false, body: null, error: error.message }
   }
 }
@@ -269,31 +277,40 @@ const startTimeAppService = async req => {
 const endTimeAppService = async req => {
   try {
     const { id } = req.params
+    const endTime = new Date().toISOString()
 
-    if (!appointmentsTime[id] || !appointmentsTime[id].startTime) {
-      return { success: false, message: "Appointment not started" }
+    // Find the last log for this appointment where end is null
+    const lastLog = await Ttimelogs.findOne({
+      where: { app_id: id, end: null },
+      order: [["id", "DESC"]],
+    })
+
+    if (!lastLog) {
+      return { success: false, message: "No active appointment session found" }
     }
 
-    const startTime = appointmentsTime[id].startTime
-    const endTime = new Date().toISOString()
-    const durationMinutes = Math.floor(
-      (new Date(endTime) - new Date(startTime)) / 60000
-    )
+    // Update the end time
+    await lastLog.update({ end: endTime })
 
-    // Clear the appointment from memory or mark it completed in DB
-    delete appointmentsTime[id]
+    const startTime = lastLog.start
+
+    // Calculate duration
+    const diffMs = new Date(endTime) - new Date(startTime)
+    const minutes = Math.floor(diffMs / 60000)
+    const seconds = Math.floor((diffMs % 60000) / 1000)
+    const duration = `${minutes}m ${seconds}s`
 
     return {
       success: true,
       body: {
         startTime,
         endTime,
-        durationMinutes,
+        duration,
         message: "Appointment ended",
       },
     }
   } catch (error) {
-    console.error("Error deleting appointment:", error)
+    console.error("Error ending appointment:", error)
     return { success: false, body: null, error: error.message }
   }
 }
@@ -329,9 +346,9 @@ const cancelAppointmentService = async req => {
         mobile: patient?.mobile,
         email: patient?.email,
         doctor: patient?.doctor,
-        appointment_date: moment(patient?.appointment_date).format(
-          "MMMM Do [at] hh:mm A"
-        ),
+        appointment_date: moment(patient?.appointment_date)
+          .tz(req.timezone)
+          .format("MMMM Do [at] hh:mm A"),
         clinic_id: clinic_id,
       }
       SendWpMessage(obj, "app_can")
@@ -355,7 +372,7 @@ const getTodoAppointmentsService = async req => {
       query: { clinic_id, client_id, _date, flag },
       tokendata,
     } = req
-    const today = moment().format("YYYY-MM-DD")
+    const today = moment().tz(req.timezone).format("YYYY-MM-DD")
 
     const where = {
       status: 0,
@@ -370,8 +387,8 @@ const getTodoAppointmentsService = async req => {
     if (flag == "c") {
       where.appointment_date = {
         [Sequelize.Op.between]: [
-          moment().startOf("day").toDate(),
-          moment().endOf("day").toDate(),
+          moment().tz(req.timezone).startOf("day").toDate(),
+          moment().tz(req.timezone).endOf("day").toDate(),
         ],
       }
       where.is_visited = 0

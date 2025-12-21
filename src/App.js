@@ -1,22 +1,14 @@
-import PropTypes from 'prop-types'
-import React from "react"
-
+import "./assets/scss/theme.scss"
+import PropTypes from "prop-types"
+import React, { useEffect } from "react"
 import { Switch, BrowserRouter as Router } from "react-router-dom"
 import { connect } from "react-redux"
-
-// Import Routes all
 import { authProtectedRoutes, publicRoutes } from "./routes"
-
-// Import all middleware
 import Authmiddleware from "./routes/route"
-
-// layouts Format
 import VerticalLayout from "./components/VerticalLayout/"
 import HorizontalLayout from "./components/HorizontalLayout/"
 import NonAuthLayout from "./components/NonAuthLayout"
-
-// Import scss
-import "./assets/scss/theme.scss"
+import { getClientDetails } from "helpers/clientinfo"
 
 // Import Firebase Configuration file
 // import { initFirebaseBackend } from "./helpers/firebase_helper"
@@ -36,6 +28,18 @@ import "./assets/scss/theme.scss"
 // initFirebaseBackend(firebaseConfig)
 
 const App = props => {
+  useEffect(() => {
+    const fetchGeoInfo = async () => {
+      try {
+        const geoInfo = await getClientDetails()
+        localStorage.setItem("geoInfo", JSON.stringify(geoInfo))
+      } catch (err) {
+        console.error("Geo info fetch failed", err)
+      }
+    }
+
+    fetchGeoInfo()
+  }, [])
 
   function getLayout() {
     let layoutCls = VerticalLayout
@@ -84,7 +88,7 @@ const App = props => {
 }
 
 App.propTypes = {
-  layout: PropTypes.any
+  layout: PropTypes.any,
 }
 
 const mapStateToProps = state => {
