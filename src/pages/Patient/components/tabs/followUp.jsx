@@ -91,7 +91,7 @@ const PatientFollowUp = ({ isFormPreOpen = false, patientData }) => {
                                 <hr />
                                 <Row>
                                     <Col >
-                                        <div className="form-group mb-4">
+                                        <div className="form-group">
                                             <label>Follow Up Date</label>
                                             <Flatpickr className="form-control d-block" options={{ altInput: true, dateFormat: "Y-m-d H:i" }} placeholder="MM, DD, YYYY"
                                                 value={formData.followup_date ? new Date(formData.followup_date) : null}

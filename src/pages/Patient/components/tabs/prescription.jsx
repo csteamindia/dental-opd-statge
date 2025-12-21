@@ -115,7 +115,7 @@ const Prescription = ({ patientData }) => {
     };
 
     const handleDataView = (data) => {
-        setViewData(data);
+         setViewData(data);
         const me = JSON.parse(data.medicine);
         setMedicineData(me)
         console.log(me)
@@ -287,7 +287,7 @@ const Prescription = ({ patientData }) => {
                         </Row>
                         <Row>
                             <Col>
-                                <b>Additional Notes:</b>
+                                <b>Additional Notes:{viewData?.note}</b>
                             </Col>
                         </Row>
                         <hr />

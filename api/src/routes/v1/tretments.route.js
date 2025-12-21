@@ -8,7 +8,8 @@ import {
   deleteTreatment,
   getAllTreatmentTypes,
   updateTreatmentType,
-  deleteTreatmentType
+  deleteTreatmentType,
+  addTreatmentStatus
 } from "../../controllers/Tretments.controller.js";
 import validateToken from "../../middlewares/validate-token.js";
 import { authorize } from "../../middlewares/authorize.js";
@@ -26,6 +27,11 @@ router
   .all(validateToken, authorize())
   .post(addTreatmentType)
   .get(getAllTreatmentTypes)
+
+router
+  .route("/updatestatus/:id")
+  .all(validateToken, authorize())
+  .get(addTreatmentStatus);
 
   router
   .route("/type/:id")

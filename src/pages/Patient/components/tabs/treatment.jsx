@@ -8,7 +8,6 @@ import "flatpickr/dist/themes/material_blue.css";
 import Flatpickr from "react-flatpickr";
 import AddTreatmentRows from 'pages/utils/incrementalRowsTreatment';
 import moment from 'moment';
-import { Link } from 'react-router-dom';
 import { showSuccessAlert, showConfirmAlert } from "pages/utils/alertMessages";
 
 const Prescription = ({ patientData }) => {
@@ -49,7 +48,7 @@ const Prescription = ({ patientData }) => {
         setIsForm(!isForm);
         setEditMode(false);
         setEditingId(null);
-        // setFormData({ tretment_date: new Date().toISOString() });
+        setFormData({ tretment_date: new Date().toISOString() });
     };
 
     const handleChange = (e) => {
@@ -179,12 +178,13 @@ const Prescription = ({ patientData }) => {
         { dataField: 'id', text: '#', editable: false, style: { width: '20px' }, },
         { dataField: 'treatment_date', text: 'Date', editable: false, formatter: (cell, row) => { return <> {moment(row.treatment_date).format('DD-MM-YYYY')} </> } },
         { dataField: 'doctor.name', text: 'Treatment By', editable: false  },
-        { dataField: 'treatment_type', text: 'Treatment Type', editable: false },
+        { dataField: 'treatment_type', text: 'Treatment Type', editable: false},
         { dataField: 'treatment_total_cost', text: 'Cost', editable: false  },
         // inside the column definition replace editor with editorRenderer:
         {
             dataField: 'treatment_status',
             text: 'Status',
+            formatter: (cell) => cell.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '),
             editorRenderer: (editorProps, value, row) => {
                 const handleChange = (e) => {
                     const newValue = e.target.value;
@@ -194,51 +194,40 @@ const Prescription = ({ patientData }) => {
                     // setData(prev => prev.map(r => r.id === row.id ? { ...r, treatment_status: newValue } : r));
                     // call your API
                     updateTreatmentStatus(row.id, newValue);
-                    console.log('instant change fired', { oldValue: value, newValue, row });
+                    // console.log('instant change fired', { oldValue: value, newValue, row });
                 };
 
                 return (
-                <select className="form-control" value={value || ''} onChange={handleChange}>
-                    <option value="planned">Planned</option>
-                    <option value="in_progress">In Progress</option>
-                    <option value="completed">Completed</option>
-                    <option value="discontinued">Discontinued</option>
-                </select>
+                    <select className="form-control" value={value || ''} onChange={handleChange}>
+                        <option value="planned">Planned</option>
+                        <option value="in_progress">In Progress</option>
+                        <option value="completed">Completed</option>
+                        <option value="discontinued">Discontinued</option>
+                    </select>
                 );
             }
         },
-
-        // {
-        //     dataField: 'actions0', style: { width: '20px' }, text: '', formatter: (cell, row) => {
-        //         return row.is_billed ?
-        //             <a href="#" className="btn btn-info btn-sm edit" onClick={() => handleGeneratedBillEdit(row)} title="Edit">
-        //                 <i className="fas fa-print" />
-        //             </a> :
-        //             <a href="#" className="btn btn-info btn-sm edit" onClick={() => handleGenrateBill(row)} title="Genrate Bill">
-        //                 <i className="bx bx-cog bx-spin" /> Genrate Bill
-        //             </a>
-
-        //     }
-        // },
         {
             dataField: 'actions', text: '',editable: false, isDummyField: true,
             formatter: (cell, row) => (
                 <div className="d-flex gap-2">
-                    <Link to="#" className="btn btn-primary btn-sm" onClick={() => handleEdit(row)} title="Edit">
+                    <button className="btn btn-primary btn-sm" onClick={() => handleEdit(row)} title="Edit">
                         <i className="fas fa-pencil-alt" />
-                    </Link>
-                    <Link to="#" className={`btn btn-${row.status === 0 ? 'danger' : 'success'} btn-sm`}
+                    </button>
+                    <button className={`btn btn-${row.status === 0 ? 'danger' : 'success'} btn-sm`}
                         onClick={() => handleDelete(row.id, row.status === 1 ? 0 : 1)}
                         title={row.status === 0 ? 'Delete' : 'Restore'}>
                         <i className={`fas ${row.status === 0 ? 'fa-trash-alt' : 'fa-check'}`} />
-                    </Link>
+                    </button>
                 </div>
             )
         }
     ];
 
-    const updateTreatmentStatus = (data) => {
-        console.log(data)
+    const updateTreatmentStatus = async(id, sts) => {
+        const { success } = await get(`${TREATMENT_URL}/updatestatus/${id}?sts=${sts}`);
+        if (success)
+            fetchData();
     }
 
     const selectedDoctorCode = formData?.doctor_code ?? patientData?.doctor ?? null;

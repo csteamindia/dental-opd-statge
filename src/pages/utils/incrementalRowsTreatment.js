@@ -22,7 +22,7 @@ const AddTreatmentRows = ({ callback = () => { }, tData=null }) => {
             treatment_type: '',
             teeth: [],
             cost: '',
-            discount: '',
+            discount: 0,
             note: '',
             total: 0,
             multiply_cost: false

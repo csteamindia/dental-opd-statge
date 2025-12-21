@@ -15,6 +15,8 @@ const createTreatmentService = async req => {
       return v
     })
 
+    console.log(finalObj);
+
     return await Tretment.bulkCreate(finalObj);
   } catch (error) {
     console.error("Error creating treatment:", error.message);
@@ -218,9 +220,21 @@ const deleteTreatmentTypeService = async req => {
   }
 };
 
+const addTreatmentStatusService = async req => {
+  try {
+    const { params: {id}, query: {sts} } = req;
+    const result = await Tretment.update({ treatment_status: sts }, { where: { id: id }, });
+    return result;
+  } catch (error) {
+    console.log('Error deleting Treatment Type:', error);
+    throw error;
+  }
+};
+
 export {
   createTreatmentService,
   getAllTreatmentsService,
+  addTreatmentStatusService,
   getTreatmentByIdService,
   updateTreatmentService,
   deleteTreatmentService,

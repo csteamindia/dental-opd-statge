@@ -118,8 +118,25 @@ const Examinations = ({ patientData }) => {
     }
   };
 
+  const safeParse = (s) => {
+    try {
+      return s ? JSON.parse(s) : {};
+    } catch {
+      return {};
+    }
+  };
+
   const handleEdit = (row) => {
-    setFormData({...row, complaints: JSON.parse(row.tooth)['complaint'], diagnosis: JSON.parse(formData.tooth)['diagnosis'] });
+    const rowTooth = safeParse(row?.tooth);
+    const prevTooth = safeParse(formData?.tooth); 
+
+    setFormData((prev) => ({
+      ...prev,
+      ...row,
+      complaints: rowTooth.complaint || "",
+      diagnosis: rowTooth.diagnosis ?? prevTooth.diagnosis ?? ""
+    }));
+
     setEditingId(row.id);
     setEditMode(true);
     setIsForm(true);

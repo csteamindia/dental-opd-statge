@@ -59,9 +59,6 @@ const WelcomeClinicScreen = () => {
 
   const handleChnageClinic = async (clinicData) => {
     cookieHelper.setCookie('_c', btoa(JSON.stringify(clinicData)), 1, 7);
-    localStorage.setItem('clinic', clinicData?.id)
-    localStorage.setItem('client', clinicData?.client_id)
-    // window.location.href = `/appointment`;
     window.location.href = `/chairs`;
   }
 
@@ -104,7 +101,7 @@ const WelcomeClinicScreen = () => {
     </div>
   }
 
-  if(consfigData?.user?.config == 1 || consfigData?.user?.role != "Admin"){
+  if(isVerified != 0 && consfigData?.user?.config == 1){
     handleChnageClinic(clinics[0])
   }
 

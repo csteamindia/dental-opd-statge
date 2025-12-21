@@ -43,6 +43,14 @@ export default (sequelize, DataTypes) => {
       diagnosis_type: {
         type: DataTypes.STRING,
       },
+      other_type: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      other_note: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
       note: {
         type: DataTypes.TEXT,
       },
@@ -59,36 +67,36 @@ export default (sequelize, DataTypes) => {
       createdAt: "created_at",
       updatedAt: "updated_at",
     }
-  );
+  )
 
-  Investigation.associate = (models) => {
+  Investigation.associate = models => {
     Investigation.belongsTo(models.Clinics, {
       foreignKey: "clinic_id",
       targetKey: "id",
       as: "clinic",
-    });
+    })
     Investigation.belongsTo(models.User, {
       foreignKey: "client_id",
       targetKey: "user_id",
       as: "client",
-    });
+    })
 
     Investigation.belongsTo(models.Patients, {
       foreignKey: "patient_id",
       targetKey: "id",
       as: "patient",
-    });
+    })
     Investigation.belongsTo(models.Doctors, {
       foreignKey: "doctor_code",
       targetKey: "code",
       as: "doctor",
-    });
+    })
     // Investigation.belongsTo(models.Examinations, {
     //   foreignKey: "examination_id",
     //   targetKey: "id",
     //   as: "examination",
     // });
-  };
+  }
 
-  return Investigation;
-};
+  return Investigation
+}

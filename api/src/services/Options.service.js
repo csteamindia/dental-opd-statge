@@ -150,6 +150,7 @@ const dynamicOptionsService = async req => {
 
         return await Doctors.findAll({
           attributes: [
+            [Sequelize.literal('id'), 'id'],
             [Sequelize.literal('code'), 'value'],
             [Sequelize.literal('name'), 'label']
           ],
@@ -216,6 +217,7 @@ const dynamicOptionsService = async req => {
           }),
           Doctors.findAll({
             attributes: [
+              [Sequelize.literal('id'), 'id'],
               [Sequelize.literal('code'), 'value'],
               [Sequelize.literal('name'), 'label']
             ],

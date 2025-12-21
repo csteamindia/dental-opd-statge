@@ -11,9 +11,19 @@ import { showSuccessAlert } from "pages/utils/alertMessages";
 import CTMTabs from "./CTMTabs";
 
 const AddPatient = ({ patientData, is_update = false }) => {
-    const clinic = cookieHelper.getCookie('_c') ? JSON.parse(atob(cookieHelper.getCookie('_c'))) : null
+    let clinic = null;
+
+    try {
+        const cookie = cookieHelper.getCookie('_c');
+        clinic = cookie ? JSON.parse(atob(cookie)) : null;
+    } catch (err) {
+        console.error("Failed to read _c cookie:", err);
+        clinic = null;
+    }
+
     const debounceTimeout = useRef(null);
     const history = useHistory();
+
     const [formData, setFormData] = useState({
         patientData, title: "Mr.", communication_group: patientData?.communication_group || "[]",
         patient_tags: patientData?.patient_tags || "[]",
@@ -90,7 +100,8 @@ const AddPatient = ({ patientData, is_update = false }) => {
             gender,
             dob,
             age,
-            clinic_id: clinic.id
+            clinic_id: clinic.id,
+            reference: formData.reference?.value || ''
         };
 
         if(!formData?.case_no){
@@ -469,8 +480,8 @@ const AddPatient = ({ patientData, is_update = false }) => {
                                                     value={formData?.reference || null}
                                                     onChange={(selected) =>
                                                         setFormData((prev) => ({
-                                                        ...prev,
-                                                        reference: selected || null,
+                                                            ...prev,
+                                                            reference: selected || null,
                                                         }))
                                                     }
                                                     onInputChange={handleInputChange}

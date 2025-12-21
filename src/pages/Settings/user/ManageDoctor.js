@@ -181,7 +181,7 @@ const ManageDoctor = () => {
                         <Card>
                             <CardBody>
                                 <div className='d-flex justify-content-between mb-2'>
-                                    <h5><i role="button" className='me-2 fas fa-arrow-left' onClick={handleToggle} /> Add Doctor</h5>
+                                    <h5><i role="button" className='me-2 fas fa-arrow-left' onClick={handleToggle} /> {editMode ? "Edit" : "Add"} Doctor</h5>
                                     <button className='btn btn-danger' onClick={handleToggle} > <i className='mdi mdi-close noti-icon' /> Cancel</button>
                                 </div>
                                 <hr />
@@ -281,9 +281,11 @@ const ManageDoctor = () => {
                                                 <Col>
                                                     <AvField type="number" name={`exe_time_${formRow.id}`} label="Extra Time" className="form-control" disabled={editMode} value={formRow.exe_time || ''} onChange={(e) => handleTimingChange(formRow.id, 'exe_time', e.target.value)} placeholder="Extra Time" required errorMessage="Please enter extra time" />
                                                 </Col>
-                                                <Col md={2} className="text-end mt-4">
+                                                <Col md={2} className="text-end mt-5">
                                                     <Button className='me-2' color="primary" onClick={handleAddRowNested} title="Add Row"> Add </Button>
-                                                    {rows1.length > 1 && (<Button className='me-2' color="danger" onClick={() => handleRemoveRow(formRow.id)} title="Delete Row"> Delete </Button>)}
+                                                    {rows1.length > 1 && (
+                                                        <Button className='me-2' color="danger" onClick={() => handleRemoveRow(formRow.id)} title="Delete Row"> Delete </Button>
+                                                    )}
                                                 </Col>
                                             </Row>
                                         </div>

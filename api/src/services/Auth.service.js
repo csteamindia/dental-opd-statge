@@ -67,11 +67,13 @@ const newRegistrationService = async (req, isCallFromDocService = false) => {
         const { body } = req;
         const password = await generateRandomString(12);
         const token = await generateRandomString(72);
+        const code = await generateRandomString(6);
 
         const obj = {
             name: body.name,
             clinic_id: body.clinic_id,
             client_id: body.client_id || null,
+            doc_code: code,
             mobile: body.mobile,
             email: body.email,
             role: body.role || 1,
@@ -90,7 +92,7 @@ const newRegistrationService = async (req, isCallFromDocService = false) => {
                 <p>We are excited to have you on board. Below are your login credentials:</p>
                 
                 <div style="background-color: #f8f9fa; padding: 15px; border-radius: 6px; margin: 20px 0;">
-                    <p><strong>Login URL:</strong> <a href="${APP_BASE_URL}/login" target="_blank">${APP_BASE_URL}/login</a></p>
+                    <p><strong>Login URL:</strong> <a href="${process.env.APP_BASE_URL}/login" target="_blank">${process.env.APP_BASE_URL}/login</a></p>
                     <p><strong>Email:</strong> ${body.email}</p>
                     <p><strong>Password:</strong> ${password}</p>
                 </div>
@@ -101,7 +103,7 @@ const newRegistrationService = async (req, isCallFromDocService = false) => {
                 <p>To complete your registration, please verify your email address by clicking the button below:</p>
             
                 <div style="text-align: center; margin: 30px 0;">
-                    <a href="${APP_BASE_URL}/verify?token=${token}"
+                    <a href="${process.env.APP_BASE_URL}/verify?token=${token}"
                     style="background-color: #3498db; color: #ffffff; text-decoration: none; padding: 12px 20px; border-radius: 5px; font-weight: bold;">
                     Verify Email
                     </a>
@@ -128,8 +130,9 @@ const newRegistrationService = async (req, isCallFromDocService = false) => {
             
             await Userverification.create(UserverificationData, { transaction });
             if(!isCallFromDocService){
+                
                 const docData = {
-                    code: await generateRandomString(6),
+                    code: code,
                     name: body.name,
                     mobile: body.mobile,
                     email: body.email,
@@ -142,7 +145,7 @@ const newRegistrationService = async (req, isCallFromDocService = false) => {
                 }
 
                 await User.update(
-                    { client_id: doc.id },
+                    { client_id: body.client_id },
                     {
                         where: { user_id: user?.user_id },
                         transaction
@@ -225,7 +228,7 @@ const resendVerificationmailService = async(req) => {
             <p>We are excited to have you on board. Below are your login credentials:</p>
             
             <div style="background-color: #f8f9fa; padding: 15px; border-radius: 6px; margin: 20px 0;">
-                <p><strong>Login URL:</strong> <a href="${APP_BASE_URL}/login" target="_blank">${APP_BASE_URL}/login</a></p>
+                <p><strong>Login URL:</strong> <a href="${process.env.APP_BASE_URL}/login" target="_blank">${process.env.APP_BASE_URL}/login</a></p>
                 <p><strong>Email:</strong> ${email}</p>
                 <p><strong>Password:</strong> ${pwd.password}</p>
             </div>
@@ -236,7 +239,7 @@ const resendVerificationmailService = async(req) => {
             <p>To complete your registration, please verify your email address by clicking the button below:</p>
         
             <div style="text-align: center; margin: 30px 0;">
-                <a href="${APP_BASE_URL}/verify?token=${token}"
+                <a href="${process.env.APP_BASE_URL}/verify?token=${token}"
                 style="background-color: #3498db; color: #ffffff; text-decoration: none; padding: 12px 20px; border-radius: 5px; font-weight: bold;">
                 Verify Email
                 </a>

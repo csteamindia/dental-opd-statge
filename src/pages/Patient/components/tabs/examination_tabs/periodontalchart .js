@@ -756,10 +756,10 @@ const PeriodontalChart = ({patientData, callback, isform}) => {
           <Col>
             <Select
                 options={doctorsOptions}
-                value={doctorsOptions?.filter(v => v.value == chart?.doctor_id)}
+                value={doctorsOptions?.filter(v => v.value == chart?.doctor_id || v.id == chart?.doctor_id)}
                 placeholder="Select doctor"
                 onChange={(selectedOption) => {
-                  setChart(prev => ({...prev, doctor_id: selectedOption}))
+                  setChart(prev => ({...prev, doctor_id: selectedOption?.value || ''}))
                 }}
                 name="doc"
                 id="doc"

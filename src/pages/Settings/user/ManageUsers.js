@@ -126,7 +126,7 @@ const ManageUsers = () => {
                                     </Col>
                                     <Col>
                                         <div className="mb-2">
-                                            <AvField name="email" label="Email Address" type="text" placeholder="Enter Email Address" value={formData.email} onChange={handleChange} required errorMessage="Please enter Email Address" />
+                                            <AvField name="email" label="Email Address" type="text" placeholder="Enter Email Address" value={formData?.email} onChange={handleChange} required errorMessage="Please enter Email Address" />
                                         </div>
                                     </Col>
                                     <Col>

@@ -19,16 +19,23 @@ function* loginUser({ payload: { user, history } }) {
     if(!response.success){
       yield put(apiError('invalid login credentials'))
     } else{
-      cookieHelper.setCookie("authUser", JSON.stringify({user: response.body.user}), 1)
+      const userData = response.body.user;
+      cookieHelper.setCookie("authUser", JSON.stringify({user: userData}), 1)
       cookieHelper.setCookie('access_token', response.body.access_token, 1)
       cookieHelper.setCookie('refresh_token', response.body.refresh_token, 1, 7)
   
-      localStorage.setItem('role', response.body.user?.role)
-  
-      yield put(loginSuccess(response.body.user))
+      // Save to localStorage BEFORE redux touches anything
+      if (typeof window.localStorage !== "undefined") {
+        localStorage.setItem("client", userData?.client_id || "");
+        localStorage.setItem("clinic", userData?.clinic_id || "");
+        localStorage.setItem("role", userData?.role || "");
+        console.log("Saved to local:", userData);
+      }
+
+      yield put(loginSuccess(userData))
       
-      if(response.body.user?.clinic.length){
-        cookieHelper.setCookie('_c', btoa(JSON.stringify(response.body.user?.clinic[0])), 1, 7);
+      if(userData?.clinic.length){
+        cookieHelper.setCookie('_c', btoa(JSON.stringify(userData?.clinic[0])), 1, 7);
       }
       
       history.push("/clinics")

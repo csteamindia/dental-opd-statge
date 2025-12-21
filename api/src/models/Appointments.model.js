@@ -12,6 +12,18 @@ export default (sequelize, DataTypes) => {
         type: DataTypes.STRING(16),
         allowNull: true,
       },
+      reporting_time: {
+        type: DataTypes.DATE,
+        allowNull: true,
+      },
+      treatment_start: {
+        type: DataTypes.DATE,
+        allowNull: true,
+      },
+      treatment_end: {
+        type: DataTypes.DATE,
+        allowNull: true,
+      },
       doctor_code: {
         type: DataTypes.STRING(16),
         allowNull: true,
@@ -112,31 +124,31 @@ export default (sequelize, DataTypes) => {
       createdAt: "created_at",
       updatedAt: "updated_at",
     }
-  );
+  )
 
-  Appointment.associate = (models) => {
+  Appointment.associate = models => {
     Appointment.belongsTo(models.Clinics, {
       foreignKey: "clinic_id",
       targetKey: "id",
       as: "clinic",
-    });
+    })
 
     Appointment.belongsTo(models.User, {
       foreignKey: "client_id",
       targetKey: "user_id",
       as: "client",
-    });
+    })
     Appointment.belongsTo(models.Patients, {
       foreignKey: "patient_id",
       targetKey: "id",
       as: "patient",
-    });
+    })
     Appointment.belongsTo(models.Doctors, {
       foreignKey: "doctor_code",
       targetKey: "code",
       as: "doctor",
-    });
-  };
+    })
+  }
 
-  return Appointment;
-};
+  return Appointment
+}

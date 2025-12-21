@@ -16,7 +16,8 @@ import {
   deleteTreatmentTypeService,
   updateTreatmentTypeService,
   addTreatmentTypeService, // type services 
-  getAllTreatmentTypeService
+  getAllTreatmentTypeService,
+  addTreatmentStatusService
 } from '../services/Tretments.service.js';
 
 const responseHandler = response.default;
@@ -145,6 +146,15 @@ const deleteTreatmentType = async (req, res) => {
   }
 };
 
+const addTreatmentStatus = async (req, res) => {
+  try {
+    const data = await addTreatmentStatusService(req);
+    res.status(httpStatus.OK).send(responseHandler(data));
+  } catch (e) {
+    res.status(httpStatus.OK).send(responseHandler([], false));
+  }
+};
+
 export {
   createTreatment,
   getAllTreatments,
@@ -154,5 +164,6 @@ export {
   deleteTreatmentType,
   addTreatmentType,
   updateTreatmentType,
+  addTreatmentStatus,
   getAllTreatmentTypes
 };

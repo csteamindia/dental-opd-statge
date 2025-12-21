@@ -3,13 +3,97 @@ import { Row, Col } from 'reactstrap'
 import WhatsappNotification from './notification/whatsapp'
 import SmsNotification from './notification/sms'
 import { useHistory } from "react-router-dom";
-import cookieHelper from 'helpers/getCookieData';
+import { APPOINTMENT_URL } from 'helpers/url_helper';
+import { post, get } from 'helpers/api_helper';
+import moment from 'moment';
 
-const PatientProfile = ({ data = null, configData=null, callback=()=>{} }) => {
+const PatientProfile = ({ data = null, configData=null, callback=()=>{}, appId=''}) => {
     const history = useHistory();
     let options = null;
     const [patientData, setpatientData] = useState(data)
     const [notificationModal, setNotificationModal] = useState(null)
+    const [appData, setAppData] = useState(null)
+
+    const storageKey = `appointment_start_${appId}`;
+    const [startTime, setStartTime] = useState(
+        localStorage.getItem(storageKey) || null
+    );
+    const [elapsedSeconds, setElapsedSeconds] = useState(0);
+    const [timer, setTimer] = useState(null);
+
+    // Initialize elapsedSeconds if startTime exists
+    useEffect(() => {
+        if (startTime) {
+            const start = moment(startTime);
+            const diffSeconds = moment().diff(start, "seconds");
+            setElapsedSeconds(diffSeconds);
+
+            const interval = setInterval(() => {
+                setElapsedSeconds(prev => prev + 1);
+            }, 1000);
+
+            setTimer(interval);
+            return () => clearInterval(interval);
+        }
+    }, [startTime]);
+
+    const handleStart = async () => {
+        try {
+            // Call backend API to start appointment
+            const { success, body} = await post(`${APPOINTMENT_URL}/starttime/${appId}`);
+
+            if (success) {
+            // Use timestamp returned by API or current time
+            const startTimestamp = body.startTime || moment().toISOString();
+            localStorage.setItem(storageKey, startTimestamp);
+            setStartTime(startTimestamp);
+
+            // Start the timer
+            const interval = setInterval(() => {
+                setElapsedSeconds(prev => prev + 1);
+            }, 1000);
+            setTimer(interval);
+            } else {
+            console.error("Failed to start appointment:", body.message);
+            }
+        } catch (err) {
+            console.error("Error starting appointment:", err);
+        }
+    };
+
+    const handleEnd = async () => {
+        try {
+            // Call API to stop appointment
+            const { success, body}  = await post(`${APPOINTMENT_URL}/endtime/${appId}`);
+
+            if (success) {
+                // Stop timer
+                if (timer) clearInterval(timer);
+
+                // Clear local storage
+                localStorage.removeItem(storageKey);
+
+                // Reset state
+                setStartTime(null);
+                setElapsedSeconds(0);
+
+                console.log("Appointment ended:", body.message);
+            } else {
+            console.error("Failed to end appointment:", body.message);
+            }
+        } catch (err) {
+            console.error("Error ending appointment:", err);
+        }
+    };
+
+
+    const formatTime = () => {
+        const minutes = Math.floor(elapsedSeconds / 60);
+        const seconds = elapsedSeconds % 60;
+        return `${minutes}m ${seconds}s`;
+    };
+
+
 
     if (sessionStorage.hasOwnProperty('options')) {
         options = JSON.parse(sessionStorage.getItem('options'));
@@ -25,6 +109,16 @@ const PatientProfile = ({ data = null, configData=null, callback=()=>{} }) => {
             search: `?_p=${patientData?.id}&_t=${tab}`
         });
     }
+
+    
+    const getAppointmentData = async () => {
+        const {success, body} = await get(`${APPOINTMENT_URL}/getappdata?appid=${appId}`)
+        if(success){
+            setAppData(body)
+        }
+    }
+    
+    useEffect(getAppointmentData, [appId])
 
     return (
         <div className='row'>
@@ -94,12 +188,57 @@ const PatientProfile = ({ data = null, configData=null, callback=()=>{} }) => {
                                     }
                                     {
                                         configData?.user?.config?.allergies && patientData?.allergies ?
-                                        <Col lg={9}>
+                                        <Col lg={6}>
+                                            {patientData?.allergies && JSON.parse(patientData.allergies)?.length > 0 && (
                                             <div className="border border-danger p-1 pt-2">
                                                 <div className="text-center">
-                                                    <b className="text-danger blink-texth">{JSON.parse(patientData?.allergies)?.map(v => options?.allergies?.find(opt => opt.value == v)?.label)?.join(', ')}</b>
+                                                <b className="text-danger blink-texth">
+                                                    {JSON.parse(patientData.allergies)
+                                                    .map(v => options?.allergies?.find(opt => opt.value === v)?.label)
+                                                    .filter(Boolean) // remove any undefined labels
+                                                    .join(', ')}
+                                                </b>
                                                 </div>
                                             </div>
+                                            )}
+                                            {
+                                                appData ?
+                                                <table className='table table-bordered'>
+                                                    <tbody>
+                                                        <tr>
+                                                            <th>Appointment</th>
+                                                            <th>{moment(appData?.appointment_date).format('HH:mm')}</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Reported</th>
+                                                            <th>{moment(appData?.reporting_time).format('HH:mm')}</th>
+                                                        </tr>
+                                                         <tr>
+                                                            <td colSpan={2} className="text-center">
+                                                                {startTime ? (
+                                                                <button
+                                                                    className="btn btn-danger w-100 d-flex justify-content-center align-items-center gap-2"
+                                                                    onClick={handleEnd}
+                                                                    title="Click to stop treatment"
+                                                                >
+                                                                    <i className="fas fa-stop-circle"></i>
+                                                                    End ({formatTime()})
+                                                                </button>
+                                                                ) : (
+                                                                <button
+                                                                    className="btn btn-success w-100 d-flex justify-content-center align-items-center gap-2"
+                                                                    onClick={handleStart}
+                                                                    title="Click to start treatment"
+                                                                >
+                                                                    <i className="fas fa-play-circle"></i>
+                                                                    Start
+                                                                </button>
+                                                                )}
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>: ''
+                                            }
                                         </Col>: ''
                                     }
                                 </Row>

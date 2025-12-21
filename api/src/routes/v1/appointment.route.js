@@ -1,4 +1,4 @@
-import express from 'express';
+import express from "express"
 import {
   createAppointment,
   getAllAppointments,
@@ -6,30 +6,44 @@ import {
   updateAppointment,
   deleteAppointment,
   getTodoAppointments,
-  cancelAppointment
-} from '../../controllers/Appointments.controller.js';
-import validateToken from '../../middlewares/validate-token.js';
-import { authorize } from '../../middlewares/authorize.js';
+  cancelAppointment,
+  updateReportingTime,
+  getappdata,
+  startTimeApp,
+  endTimeApp,
+} from "../../controllers/Appointments.controller.js"
+import validateToken from "../../middlewares/validate-token.js"
+import { authorize } from "../../middlewares/authorize.js"
 
-const router = express.Router();
+const router = express.Router()
 
-router.route('/')
+router
+  .route("/")
   .all(validateToken, authorize())
   .post(createAppointment)
-  .get(getAllAppointments);
+  .get(getAllAppointments)
 
-router.route('/cancel')
+router.route("/cancel").all(validateToken, authorize()).post(cancelAppointment)
+
+router.route("/todo").all(validateToken, authorize()).get(getTodoAppointments)
+
+router
+  .route("/reporting")
   .all(validateToken, authorize())
-  .post(cancelAppointment);
+  .get(updateReportingTime)
 
-router.route('/todo')
+router.route("/getappdata").all(validateToken, authorize()).get(getappdata)
+router
+  .route("/starttime/:id")
   .all(validateToken, authorize())
-  .get(getTodoAppointments);
+  .post(startTimeApp)
+router.route("/endtime/:id").all(validateToken, authorize()).post(endTimeApp)
 
-router.route('/:id')
+router
+  .route("/:id")
   .all(validateToken, authorize())
   .get(getAppointmentById)
   .put(updateAppointment)
-  .delete(deleteAppointment);
+  .delete(deleteAppointment)
 
-export default router;
+export default router

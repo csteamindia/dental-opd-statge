@@ -17,6 +17,11 @@ export default (sequelize, DataTypes) => {
         defaultValue: null,
         allowNull: true,
       },
+      doc_code: {
+        type: DataTypes.STRING(16),
+        defaultValue: null,
+        allowNull: true,
+      },
       name: {
         type: DataTypes.STRING(128),
         allowNull: true,

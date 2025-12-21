@@ -11,11 +11,28 @@ import { showSuccessAlert, showConfirmAlert } from "pages/utils/alertMessages";
 import { AvForm, AvField } from 'availity-reactstrap-validation';
 
 const auscultation_options = [
-    {value:"Normal", label: "Normal"},
-    {value:"Murmur", label: "Murmur"},
-    {value:"Gallop", label: "Gallop"},
-    {value:"Rub", label: "Rub"}
-]
+    { value: "Normal", label: "Normal" },
+    { value: "Murmur", label: "Murmur" },
+    { value: "Systolic_Murmur", label: "Systolic Murmur" },
+    { value: "Diastolic_Murmur", label: "Diastolic Murmur" },
+    { value: "Gallop", label: "Gallop" },
+    { value: "S3_Gallop", label: "S3 Gallop" },
+    { value: "S4_Gallop", label: "S4 Gallop" },
+    { value: "Rub", label: "Pericardial Rub" },
+    { value: "Click", label: "Click" },
+    { value: "Snap", label: "Opening Snap" },
+    { value: "Thrill", label: "Thrill" },
+    { value: "Brisk_Pulse", label: "Brisk Pulse" },
+    { value: "Weak_Pulse", label: "Weak Pulse" },
+    { value: "Irregular_Rhythm", label: "Irregular Rhythm" },
+    { value: "Other", label: "Other" }
+];
+
+const other_options = [
+    { value: "X_Ray", label: "X-Ray" },
+    { value: "Biopsy", label: "Biopsy" },
+    { value: "Other", label: "Other" },
+];
 
 const Investigations = ({ isFormPreOpen = false, patientData }) => {
     const [isForm, setIsForm] = useState(isFormPreOpen);
@@ -38,7 +55,15 @@ const Investigations = ({ isFormPreOpen = false, patientData }) => {
 
     const fetchData = async () => {
         setLoading(true);
-        const { success, body } = await get(`${INVESTIONGATIONS_URL}?patient_id=${patientData?.id}&page=${pagination.page}&limit=${pagination.limit}&search=${pagination.Search}`);
+        const params = new URLSearchParams();
+
+        // Only add parameters if they have a value
+        if (patientData?.id) params.append("patient_id", patientData.id);
+        if (pagination?.page) params.append("page", pagination.page);
+        if (pagination?.limit) params.append("limit", pagination.limit);
+        if (pagination?.Search) params.append("search", pagination.Search);
+
+        const { success, body } = await get(`${INVESTIONGATIONS_URL}?${params.toString()}`);
         if (success) {
             setRows(body);
             setLoading(false);
@@ -74,10 +99,20 @@ const Investigations = ({ isFormPreOpen = false, patientData }) => {
 
     const handleSubmit = async () => {
         // console.log("formData before submit:", formData);
+
+        const doc = doctors.find(
+        (v) => v.id == formData.doctor_code || v.value == formData.doctor_code
+        );
+
+        const _formData = {
+        ...formData,
+        doctor_code: doc?.value || null
+        };
+
         const url = editMode ? `${INVESTIONGATIONS_URL}/${editingId}` : INVESTIONGATIONS_URL;
         const method = editMode ? put : post;
 
-        const { success } = await method(url, formData);
+        const { success } = await method(url, _formData);
 
         if (success) {
             showSuccessAlert(editMode ? 'Investigation updated successfully!' : 'Investigation created successfully!');
@@ -134,10 +169,10 @@ const Investigations = ({ isFormPreOpen = false, patientData }) => {
                                             onChange={(date) => { setFormData(prev => ({ ...prev, date: date[0]?.toISOString() })) }} />
                                     </Col>
                                     <Col md={4}>
-                                        <label>Doctor { formData?.doctor_code }</label>
+                                        <label>Doctor</label>
                                         <Select id="doctor" className="basic-single"
                                             isClearable={true} isSearchable={true} options={doctors}
-                                            value={doctors.filter(v => v.value == formData?.doctor_code)}
+                                            value={doctors.filter(v => v.id == formData?.doctor_code || v.value == formData?.doctor_code)}
                                             onChange={(selectedOption) => { setFormData(prev => ({ ...prev, doctor_code: selectedOption?.value || "" })); }}
                                             isDisabled={editMode} placeholder="Select Doctor" />
                                     </Col>
@@ -146,27 +181,72 @@ const Investigations = ({ isFormPreOpen = false, patientData }) => {
                                 <Row className='mb-2'>
                                     <Col>
                                         <div className='mt-2'>
-                                            <AvField name="temperature" label="Temperature" type="number" placeholder="Enter Temperature" value={formData.temperature} onChange={handleChange} required errorMessage="Temperature must be a number" />
+                                            <AvField
+                                                name="temperature"
+                                                label="Temperature (°F)"
+                                                type="number"
+                                                placeholder="Enter Temperature"
+                                                value={formData.temperature}
+                                                onChange={handleChange}
+                                                min={95}   // hypothermia threshold
+                                                max={110}  // beyond this is extremely rare / fatal
+                                                step={0.1} // allows decimal input like 98.6
+                                                errorMessage="Enter a valid temperature between 95°F and 110°F"
+                                            />
                                         </div>
                                     </Col>
                                     <Col>
                                         <div className='mt-2'>
-                                            <AvField name="blood_pressure" label="Blood Pressure" type="number" placeholder="Enter Blood Pressure" value={formData.blood_pressure} onChange={handleChange} required errorMessage="Blood Pressure must be a number" />
+                                          <AvField
+                                            name="blood_pressure"
+                                            label="Blood Pressure (mmHg)"
+                                            type="text"
+                                            placeholder="120/80"
+                                            value={formData.blood_pressure}
+                                            onChange={handleChange}
+                                            errorMessage= "Enter valid BP format (e.g. 120/80)"
+                                            validate={{
+                                                pattern: {
+                                                value: /^(\d{2,3})\/(\d{2,3})$/,
+                                                }
+                                            }} />
                                         </div>
                                     </Col>
                                     <Col>
                                         <div className='mt-2'>
-                                            <AvField name="blood_sugar" label="Blood Sugar" type="number" placeholder="Enter Blood Sugar" value={formData.blood_sugar} onChange={handleChange} required errorMessage="Blood Sugar must be a number" />
+                                            <AvField
+                                                name="blood_sugar"
+                                                label="Blood Sugar (mg/dL)"
+                                                type="number"
+                                                placeholder="Enter Blood Sugar 20 and 600 mg/dL"
+                                                value={formData.blood_sugar}
+                                                onChange={handleChange}
+                                                min="20"
+                                                max="600"
+                                                errorMessage="Enter a valid blood sugar between 20 and 600 mg/dL"
+                                            />
                                         </div>
                                     </Col>
                                     <Col>
                                         <div className='mt-2'>
-                                            <AvField name="auscultation" label="Auscultation" type="hidden" placeholder="Enter Auscultation" value={formData.auscultation} required errorMessage="Please enter Auscultation" />
+                                            <AvField name="auscultation" label="Auscultation" type="hidden" placeholder="Enter Auscultation" value={formData.auscultation} errorMessage="Please enter Auscultation" />
                                             <Select
                                                 options={auscultation_options}
                                                 value={auscultation_options?.filter( e => e.value == formData.auscultation)}
                                                 onChange={ e => {
                                                     setFormData(prev => ({...prev, auscultation: e.value}))
+                                                }}
+                                            />
+                                        </div>
+                                    </Col>
+                                    <Col>
+                                        <div className='mt-2'>
+                                            <AvField name="other_type" label="Other" type="hidden" placeholder="Other" value={formData.auscultation} errorMessage="" />
+                                            <Select
+                                                options={other_options}
+                                                value={other_options?.filter( e => e.value == formData.other_type)}
+                                                onChange={ e => {
+                                                    setFormData(prev => ({...prev, other_type: e.value}))
                                                 }}
                                             />
                                         </div>

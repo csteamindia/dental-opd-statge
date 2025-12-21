@@ -140,7 +140,6 @@ const Header = props => {
               <Link to="#" className="text-center d-none d-lg-block" onClick={() => {
                 cookieHelper.deleteCookie("_c");
                 localStorage.setItem('clinic', '')
-                // localStorage.setItem('client', '')
                 history.push("/clinics");
               }}>
                 {clinicData?.clinic_name}

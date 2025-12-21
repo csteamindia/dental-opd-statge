@@ -78,6 +78,7 @@ const login = async (req, res) => {
       const obj = {
         user_id: data.user_id,
         clinic_id: data.clinic_id,
+        doc_code: data.doc_code,
         client_id: clinic.length ? clinic[0].client_id: data.user_id,
         user_name: data.name,
         email: data.email,

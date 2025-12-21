@@ -2,8 +2,8 @@ import axios from "axios"
 import cookieHelper from "helpers/getCookieData";
 
 // const token = cookieHelper.getCookie("access_token");
-const API_URL = `${process.env.REACT_APP_API_URL}`
-// const API_URL = "http://localhost:4040/api"
+// const API_URL = `${process.env.REACT_APP_API_URL}`
+const API_URL = "http://localhost:4040/api"
 
 const axiosApi = axios.create({
   baseURL: API_URL,
@@ -104,19 +104,16 @@ axiosApi.interceptors.response.use(
 axiosApi.interceptors.request.use(config => {
   const token = cookieHelper.getCookie("access_token");
 
-  // Attach token
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
 
-  // Auto-attach client & clinic as query params
-  const client = localStorage.getItem('client');
-  const clinic = localStorage.getItem('clinic');
-
   if (!config.params) config.params = {};
 
-  if (client) config.params.client_id = client;
-  if (clinic) config.params.clinic_id = clinic;
+  const add = (k, v) => v != null && v !== '' && v != 'null' && (config.params[k] = v);
+
+  add('client_id', localStorage.getItem('client'));
+  add('clinic_id', localStorage.getItem('clinic'));
 
   return config;
 });
@@ -126,13 +123,7 @@ export async function get(url, config = {}) {
 }
 
 export async function post(url, data, config = {}) {
-  const client_id = localStorage.getItem('client');
-  const clinic_id = localStorage.getItem('clinic');
-
   const finalData = {...data}
-  if(client_id) finalData.client_id = client_id;
-  if(clinic_id) finalData.clinic_id = clinic_id;
-
   return axiosApi
     .post(url, { ...finalData }, { ...config })
     .then(response => response.data)
