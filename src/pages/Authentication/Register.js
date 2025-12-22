@@ -38,7 +38,7 @@ const Register = props => {
   return (
     <React.Fragment>
       <MetaTags>
-        <title>Register | Skote - React Admin & Dashboard Template</title>
+        <title>Register</title>
       </MetaTags>
       <div className="home-btn d-none d-sm-block">
         <Link to="/" className="text-dark">
@@ -55,7 +55,7 @@ const Register = props => {
                     <Col className="col-7">
                       <div className="text-primary p-4">
                         <h5 className="text-primary">Free Register</h5>
-                        <p>Get your free Skote account now.</p>
+                        <p>Get your account now.</p>
                       </div>
                     </Col>
                     <Col className="col-5 align-self-end">
@@ -150,7 +150,8 @@ const Register = props => {
 
                       <div className="mt-4 text-center">
                         <p className="mb-0">
-                          By registering you agree to the Dental OPD by keepsmiles.in{" "}
+                          By registering you agree to the Dental OPD by
+                          keepsmiles.in{" "}
                           <Link to="#" className="text-primary">
                             Terms of Use
                           </Link>

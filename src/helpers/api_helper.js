@@ -1,14 +1,8 @@
-import { useEffect } from "react"
 import axios from "axios"
 import cookieHelper from "helpers/getCookieData"
-import { getClientDetails } from "./clientinfo"
 
-// const token = cookieHelper.getCookie("access_token");
-// const API_URL = `${process.env.REACT_APP_API_URL}`
-const API_URL = "http://localhost:4040/api"
-
-const geoInfo = JSON.parse(localStorage.getItem("geoInfo")) || null
-const timezone = geoInfo?.network?.timezone || "UTC"
+const API_URL = `${process.env.REACT_APP_API_URL}`
+// const API_URL = "http://localhost:4040/api"
 
 const axiosApi = axios.create({
   baseURL: API_URL,
@@ -16,8 +10,6 @@ const axiosApi = axios.create({
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
-    "x-timezone": timezone,
-    "x-client": geoInfo.ip || "",
   },
   credentials: "include",
 })
@@ -99,18 +91,10 @@ axiosApi.interceptors.response.use(
   error => Promise.reject(error)
 )
 
-// axiosApi.interceptors.request.use(config => {
-//   const token = cookieHelper.getCookie("access_token");
-
-//   if (token) {
-//     config.headers.Authorization = `Bearer ${token}`;
-//   }
-
-//   return config;
-// });
-
 axiosApi.interceptors.request.use(config => {
   const token = cookieHelper.getCookie("access_token")
+  const geoInfo = JSON.parse(localStorage.getItem("geoInfo")) || null
+  const timezone = geoInfo?.network?.timezone || "UTC"
 
   if (token) {
     config.headers.Authorization = `Bearer ${token}`
@@ -123,6 +107,10 @@ axiosApi.interceptors.request.use(config => {
 
   add("client_id", localStorage.getItem("client"))
   add("clinic_id", localStorage.getItem("clinic"))
+
+  config.headers["x-timezone"] = timezone
+  config.headers["x-client"] = geoInfo?.ip ?? ""
+
   return config
 })
 

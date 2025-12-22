@@ -7,8 +7,8 @@ import Select from "react-select";
 import "flatpickr/dist/themes/material_blue.css";
 import Flatpickr from "react-flatpickr";
 import AddTreatmentRows from 'pages/utils/incrementalRowsTreatment';
-import moment from 'moment';
 import { showSuccessAlert, showConfirmAlert } from "pages/utils/alertMessages";
+import { getZoneDateTime } from 'pages/utils/timezone';
 
 const Prescription = ({ patientData }) => {
     const [isForm, setIsForm] = useState(false);
@@ -117,7 +117,7 @@ const Prescription = ({ patientData }) => {
                 <table className='table' key={`EXR_${index + 1}`}>
                     <tbody>
                         <tr>
-                            <td colSpan={2}><span style={{ fontSize: '18px' }}>{row?.doctor?.name}</span> {moment(note.treatment_date).format('DD-MM-YYYY')} </td>
+                            <td colSpan={2}><span style={{ fontSize: '18px' }}>{row?.doctor?.name}</span> {getZoneDateTime(note.treatment_date).format('DD-MM-YYYY')} </td>
                         </tr>
                         <tr>
                             <td>
@@ -176,7 +176,7 @@ const Prescription = ({ patientData }) => {
 
     const treatmentsColumns = [
         { dataField: 'id', text: '#', editable: false, style: { width: '20px' }, },
-        { dataField: 'treatment_date', text: 'Date', editable: false, formatter: (cell, row) => { return <> {moment(row.treatment_date).format('DD-MM-YYYY')} </> } },
+        { dataField: 'treatment_date', text: 'Date', editable: false, formatter: (cell, row) => { return <> {getZoneDateTime(row.treatment_date).format('DD-MM-YYYY')} </> } },
         { dataField: 'doctor.name', text: 'Treatment By', editable: false  },
         { dataField: 'treatment_type', text: 'Treatment Type', editable: false},
         { dataField: 'treatment_total_cost', text: 'Cost', editable: false  },

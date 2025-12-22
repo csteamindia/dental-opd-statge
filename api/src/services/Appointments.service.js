@@ -3,7 +3,7 @@ import db from "../models/index.js"
 const { Ttimelogs, Appointment, User, Clinics, Patients, Doctors, Sequelize } =
   db
 import { SendWpMessage } from "../controllers/Whatsapp.controller.js"
-import moment from "moment"
+import moment from "moment-timezone"
 
 const createAppointmentService = async req => {
   try {
@@ -33,7 +33,9 @@ const createAppointmentService = async req => {
         body.clinic_id = clinic_id
       }
 
-      console.log(body)
+      body.appointment_valid = moment(body.appointment_date)
+        .add(60, "minutes")
+        .format("YYYY-MM-DD HH:mm:ss")
 
       result = await Appointment.create(body)
       return { success: true, body: result }
@@ -102,6 +104,33 @@ const getAllAppointmentsService = async req => {
     }
 
     const result = await Appointment.findAndCountAll(condition)
+
+    for (let i = 0; i < result.rows.length; i++) {
+      const appId = result.rows[i].id
+
+      const logs = await Ttimelogs.findAll({
+        where: { app_id: appId },
+        order: [["start", "ASC"]],
+      })
+
+      let treatment_time = "00:00"
+
+      if (logs.length > 0 && logs[0].start && logs[logs.length - 1].end) {
+        const startTime = moment(logs[0].start)
+        const endTime = moment(logs[logs.length - 1].end)
+
+        const diffSeconds = endTime.diff(startTime, "seconds")
+
+        const minutes = Math.floor(diffSeconds / 60)
+        const seconds = diffSeconds % 60
+
+        treatment_time = `${String(minutes).padStart(2, "0")}:${String(
+          seconds
+        ).padStart(2, "0")}`
+      }
+
+      result.rows[i].dataValues.treatment_time = treatment_time
+    }
 
     return {
       success: true,
@@ -175,7 +204,7 @@ const updateReportingTimeService = async req => {
     } = req
 
     const [updated] = await Appointment.update(
-      { reporting_time: time },
+      { reporting_time: time, is_visited: 1 },
       {
         where: {
           id,
@@ -259,12 +288,16 @@ const startTimeAppService = async req => {
     }
 
     // No active session, create a new log
-    const log = await Ttimelogs.create({ app_id: id, start: now })
+    await Ttimelogs.create({ app_id: id, start: now })
+    const firstActiveLog = await Ttimelogs.findOne({
+      where: { app_id: id },
+      order: [["id", "ASC"]],
+    })
 
     return {
       success: true,
       body: {
-        startTime: now,
+        startTime: firstActiveLog.start,
         message: "Appointment started",
       },
     }
@@ -372,7 +405,6 @@ const getTodoAppointmentsService = async req => {
       query: { clinic_id, client_id, _date, flag },
       tokendata,
     } = req
-    const today = moment().tz(req.timezone).format("YYYY-MM-DD")
 
     const where = {
       status: 0,
@@ -387,11 +419,13 @@ const getTodoAppointmentsService = async req => {
     if (flag == "c") {
       where.appointment_date = {
         [Sequelize.Op.between]: [
-          moment().tz(req.timezone).startOf("day").toDate(),
-          moment().tz(req.timezone).endOf("day").toDate(),
+          moment.tz(req.timezone).startOf("day").toDate(),
+          moment.tz(req.timezone).endOf("day").toDate(),
         ],
       }
-      where.is_visited = 0
+      where.is_visited = {
+        [Sequelize.Op.in]: [0, 1],
+      }
     }
 
     const condition = {

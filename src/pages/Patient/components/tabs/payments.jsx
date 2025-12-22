@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Modal, Card, CardBody, CardTitle } from 'reactstrap';
-import { get, post } from 'helpers/api_helper';
+import { Modal } from 'reactstrap';
+import { get } from 'helpers/api_helper';
 import Datatables from 'pages/utils/table/datatable';
 import { BILLING_URL } from 'helpers/url_helper';
-import moment from 'moment';
+import { getZoneDateTime } from 'pages/utils/timezone';
 
 const Payments = ({ patientData }) => {
     const [isAdd, setIsAdd] = useState(false);
@@ -12,7 +12,7 @@ const Payments = ({ patientData }) => {
 
     const billingColumns = [
         { dataField: 'id', text: '#', style: { width: '20px' }, },
-        { dataField: 'date', text: 'Bill Date', formatter: (cell, row) => moment(row.date).format('DD-MM-YYYY') },
+        { dataField: 'date', text: 'Bill Date', formatter: (cell, row) => getZoneDateTime(row.date).format('DD-MM-YYYY') },
         { dataField: 'billing_no', text: 'Bill Number' },
         { dataField: 'total', text: 'Bill Total' },
         { dataField: 'paid', text: 'Bill paid' },

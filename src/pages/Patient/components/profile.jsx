@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Row, Col } from "reactstrap";
 import { useHistory } from "react-router-dom";
-import moment from "moment";
-
 import WhatsappNotification from "./notification/whatsapp";
 import SmsNotification from "./notification/sms";
 import { APPOINTMENT_URL } from "helpers/url_helper";
 import { post, get } from "helpers/api_helper";
+import {getZoneDateTime} from "../../utils/timezone";
 
 const PatientProfile = ({ data = null, configData = null, callback = () => {}, appId = "" }) => {
   const history = useHistory();
@@ -20,32 +19,59 @@ const PatientProfile = ({ data = null, configData = null, callback = () => {}, a
   const [timer, setTimer] = useState(null);
 
   // Initialize elapsed time if appointment already started
+  // useEffect(() => {
+  //   if (startTime) {
+  //     const start = getZoneDateTime(startTime);
+  //     setElapsedSeconds(getZoneDateTime().diff(start, "seconds"));
+
+  //     const interval = setInterval(() => {
+  //       setElapsedSeconds(prev => prev + 1);
+  //     }, 1000);
+
+  //     setTimer(interval);
+  //     return () => clearInterval(interval);
+  //   }
+  // }, [startTime]);
+
   useEffect(() => {
-    if (startTime) {
-      const start = moment(startTime);
-      setElapsedSeconds(moment().diff(start, "seconds"));
-
-      const interval = setInterval(() => {
-        setElapsedSeconds(prev => prev + 1);
-      }, 1000);
-
-      setTimer(interval);
-      return () => clearInterval(interval);
-    }
-  }, [startTime]);
+    return () => {
+      if (timer) clearInterval(timer);
+    };
+  }, [timer]);
 
   // ---------------- START / END APPOINTMENT ----------------
   const handleStart = async () => {
-    try {
-      const { success, body } = await post(`${APPOINTMENT_URL}/starttime/${appId}`);
-      if (!success) return console.error("Failed to start appointment:", body.message);
+    if (timer) {
+      console.log({timer})
+      return; // hard stop — already running
+    }
 
-      const startTimestamp = body.startTime || moment().toISOString();
+    try {
+      const { success, body } = await post(
+        `${APPOINTMENT_URL}/starttime/${appId}`
+      );
+
+      if (!success) {
+        console.error("Failed to start appointment:", body.message);
+        return;
+      }
+
+      const startTimestamp = body.startTime;
       localStorage.setItem(storageKey, startTimestamp);
       setStartTime(startTimestamp);
 
-      const interval = setInterval(() => setElapsedSeconds(prev => prev + 1), 1000);
-      setTimer(interval);
+      // clear any existing timer first
+      if (timer) clearInterval(timer);
+
+      const intervalId = setInterval(() => {
+        const start = new Date(startTimestamp).getTime();
+        const now = Date.now();
+
+        const elapsedSeconds = Math.floor((now - start) / 1000);
+        setElapsedSeconds(elapsedSeconds);
+      }, 1000);
+
+      setTimer(intervalId);
     } catch (err) {
       console.error("Error starting appointment:", err);
     }
@@ -59,6 +85,7 @@ const PatientProfile = ({ data = null, configData = null, callback = () => {}, a
       if (timer) clearInterval(timer);
       localStorage.removeItem(storageKey);
       setStartTime(null);
+      setTimer(null);
       setElapsedSeconds(0);
 
       console.log("Appointment ended:", body.message);
@@ -194,11 +221,11 @@ const PatientProfile = ({ data = null, configData = null, callback = () => {}, a
                           <tbody>
                             <tr>
                               <th>Appointment</th>
-                              <th>{moment(appData?.appointment_date).format("HH:mm")}</th>
+                              <th>{getZoneDateTime(appData?.appointment_date).format("HH:mm")}</th>
                             </tr>
                             <tr>
                               <th>Reported</th>
-                              <th>{moment(appData?.reporting_time).format("HH:mm")}</th>
+                              <th>{getZoneDateTime(appData?.reporting_time).format("HH:mm")}</th>
                             </tr>
                             <tr>
                               <td colSpan={2} className="text-center">
@@ -229,7 +256,7 @@ const PatientProfile = ({ data = null, configData = null, callback = () => {}, a
                 </Row>
 
                 {/* BILLING INFO */}
-                {configData?.user?.config?.billing_info && (
+                {configData?.user?.config?.billing_info ? (
                   <Row className="mt-2">
                     <Col lg={4}>
                       <div className="alert alert-warning d-none d-lg-block">Billed Amount: <b>₹ 1000</b></div>
@@ -256,7 +283,7 @@ const PatientProfile = ({ data = null, configData = null, callback = () => {}, a
                       </div>
                     </Col>
                   </Row>
-                )}
+                ): ''}
               </div>
             </div>
           </div>

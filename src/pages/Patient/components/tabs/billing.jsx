@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Modal, ModalBody, Row, Col, Card, CardBody, Table, CardFooter } from 'reactstrap';
 import { get } from 'helpers/api_helper';
 import Datatables from 'pages/utils/table/datatable';
 import { BILLING_URL } from 'helpers/url_helper';
-import moment from 'moment';
+import { getZoneDateTime } from 'pages/utils/timezone';
 import { showConfirmAlert } from "pages/utils/alertMessages";
 
 const Billing = ({ patientData }) => {
@@ -16,7 +16,7 @@ const Billing = ({ patientData }) => {
 
     const billingColumns = [
         { dataField: 'id', text: '#', style: { width: '20px' }, },
-        { dataField: 'date', text: 'Bill Date', formatter: (cell, row) => moment(row.date).format('DD-MM-YYYY') },
+        { dataField: 'date', text: 'Bill Date', formatter: (cell, row) => getZoneDateTime(row.date).format('DD-MM-YYYY') },
         { dataField: 'billing_no', text: 'Bill Number' },
         { dataField: 'total', text: 'Bill Total' },
         { dataField: 'paid', text: 'Bill paid' },
@@ -163,7 +163,7 @@ const Billing = ({ patientData }) => {
                                                     <table className='table table-bordered' style={{ maxWidth: '300px' }}>
                                                         <tbody>
                                                             <tr><th>Bill No# : </th><td>{pdfData?.billing_no}</td></tr>
-                                                            <tr><th>Bill Date : </th><td>{moment(pdfData?.date).format('DD-MM-YYYY')}</td></tr>
+                                                            <tr><th>Bill Date : </th><td>{getZoneDateTime(pdfData?.date).format('DD-MM-YYYY')}</td></tr>
                                                         </tbody>
                                                     </table>
                                                 </div>

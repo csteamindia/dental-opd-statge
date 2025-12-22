@@ -30,9 +30,7 @@ const ForgetPasswordPage = props => {
   return (
     <React.Fragment>
       <MetaTags>
-        <title>
-          Forget Password | {process.env.REACT_APP_TITLE}
-        </title>
+        <title>Forget Password | {process.env.REACT_APP_TITLE}</title>
       </MetaTags>
       <div className="home-btn d-none d-sm-block">
         <Link to="/" className="text-dark">
@@ -49,7 +47,7 @@ const ForgetPasswordPage = props => {
                     <Col xs={7}>
                       <div className="text-primary p-4">
                         <h5 className="text-primary">Forget Password !</h5>
-                        <p>Sign in to continue to Skote.</p>
+                        <p>Sign in to continue to Panel.</p>
                       </div>
                     </Col>
                     <Col className="col-5 align-self-end"></Col>

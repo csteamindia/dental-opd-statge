@@ -1,5 +1,5 @@
 import React from "react"
-import moment from "moment"
+import { getZoneDateTime } from "../utils/timezone"
 
 const formatLabel = str =>
   str
@@ -57,7 +57,7 @@ export let ManagePrescriptionColumns = (callback = {}, pagination) => [
   {
     dataField: "deposit_date",
     text: "Date",
-    formatter: cell => moment(cell).format("YYYY-MM-DD"),
+    formatter: cell => getZoneDateTime(cell).format("YYYY-MM-DD"),
   },
   {
     dataField: "doctor",
@@ -114,7 +114,7 @@ export let ManageExaminationsColumns = (callback = {}, pagination) => [
   {
     dataField: "examination_date",
     text: "Date",
-    formatter: cell => moment(cell).format("YYYY-MM-DD"),
+    formatter: cell => getZoneDateTime(cell).format("YYYY-MM-DD"),
   },
   {
     dataField: "doctor",
@@ -194,7 +194,7 @@ export let ManageInvestigationColumns = (callback = {}, pagination) => [
   {
     dataField: "examination_date",
     text: "Date",
-    formatter: cell => moment(cell).format("YYYY-MM-DD"),
+    formatter: cell => getZoneDateTime(cell).format("YYYY-MM-DD"),
   },
   {
     dataField: "doctor_id",
@@ -256,7 +256,7 @@ export let ManageAppointmentColumns = (callback = {}, pagination) => [
   {
     dataField: "appointment_date",
     text: "Appointment Date",
-    formatter: cell => moment(cell).format("YYYY-MM-DD"),
+    formatter: cell => getZoneDateTime(cell).format("YYYY-MM-DD"),
   },
   {
     dataField: "doctor_code",
@@ -276,7 +276,13 @@ export let ManageAppointmentColumns = (callback = {}, pagination) => [
       return <span className="text-warning">Pending</span>
     },
   },
-  { dataField: "appointment_valid", text: "Arrival Time" },
+  {
+    dataField: "reporting_time",
+    text: "Arrival Time",
+    formatter: cell =>
+      cell ? getZoneDateTime(cell).format("YYYY-MM-DD HH:mm") : "N/A",
+  },
+  { dataField: "treatment_time", text: "Treatment Time" },
   { dataField: "notes", text: "notes" },
   {
     dataField: "actions",
@@ -320,7 +326,8 @@ export let ManagePatientNotesColumns = (callback = {}, pagination) => [
   {
     dataField: "note_date",
     text: "Notes Date",
-    formatter: cell => (cell ? moment(cell).format("YYYY-MM-DD") : "N/A"),
+    formatter: cell =>
+      cell ? getZoneDateTime(cell).format("YYYY-MM-DD") : "N/A",
   },
   {
     dataField: "doctor_code",
@@ -364,7 +371,8 @@ export let ManagePatientFollowUpColumns = (callback = {}, pagination) => [
   {
     dataField: "followup_date",
     text: "Follow Up Date",
-    formatter: cell => (cell ? moment(cell).format("DD-MM-YYYY") : "N/A"),
+    formatter: cell =>
+      cell ? getZoneDateTime(cell).format("DD-MM-YYYY") : "N/A",
   },
   { dataField: "remark", text: "Follow Up Reason" },
   { dataField: "client.name", text: "Followed By" },

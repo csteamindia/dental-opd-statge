@@ -10,8 +10,7 @@ import Flatpickr from "react-flatpickr";
 import Addrows from 'pages/utils/incrementalRows';
 import { showSuccessAlert, showConfirmAlert } from "pages/utils/alertMessages";
 import { AvForm, AvField } from 'availity-reactstrap-validation';
-import moment from 'moment';
-import { useReactToPrint } from "react-to-print";
+import { getZoneDateTime } from 'pages/utils/timezone';
 
 const Prescription = ({ patientData }) => {
     const componentRef = useRef();
@@ -224,7 +223,7 @@ const Prescription = ({ patientData }) => {
                             <Col md={6}>
                                 <table className='table table-bordered'>
                                     <tbody>
-                                        <tr><th>Date:</th><td>{moment(viewData?.date).format('DD-MMM, YYYY')}</td></tr>
+                                        <tr><th>Date:</th><td>{getZoneDateTime(viewData?.date).format('DD-MMM, YYYY')}</td></tr>
                                         <tr><th>Patient Name:</th><td>John Doe</td></tr>
                                         <tr><th>Case No:</th><td>P-7890</td></tr>
                                     </tbody>

@@ -10,9 +10,9 @@ import {
 } from "pages/utils/alertMessages"
 import Select from "react-select"
 import { Link } from "react-router-dom"
-import moment from "moment"
 import LiveClock from "./utils/liveClock"
 import chair_bg from "../assets/images/chair_dental.png"
+import { getZoneDateTime } from "./utils/timezone"
 
 const hours = [
   "08:00:00",
@@ -34,6 +34,7 @@ const hours = [
 ]
 
 const WelcomeChairScreen = () => {
+  const [isLoading, setIsLoading] = useState(false)
   const [cabins, setCabins] = useState([])
   const [rows, setRows] = useState([])
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -46,16 +47,22 @@ const WelcomeChairScreen = () => {
   const [selectedTime, setSelectedTime] = useState(null)
 
   const fetchData = async () => {
+    setIsLoading(true)
     const { success, body } = await get(`${CHAIR_URL}`)
     if (success) {
       setRows(body)
       setCabins(body?.items.map(row => row.id))
+      setIsLoading(false)
     }
   }
 
   const getTodoListData = async () => {
+    setIsLoading(true)
     const { success, body } = await get(`${APPOINTMENT_URL}/todo?flag=c`)
-    if (success) setTodoListData(body)
+    if (success) {
+      setTodoListData(body)
+      setIsLoading(false)
+    }
   }
 
   useEffect(() => {
@@ -90,7 +97,7 @@ const WelcomeChairScreen = () => {
 
   const handleModalForBookSlot = (data, hour, index) => {
     setAppointment({})
-    const date = moment(dateTime).format("YYYY-MM-DD")
+    const date = getZoneDateTime(dateTime).format("YYYY-MM-DD")
     setAppointment({
       //   ...appointment,
       appointment_date: `${date} ${hour}`,
@@ -110,24 +117,22 @@ const WelcomeChairScreen = () => {
 
   const generateSlots = (startTime, endTime, intervalMin) => {
     const format = "HH:mm:ss"
-
-    let start = moment(startTime, format)
-    const end = moment(endTime, format)
+    let start = getZoneDateTime(startTime)
+    const end = getZoneDateTime(endTime)
 
     const slots = []
 
     while (start < end) {
       const s = start.format(format)
-      const e = moment(start).add(intervalMin, "minutes").format(format)
+      const e = start.clone().add(intervalMin, "minutes").format(format)
 
       slots.push({
         start_time: s,
         end_time: e,
       })
 
-      start = moment(start).add(intervalMin, "minutes")
+      start = getZoneDateTime(start).add(intervalMin, "minutes")
     }
-
     return slots
   }
 
@@ -175,8 +180,8 @@ const WelcomeChairScreen = () => {
   }
 
   const handleModifyBooking = (bookingData, cabin) => {
-    const date = moment(bookingData?.start).format("YYYY-MM-DD")
-    const hour = moment(bookingData?.start).format("HH:mm")
+    const date = getZoneDateTime(bookingData?.start).format("YYYY-MM-DD")
+    const hour = getZoneDateTime(bookingData?.start).format("HH:mm")
 
     const selectedDoc = DDoptions?.doctors?.filter(
       v => bookingData?.doctor?.code == v.value
@@ -200,7 +205,6 @@ const WelcomeChairScreen = () => {
 
   const handleReportingTime = async (id, time) => {
     const res = await get(`${APPOINTMENT_URL}/reporting?id=${id}&time=${time}`)
-    console.log("asd")
     if (res.success) {
       showSuccessAlert("Reporting time updated successfully!")
       setIsModalOpen(false)
@@ -208,6 +212,16 @@ const WelcomeChairScreen = () => {
       getTodoListData()
     }
   }
+
+  // if (isLoading) {
+  // return (
+  //   <div className="text-center mt-5">
+  //     <div className="spinner-border text-primary" role="status">
+  //       <span className="visually-hidden">Loading...</span>
+  //     </div>
+  //   </div>
+  // )
+  // }
 
   return (
     <React.Fragment>
@@ -307,12 +321,12 @@ const WelcomeChairScreen = () => {
                                       {bookedItem.patient?.last_name}
                                     </div>
                                     <div>
-                                      Patient: {bookedItem.patient?.mobile}
+                                      Contact: {bookedItem.patient?.mobile}
                                     </div>
                                     <div>
                                       <b>
                                         Reported Time:{" "}
-                                        {moment(
+                                        {getZoneDateTime(
                                           bookedItem.reporting_time
                                         ).format("HH:mm")}
                                       </b>
@@ -359,7 +373,7 @@ const WelcomeChairScreen = () => {
                                       {bookedItem.patient?.last_name}
                                     </div>
                                     <div>
-                                      Patient: {bookedItem.patient?.mobile}
+                                      Contact: {bookedItem.patient?.mobile}
                                     </div>
                                   </div>
                                   <button
@@ -367,7 +381,7 @@ const WelcomeChairScreen = () => {
                                     onClick={() =>
                                       handleReportingTime(
                                         bookedItem.id,
-                                        moment().toISOString()
+                                        getZoneDateTime().toISOString()
                                       )
                                     }
                                   >

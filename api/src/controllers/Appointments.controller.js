@@ -124,12 +124,12 @@ const getTodoAppointments = async (req, res) => {
     const newData = data?.map(item => {
       const datetime =
         item.canceled_at != null
-          ? `Cancelled : \n ${momment(item.canceled_at).format(
-              "YYYY-MM-DD HH:mm"
-            )}`
-          : `${momment(item.appointment_date).format("HH:mm")} - ${momment(
-              item.appointment_date
-            )
+          ? `Cancelled : \n ${momment(item.canceled_at)
+              .tz(req.timezone)
+              .format("YYYY-MM-DD HH:mm")}`
+          : `${momment(item.appointment_date)
+              .tz(req.timezone)
+              .format("HH:mm")} - ${momment(item.appointment_date)
               .add(20, "minutes")
               .format("HH:mm")}`
 
@@ -140,17 +140,22 @@ const getTodoAppointments = async (req, res) => {
       return {
         is_show: isAdmin || isSameDoc,
         title: `${item?.patient?.first_name} ${item?.patient?.last_name} (${item?.patient?.case_no})\nNote: ${item?.notes}\n ${datetime}`,
-        start: momment(item.appointment_date).format("YYYY-MM-DD HH:mm"),
+        start: momment(item.appointment_date)
+          .tz(req.timezone)
+          .format("YYYY-MM-DD HH:mm"),
         end: momment(item.appointment_date)
+          .tz(req.timezone)
           .add(20, "minutes")
           .format("YYYY-MM-DD HH:mm"),
         className: _class[`_${item?.is_visited}`],
         ...item,
-        appointment_date: momment(item.appointment_date).format(
-          "YYYY-MM-DD HH:mm"
-        ),
+        appointment_date: momment(item.appointment_date)
+          .tz(req.timezone)
+          .format("YYYY-MM-DD HH:mm"),
         reporting_time: item.reporting_time,
-        canceled_at: momment(item.canceled_at).format("YYYY-MM-DD HH:mm"),
+        canceled_at: momment(item.canceled_at)
+          .tz(req.timezone)
+          .format("YYYY-MM-DD HH:mm"),
       }
     })
 

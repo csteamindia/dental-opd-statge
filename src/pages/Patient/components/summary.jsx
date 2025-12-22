@@ -9,8 +9,7 @@ import {
 } from "reactstrap"
 import { get } from 'helpers/api_helper'
 import { useParams } from 'react-router-dom';
-import moment from "moment";
-import letter_head from 'assets/images/letter_head.png';
+import { getZoneDateTime } from "../../utils/timezone";
 
 <style>
   {`@media print {
@@ -160,7 +159,7 @@ const PatientSummary = () => {
                                         summary?.examinations?.map((v, i) => (
                                             <tr key={`SNPL_${i+1}`}>
                                                 <td>{i+1}</td>
-                                                <td>{moment(v.examination_date).format('DD-MM-YYYY')}</td>
+                                                <td>{getZoneDateTime(v.examination_date).format('DD-MM-YYYY')}</td>
                                                 <td>{v?.doctors?.name}</td>
                                                 <td>
                                                     {
@@ -225,7 +224,7 @@ const PatientSummary = () => {
                                         <>
                                             <tr>
                                                 <td>{i+1}</td>
-                                                <td>{moment(v.date).format('DD-MM-YYYY')}</td>
+                                                <td>{getZoneDateTime(v.date).format('DD-MM-YYYY')}</td>
                                                 <td>{v?.doctor?.name}</td>
                                                 <td>{v.toothinfo}</td>
                                                 <td>{v.examination}</td>
@@ -292,10 +291,10 @@ const PatientSummary = () => {
                                         summary?.appointments?.map((v, i) => (
                                             <tr key={`SNPL_${i+1}`}>
                                                 <td>{i+1}</td>
-                                                <td>{moment(v.appointment_date).format('DD-MM-YYYY')}</td>
+                                                <td>{getZoneDateTime(v.appointment_date).format('DD-MM-YYYY')}</td>
                                                 <td>{v?.doctor?.name}</td>
                                                 <td>{v.is_visited == 0 ? 'Scheduled': (v.is_visited == 1? 'Visited': 'Cancled')}</td>
-                                                <td>{moment(v.updated_at).format('DD-MM-YYYY')}</td>
+                                                <td>{getZoneDateTime(v.updated_at).format('DD-MM-YYYY')}</td>
                                                 <td>-</td>
                                                 <td>{v.notes}</td>
                                             </tr>
@@ -327,7 +326,7 @@ const PatientSummary = () => {
                                         summary?.tretments?.map((v, i) => (
                                             <tr key={`SNPL_${i+1}`}>
                                                 <td>{i+1}</td>
-                                                <td>{moment(v.date).format('DD-MM-YYYY')}</td>
+                                                <td>{getZoneDateTime(v.date).format('DD-MM-YYYY')}</td>
                                                 <td>{v?.doctor?.name}</td>
                                                 <td>{v?.treatment_type}</td>
                                                 <td>{v?.tooths}</td>
@@ -360,7 +359,7 @@ const PatientSummary = () => {
                                         summary?.prescriptions?.map((v, i) => (
                                             <tr key={`SNPL_${i+1}`}>
                                                 <td>{i+1}</td>
-                                                <td>{moment(v.date).format('DD-MM-YYYY')}</td>
+                                                <td>{getZoneDateTime(v.date).format('DD-MM-YYYY')}</td>
                                                 <td>{v?.doctor?.name}</td>
                                                 <td>
                                                     {
@@ -400,7 +399,7 @@ const PatientSummary = () => {
                                         summary?.investigations?.map((v, i) => (
                                             <tr key={`SNPL_${i+1}`}>
                                                 <td>{i+1}</td>
-                                                <td>{moment(v.note_date).format('DD-MM-YYYY')}</td>
+                                                <td>{getZoneDateTime(v.note_date).format('DD-MM-YYYY')}</td>
                                                 <td>{v?.doctor?.name}</td>
                                                 <td>{v.temperature}</td>
                                                 <td>{v.blood_pressure}</td>
@@ -433,7 +432,7 @@ const PatientSummary = () => {
                                         summary?.notes?.map((v, i) => (
                                             <tr key={`SNPL_${i+1}`}>
                                                 <td>{i+1}</td>
-                                                <td>{moment(v.note_date).format('DD-MM-YYYY')}</td>
+                                                <td>{getZoneDateTime(v.note_date).format('DD-MM-YYYY')}</td>
                                                 <td>{v?.doctor?.name}</td>
                                                 <td>{v.note}</td>
                                             </tr>
@@ -461,7 +460,7 @@ const PatientSummary = () => {
                                         summary?.followups?.map((v, i) => (
                                             <tr key={`SNPL_${i+1}`}>
                                                 <td>{i+1}</td>
-                                                <td>{moment(v.followup_date).format('DD-MM-YYYY')}</td>
+                                                <td>{getZoneDateTime(v.followup_date).format('DD-MM-YYYY')}</td>
                                                 <td>{v.remark}</td>
                                             </tr>
                                         ))

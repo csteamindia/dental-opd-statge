@@ -43,7 +43,7 @@ const UserProfile = props => {
   useEffect(() => {
     if (cookieHelper.getCookie("authUser")) {
       const obj = JSON.parse(cookieHelper.getCookie("authUser"))
-      
+
       setname(obj.username)
       setemail(obj.email)
       setidx(obj.uid)
@@ -61,11 +61,11 @@ const UserProfile = props => {
     <React.Fragment>
       <div className="page-content">
         <MetaTags>
-          <title>Profile | Skote - React Admin & Dashboard Template</title>
+          <title>Profile </title>
         </MetaTags>
         <Container fluid>
           {/* Render Breadcrumb */}
-          <Breadcrumb title="Skote" breadcrumbItem="Profile" />
+          <Breadcrumb title="Oralstop" breadcrumbItem="Profile" />
 
           <Row>
             <Col lg="12">

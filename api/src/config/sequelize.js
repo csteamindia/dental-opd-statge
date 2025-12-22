@@ -14,16 +14,13 @@ const sequelize = new Sequelize(
     dialect: "mysql",
     logging: true,
     timezone: "+00:00",
-    dialectOptions: {
-      useUTC: true,
-    },
     isolationLevel: Transaction.ISOLATION_LEVELS.READ_COMMITTED,
   }
 )
 
 // Enable logging for debugging
 const loggingFunction = sql => {
-  console.log({ sql })
+  // console.log({ sql })
 }
 
 try {
