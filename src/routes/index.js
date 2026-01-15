@@ -48,7 +48,14 @@ const authProtectedRoutes = [
 
   // this route should be at the end of all other routes
   // eslint-disable-next-line react/display-name
-  { path: "/", exact: true, component: () => <Redirect to="/chairs" /> },
+  {
+    path: "/",
+    exact: true,
+    component: () => {
+      window.location.href = "https://909dental.oralstop.com/panel/chairs"
+      return null
+    },
+  },
 ]
 
 const publicRoutes = [

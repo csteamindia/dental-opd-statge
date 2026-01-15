@@ -12,6 +12,10 @@ export default (sequelize, DataTypes) => {
         type: DataTypes.STRING(16),
         allowNull: true,
       },
+      doc_chair: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
       name: {
         type: DataTypes.STRING(160),
         allowNull: true,
@@ -56,27 +60,27 @@ export default (sequelize, DataTypes) => {
       createdAt: "created_at",
       updatedAt: "updated_at",
     }
-  );
+  )
 
-  Doctors.associate = (models) => {
+  Doctors.associate = models => {
     Doctors.belongsTo(models.Clinics, {
       foreignKey: "clinic_id",
       targetKey: "id",
       as: "clinic",
-    });
+    })
 
     Doctors.belongsTo(models.User, {
       foreignKey: "client_id",
       targetKey: "user_id",
       as: "client",
-    });
+    })
 
     Doctors.belongsTo(models.User, {
       foreignKey: "mobile",
       targetKey: "mobile",
       as: "clientbymobile",
-    });
-  };
+    })
+  }
 
-  return Doctors;
-};
+  return Doctors
+}

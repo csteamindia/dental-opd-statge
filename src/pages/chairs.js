@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useMemo } from "react"
 import MetaTags from "react-meta-tags"
 import { Container, Modal, Row, Col, Button } from "reactstrap"
 import { get, post, del } from "helpers/api_helper"
@@ -43,6 +43,7 @@ const WelcomeChairScreen = () => {
   const [tableData, setTableData] = useState(null)
   const [todoListData, setTodoListData] = useState(null)
   const [dateTime, setDateTime] = useState(new Date())
+  const [nonScheduledAppointments, setNonScheduledAppointments] = useState([])
 
   const [selectedTime, setSelectedTime] = useState(null)
 
@@ -58,9 +59,34 @@ const WelcomeChairScreen = () => {
 
   const getTodoListData = async () => {
     setIsLoading(true)
-    const { success, body } = await get(`${APPOINTMENT_URL}/todo?flag=c`)
-    if (success) {
-      setTodoListData(body)
+
+    try {
+      const { success, body } = await get(`${APPOINTMENT_URL}/todo?flag=c`)
+
+      if (!success || !Array.isArray(body)) {
+        setTodoListData([])
+        setNonScheduledAppointments([])
+        return
+      }
+
+      const scheduledAppointments = []
+      const nonScheduledAppointments = []
+
+      for (const item of body) {
+        if (item.index_position === null || item.index_position === undefined) {
+          nonScheduledAppointments.push(item)
+        } else {
+          scheduledAppointments.push(item)
+        }
+      }
+
+      setTodoListData(scheduledAppointments)
+      setNonScheduledAppointments(nonScheduledAppointments)
+    } catch (err) {
+      console.error("Failed to load todo list", err)
+      setTodoListData([])
+      setNonScheduledAppointments([])
+    } finally {
       setIsLoading(false)
     }
   }
@@ -163,9 +189,18 @@ const WelcomeChairScreen = () => {
       return {
         cabinNo,
         title: chair.title,
+        doc_code: chair.client,
         slots,
       }
     })
+  }
+
+  const isPastSlot = slotStartTime => {
+    const slotDateTime = getZoneDateTime(
+      `${getZoneDateTime().format("YYYY-MM-DD")} ${slotStartTime}`
+    )
+
+    return slotDateTime.isBefore(getZoneDateTime())
   }
 
   useEffect(() => {
@@ -223,6 +258,59 @@ const WelcomeChairScreen = () => {
   // )
   // }
 
+  const selectableSlots = useMemo(() => {
+    if (!tableData || !todoListData) return []
+
+    const bookedPositions = new Set(
+      todoListData
+        .filter(v => v.canceled_at == "Invalid date")
+        .map(v => v.index_position)
+    )
+
+    const slots = []
+
+    tableData.forEach((chair, chairIndex) => {
+      chair.slots.forEach((slot, slotIndex) => {
+        const position = `${chairIndex}${slotIndex}`
+
+        if (!bookedPositions.has(position)) {
+          slots.push({
+            chairTitle: chair.title,
+            chairId: chair.cabinNo,
+            index_position: position,
+            start: slot.start_time,
+            end: slot.end_time,
+            chair,
+          })
+        }
+      })
+    })
+
+    return slots
+  }, [tableData, todoListData])
+
+  const [assigningAppointment, setAssigningAppointment] = useState(null)
+  const [selectedChair, setSelectedChair] = useState(null)
+
+  const chairOptions = useMemo(() => {
+    const map = {}
+
+    selectableSlots.forEach(slot => {
+      // if (!isPastSlot(slot.start)) return // skip past slots
+
+      if (!map[slot.chairTitle]) {
+        map[slot.chairTitle] = {
+          label: slot.chairTitle,
+          value: slot.chairId,
+          slots: [],
+        }
+      }
+      map[slot.chairTitle].slots.push(slot)
+    })
+
+    return Object.values(map)
+  }, [selectableSlots])
+
   return (
     <React.Fragment>
       <div className="page-content">
@@ -239,6 +327,45 @@ const WelcomeChairScreen = () => {
             <h3 className="text-primary">
               <LiveClock />
             </h3>
+          </div>
+
+          <div className="card">
+            <div className="card-body">
+              <h5 className="mb-3">Non-Chair Scheduled Appointments</h5>
+              <div className="d-flex flex-wrap gap-3">
+                {nonScheduledAppointments.length > 0 ? (
+                  nonScheduledAppointments.map((bookedItem, index) => (
+                    <div
+                      key={index}
+                      className="shadow-sm border rounded p-3 bg-white"
+                      style={{ width: "200px" }}
+                    >
+                      <div className="mb-2">
+                        <div className="fw-bold">
+                          Case No: {bookedItem.patient?.case_no ?? "—"}
+                        </div>
+                        <div>
+                          Patient: {bookedItem.patient?.first_name}{" "}
+                          {bookedItem.patient?.last_name ?? ""}
+                        </div>
+                        <div>Contact: {bookedItem.patient?.mobile ?? "—"}</div>
+                      </div>
+                      <button
+                        className="btn btn-success w-100"
+                        onClick={() => {
+                          setAssigningAppointment(bookedItem)
+                          setIsModalOpen(true)
+                        }}
+                      >
+                        Assign Chair
+                      </button>
+                    </div>
+                  ))
+                ) : (
+                  <div>No non-chair scheduled appointments.</div>
+                )}
+              </div>
+            </div>
           </div>
 
           {/* Hour Filter */}
@@ -267,157 +394,186 @@ const WelcomeChairScreen = () => {
             </span>
           </div>
 
-          <div className="row">
-            {tableData?.map((chair, i) =>
-              chair.slots.length ? (
-                <div key={i} className="col-6" style={{ overflow: "hidden" }}>
-                  <div
-                    className="card p-3 mb-3 position-relative"
-                    style={{ overflow: "hidden" }}
-                  >
-                    <h5 className="mb-3">{chair.title}</h5>
+          <div className="row g-3">
+            {tableData?.map(
+              (chair, chairIndex) =>
+                chair.slots.length > 0 && (
+                  <div key={chairIndex} className="col-12 col-md-6">
+                    <div className="card shadow-sm p-3 position-relative">
+                      <h5 className="text-primary mb-3">{chair.title}</h5>
 
-                    <div className="d-flex gap-3 flex-wrap">
-                      {chair.slots.map((slot, index) => {
-                        const display = `${slot.start_time} - ${slot.end_time}`
+                      <div className="d-flex flex-wrap gap-3 justify-start">
+                        {chair.slots.map((slot, slotIndex) => {
+                          const startTime = getZoneDateTime(slot.start_time)
+                          const endTime = getZoneDateTime(slot.end_time)
+                          const displayTime = `${startTime.format(
+                            "hh:mm A"
+                          )} - ${endTime.format("hh:mm A")}`
 
-                        const bookedItem = todoListData
-                          ?.filter(v => v.canceled_at == "Invalid date")
-                          ?.find(v => v.index_position == `${i}${index}`)
+                          const bookedItem = todoListData
+                            ?.filter(v => v.canceled_at === "Invalid date")
+                            ?.find(
+                              v =>
+                                v.index_position === `${chairIndex}${slotIndex}`
+                            )
 
-                        return (
-                          <div
-                            key={index}
-                            className="shadow-sm border rounded p-3 bg-white"
-                            style={{ width: "200px" }}
-                          >
-                            {!bookedItem ? (
-                              <>
-                                <b>{display}</b>
+                          const isPast = isPastSlot(slot.start_time)
+                          const isCurrent =
+                            !bookedItem &&
+                            !isPast &&
+                            startTime.isBefore(getZoneDateTime()) &&
+                            endTime.isAfter(getZoneDateTime())
 
-                                <button
-                                  className="btn btn-primary btn-sm mt-2 w-100"
-                                  onClick={() =>
-                                    handleModalForBookSlot(
-                                      chair,
-                                      slot.start_time,
-                                      `${i}${index}`
-                                    )
-                                  }
-                                >
-                                  Book
-                                </button>
-                              </>
-                            ) : bookedItem.is_show ? (
-                              bookedItem.reporting_time ? (
-                                <>
-                                  <div className="mb-2">
-                                    <div className="fw-bold">
-                                      Case No:{" "}
-                                      {bookedItem.patient?.case_no ?? "—"}
-                                    </div>
-                                    <div>
-                                      Patient: {bookedItem.patient?.first_name}{" "}
-                                      {bookedItem.patient?.last_name}
-                                    </div>
-                                    <div>
-                                      Contact: {bookedItem.patient?.mobile}
-                                    </div>
-                                    <div>
-                                      <b>
-                                        Reported Time:{" "}
-                                        {getZoneDateTime(
-                                          bookedItem.reporting_time
-                                        ).format("HH:mm")}
-                                      </b>
-                                    </div>
-                                  </div>
-                                  <div className="d-flex gap-2 w-100">
-                                    <Link
-                                      to="#"
-                                      className="btn btn-warning text-white flex-grow-1"
-                                      title="modify"
-                                      onClick={() =>
-                                        handleModifyBooking(bookedItem, chair)
-                                      }
-                                    >
-                                      <i className="bx bxs-analyse"></i>
-                                    </Link>
-                                    <Link
-                                      to={`patient?_p=${bookedItem.patient_id}&appointment=${bookedItem.id}`}
-                                      className="btn btn-info text-white flex-grow-1"
-                                      title="view"
-                                      onClick={toggleModal}
-                                    >
-                                      <i className="fas fa-eye"></i>
-                                    </Link>
-                                    <Link
-                                      to={`patient?_p=${bookedItem.patient_id}`}
-                                      className="btn btn-success text-white flex-grow-1"
-                                      title="notify"
-                                      onClick={toggleModal}
-                                    >
-                                      <i className="fab fa-whatsapp"></i>
-                                    </Link>
-                                  </div>
-                                </>
-                              ) : (
-                                <>
-                                  <div className="mb-2">
-                                    <div className="fw-bold">
-                                      Case No:{" "}
-                                      {bookedItem.patient?.case_no ?? "—"}
-                                    </div>
-                                    <div>
-                                      Patient: {bookedItem.patient?.first_name}{" "}
-                                      {bookedItem.patient?.last_name}
-                                    </div>
-                                    <div>
-                                      Contact: {bookedItem.patient?.mobile}
-                                    </div>
-                                  </div>
+                          // Slot styling
+                          const slotStyle = {
+                            width: "238px",
+                            borderRadius: "8px",
+                            padding: "12px",
+                            textAlign: "center",
+                            transition: "0.3s",
+                            border: bookedItem
+                              ? "2px solid #f0ad4e"
+                              : isCurrent
+                              ? "2px solid #198754"
+                              : isPast
+                              ? "2px solid #ccc"
+                              : "2px solid #0d6efd",
+                            backgroundColor: bookedItem
+                              ? "#fff8e1"
+                              : isCurrent
+                              ? "#d1e7dd"
+                              : isPast
+                              ? "#f8f9fa"
+                              : "#e7f1ff",
+                          }
+
+                          return (
+                            <div key={slotIndex} style={slotStyle}>
+                              <div
+                                className="fw-bold mb-2"
+                                style={{
+                                  fontSize: "15px",
+                                  color: bookedItem
+                                    ? "#d48806"
+                                    : isPast
+                                    ? "#6c757d"
+                                    : isCurrent
+                                    ? "#198754"
+                                    : "#0d6efd",
+                                }}
+                              >
+                                {displayTime}
+                              </div>
+
+                              {!bookedItem ? (
+                                !isPast ? (
                                   <button
-                                    className="btn btn-warning w-100"
+                                    className="btn btn-primary btn-sm w-100"
                                     onClick={() =>
-                                      handleReportingTime(
-                                        bookedItem.id,
-                                        getZoneDateTime().toISOString()
+                                      handleModalForBookSlot(
+                                        chair,
+                                        slot.start_time,
+                                        `${chairIndex}${slotIndex}`
                                       )
                                     }
                                   >
-                                    Reported
+                                    Book
                                   </button>
-                                </>
-                              )
-                            ) : (
-                              <b>Booked</b>
-                            )}
-
-                            {
-                              // bookedItem ?
-                              // <Link to={`#`} className="btn btn-close btn-danger text-white" title="Cancel" onClick={() => handleCancelBooking(bookedItem.id)}/>: ''
-                            }
-                          </div>
-                        )
-                      })}
+                                ) : (
+                                  <div className="text-muted small">
+                                    Time Passed
+                                  </div>
+                                )
+                              ) : bookedItem.is_show ? (
+                                bookedItem.reporting_time ? (
+                                  <>
+                                    <div className="mb-2 text-start">
+                                      <div className="fw-semibold">
+                                        Case No:{" "}
+                                        {bookedItem.patient?.case_no ?? "—"}
+                                      </div>
+                                      <div>
+                                        Patient:{" "}
+                                        {bookedItem.patient?.first_name}{" "}
+                                        {bookedItem.patient?.last_name}
+                                      </div>
+                                      <div>
+                                        Contact: {bookedItem.patient?.mobile}
+                                      </div>
+                                      <div className="text-success fw-semibold">
+                                        Reported:{" "}
+                                        {getZoneDateTime(
+                                          bookedItem.reporting_time
+                                        ).format("hh:mm A")}
+                                      </div>
+                                    </div>
+                                    <div className="d-flex gap-2">
+                                      <button
+                                        className="btn btn-warning flex-grow-1"
+                                        onClick={() =>
+                                          handleModifyBooking(bookedItem, chair)
+                                        }
+                                        title="Modify"
+                                      >
+                                        <i className="bx bxs-analyse"></i>
+                                      </button>
+                                      <button
+                                        className="btn btn-info flex-grow-1"
+                                        onClick={toggleModal}
+                                        title="View"
+                                      >
+                                        <i className="fas fa-eye"></i>
+                                      </button>
+                                      <button
+                                        className="btn btn-success flex-grow-1"
+                                        onClick={toggleModal}
+                                        title="Notify"
+                                      >
+                                        <i className="fab fa-whatsapp"></i>
+                                      </button>
+                                    </div>
+                                  </>
+                                ) : (
+                                  <>
+                                    <div className="mb-2 text-start">
+                                      <div className="fw-semibold">
+                                        Case No:{" "}
+                                        {bookedItem.patient?.case_no ?? "—"}
+                                      </div>
+                                      <div>
+                                        Patient:{" "}
+                                        {bookedItem.patient?.first_name}{" "}
+                                        {bookedItem.patient?.last_name}
+                                      </div>
+                                      <div>
+                                        Contact: {bookedItem.patient?.mobile}
+                                      </div>
+                                    </div>
+                                    <button
+                                      className="btn btn-warning w-100"
+                                      onClick={() =>
+                                        handleReportingTime(
+                                          bookedItem.id,
+                                          getZoneDateTime().toISOString()
+                                        )
+                                      }
+                                    >
+                                      Reported
+                                    </button>
+                                  </>
+                                )
+                              ) : (
+                                <div className="fw-semibold text-muted">
+                                  Booked
+                                </div>
+                              )}
+                            </div>
+                          )
+                        })}
+                      </div>
                     </div>
-
-                    {/* Background image at bottom-right */}
-                    <img
-                      src={chair_bg}
-                      style={{
-                        position: "absolute",
-                        right: "10px",
-                        bottom: "10px",
-                        width: "120px",
-                        opacity: 0.15,
-                        pointerEvents: "none",
-                      }}
-                      alt=""
-                    />
                   </div>
-                </div>
-              ) : null
+                )
             )}
           </div>
         </Container>
@@ -430,6 +586,46 @@ const WelcomeChairScreen = () => {
           </div>
 
           <div className="modal-body">
+            {assigningAppointment && (
+              <>
+                {/* Chair dropdown */}
+                <Select
+                  options={chairOptions}
+                  value={selectedChair}
+                  onChange={chair => setSelectedChair(chair)}
+                  placeholder="Select Chair"
+                />
+
+                {/* Time slots for selected chair */}
+                {selectedChair && selectedChair.slots.length > 0 && (
+                  <div className="d-flex flex-wrap gap-2 mt-2">
+                    {selectedChair.slots.map(slot => (
+                      <div
+                        key={slot.index_position}
+                        className="border rounded p-2 bg-light cursor-pointer"
+                        style={{ width: 180 }}
+                        onClick={() => {
+                          setAppointment({
+                            id: assigningAppointment.id,
+                            patient_id: assigningAppointment.patient_id,
+                            chair_code: slot.chairId,
+                            index_position: slot.index_position,
+                            chairdata: slot.chair,
+                            appointment_date: `${getZoneDateTime().format(
+                              "YYYY-MM-DD"
+                            )} ${slot.start}`,
+                          })
+                        }}
+                      >
+                        <div>
+                          {slot.start} - {slot.end}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </>
+            )}
             <b>Time:</b> {appointment?.appointment_date} <br />
             <b>Cabin:</b> {appointment?.chairdata?.title}
             <form>

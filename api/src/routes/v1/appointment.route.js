@@ -24,7 +24,6 @@ router
   .get(getAllAppointments)
 
 router.route("/cancel").all(validateToken, authorize()).post(cancelAppointment)
-
 router.route("/todo").all(validateToken, authorize()).get(getTodoAppointments)
 
 router

@@ -364,10 +364,28 @@ const checkVerifiedAccountService = async req => {
   }
 }
 
+const updatePasswordService = async req => {
+  const {
+    body: { id, password },
+  } = req
+
+  const res = await User.findOne(
+    { password: password },
+    {
+      where: {
+        user_id: id,
+      },
+    }
+  )
+
+  return { success: true, message: "Password updated" }
+}
+
 export {
   checkVerifiedAccountService,
   validateUserService,
   newRegistrationService,
   resendVerificationmailService,
   verificationMailService,
+  updatePasswordService,
 }

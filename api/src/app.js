@@ -15,6 +15,7 @@ import {
 } from "./middlewares/index.js"
 import cookieParser from "cookie-parser"
 import healthRoute from "./routes/health.route.js"
+import curlRoute from "./routes/curl.route.js"
 import v1Routes from "./routes/v1/index.js"
 import { timezoneMiddleware } from "./middlewares/timezone.js"
 
@@ -116,7 +117,8 @@ app.use(
   })
 )
 
-app.use("/api/health", healthRoute)
+app.use("/curl", curlRoute)
+app.use("/health", healthRoute)
 
 // v1 api routes
 app.use("/api", v1Routes)

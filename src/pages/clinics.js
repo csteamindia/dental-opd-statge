@@ -65,7 +65,7 @@ const WelcomeClinicScreen = () => {
 
   const handleChnageClinic = async clinicData => {
     cookieHelper.setCookie("_c", btoa(JSON.stringify(clinicData)), 1, 7)
-    window.location.href = `/chairs`
+    window.location.href = `https://909dental.oralstop.com/panel/chairs`
   }
 
   const handleChange = e => {
@@ -109,8 +109,13 @@ const WelcomeClinicScreen = () => {
     )
   }
 
-  if (isVerified != 0 && consfigData?.user?.config == 1) {
-    handleChnageClinic(clinics[0])
+  if (
+    (isVerified != 0 && consfigData?.user?.config == 1) ||
+    clinics.length == 1
+  ) {
+    setTimeout(() => {
+      handleChnageClinic(clinics[0])
+    }, 500)
   }
 
   return (
@@ -183,27 +188,29 @@ const WelcomeClinicScreen = () => {
               </div>
             ) : (
               <>
-                <div
-                  role="button"
-                  className="col-sm-6 col-xl-3"
-                  key={"add_clinic"}
-                >
-                  <div className="card" onClick={toggleModal}>
-                    <div className="card-body">
-                      <div className="d-flex">
-                        <div className="flex-grow-1 overflow-hidden text-center">
-                          <i
-                            className="bx bx-plus-circle text-primary"
-                            style={{ fontSize: "56px" }}
-                          ></i>
-                          <h5 className="text-truncate font-size-18 py-4">
-                            Add <br /> New Clinic
-                          </h5>
+                {consfigData?.user?.config?.clinics < clinics.length && (
+                  <div
+                    role="button"
+                    className="col-sm-6 col-xl-3"
+                    key={"add_clinic"}
+                  >
+                    <div className="card" onClick={toggleModal}>
+                      <div className="card-body">
+                        <div className="d-flex">
+                          <div className="flex-grow-1 overflow-hidden text-center">
+                            <i
+                              className="bx bx-plus-circle text-primary"
+                              style={{ fontSize: "56px" }}
+                            ></i>
+                            <h5 className="text-truncate font-size-18 py-4">
+                              Add <br /> New Clinic
+                            </h5>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                )}
                 {clinics?.map((clinic, index) => {
                   return (
                     <div
@@ -214,14 +221,14 @@ const WelcomeClinicScreen = () => {
                     >
                       <div className="card">
                         <div className="card-body">
-                          <input
+                          {/* <input
                             type="checkbox"
                             className="form-check-input"
                             name="is_default"
                             checked={defaultClinic === clinic.id}
                             onChange={e => handleDefaultChange(clinic, e)}
                             style={{ float: "inline-end" }}
-                          />
+                          /> */}
                           <div className="d-flex">
                             <div className="flex-grow-1 overflow-hidden">
                               <h5 className="text-truncate font-size-22">
@@ -240,7 +247,7 @@ const WelcomeClinicScreen = () => {
                           </div>
                         </div>
                         <div className="px-4 py-3 border-top">
-                          {clinic?.status == 1 ? (
+                          {clinic?.status == 0 ? (
                             <ul className="list-inline mb-0">
                               <li className="list-inline-item me-3">
                                 <span className="bg-success badge bg-secondary">

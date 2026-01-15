@@ -1,11 +1,10 @@
 import React, { useState } from "react"
-import PropTypes from 'prop-types'
-import 'react-drawer/lib/react-drawer.css';
+import PropTypes from "prop-types"
+import "react-drawer/lib/react-drawer.css"
 import { connect } from "react-redux"
 import { Link, useHistory } from "react-router-dom"
 // Redux Store
 import { showRightSidebarAction, toggleLeftmenu } from "../../store/actions"
-
 
 // Import menuDropdown
 import LanguageDropdown from "../CommonForBoth/TopbarDropdown/LanguageDropdown"
@@ -16,11 +15,11 @@ import logo from "../../assets/images/logos/1.png"
 
 //i18n
 import { withTranslation } from "react-i18next"
-import cookieHelper from "helpers/getCookieData";
+import cookieHelper from "helpers/getCookieData"
 
 const Header = props => {
   const [isSearch, setSearch] = useState(false)
-  const history = useHistory();
+  const history = useHistory()
 
   function toggleFullscreen() {
     if (
@@ -49,17 +48,17 @@ const Header = props => {
     }
   }
 
-  const cookie = cookieHelper.getCookie("_c");
-  let clinicData = [];
+  const cookie = cookieHelper.getCookie("_c")
+  let clinicData = []
   if (cookie && atob(cookie) != "undefined") {
     try {
-      clinicData = JSON.parse(atob(cookie));
+      clinicData = JSON.parse(atob(cookie))
     } catch (e) {
-      console.error("Invalid _c cookie:", e);
-      clinicData = [];
+      console.error("Invalid _c cookie:", e)
+      clinicData = []
     }
   }
-  
+
   return (
     <React.Fragment>
       <header id="page-topbar">
@@ -84,64 +83,19 @@ const Header = props => {
             >
               <i className="fa fa-fw fa-bars" />
             </button>
-
-            <form className="app-search d-none d-lg-block">
-              <div className="position-relative">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Search..."
-                />
-                <span className="bx bx-search-alt" />
-              </div>
-            </form>
           </div>
 
           <div className="d-flex">
-            <div className="dropdown d-inline-block d-lg-none ms-2">
-              {/* <button
-                type="button"
-                className="btn header-item noti-icon "
-                id="page-header-search-dropdown"
-                onClick={() => setSearch(!isSearch)}
-              >
-                <i className="mdi mdi-magnify" />
-              </button> */}
-              <div
-                className={
-                  isSearch
-                    ? "dropdown-menu dropdown-menu-lg dropdown-menu-end p-0 show"
-                    : "dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
-                }
-                aria-labelledby="page-header-search-dropdown"
-              >
-                <form className="p-3">
-                  <div className="form-group m-0">
-                    <div className="input-group">
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder={props.t("Search") + "..."}
-                        aria-label="Recipient's username"
-                      />
-                      <div className="input-group-append">
-                        <button className="btn btn-primary" type="submit">
-                          <i className="mdi mdi-magnify" />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
-
-
             <div className="logo" style={{ width: "160px" }}>
-              <Link to="#" className="text-center d-none d-lg-block" onClick={() => {
-                cookieHelper.deleteCookie("_c");
-                localStorage.setItem('clinic', '')
-                history.push("/clinics");
-              }}>
+              <Link
+                to="#"
+                className="text-center d-none d-lg-block"
+                onClick={() => {
+                  cookieHelper.deleteCookie("_c")
+                  localStorage.setItem("clinic", "")
+                  history.push("/clinics")
+                }}
+              >
                 {clinicData?.clinic_name}
               </Link>
             </div>
@@ -160,7 +114,7 @@ const Header = props => {
               </button>
             </div>
 
-            <NotificationDropdown />
+            {/* <NotificationDropdown /> */}
             <ProfileMenu />
           </div>
         </div>
@@ -174,7 +128,7 @@ Header.propTypes = {
   showRightSidebar: PropTypes.any,
   showRightSidebarAction: PropTypes.func,
   t: PropTypes.any,
-  toggleLeftmenu: PropTypes.func
+  toggleLeftmenu: PropTypes.func,
 }
 
 const mapStatetoProps = state => {

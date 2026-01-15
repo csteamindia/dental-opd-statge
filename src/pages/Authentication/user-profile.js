@@ -1,4 +1,3 @@
-import PropTypes from "prop-types"
 import MetaTags from "react-meta-tags"
 import React, { useState, useEffect } from "react"
 import {
@@ -11,24 +10,16 @@ import {
   Media,
   Button,
 } from "reactstrap"
-
-// availity-reactstrap-validation
 import { AvForm, AvField } from "availity-reactstrap-validation"
-
-//redux
 import { useSelector, useDispatch } from "react-redux"
-
 import { withRouter } from "react-router-dom"
-
-//Import Breadcrumb
 import Breadcrumb from "../../components/Common/Breadcrumb"
-
 import avatar from "../../assets/images/logos/2.png"
-// actions
 import { editProfile, resetProfileFlag } from "../../store/actions"
 import cookieHelper from "helpers/getCookieData"
+import { post } from "helpers/api_helper"
 
-const UserProfile = props => {
+const UserProfile = () => {
   const dispatch = useDispatch()
 
   const { error, success } = useSelector(state => ({
@@ -36,57 +27,76 @@ const UserProfile = props => {
     success: state.Profile.success,
   }))
 
-  const [email, setemail] = useState("")
-  const [name, setname] = useState("")
-  const [idx, setidx] = useState(1)
+  const [profile, setProfile] = useState(null)
+  const [password, setPassword] = useState(null)
 
   useEffect(() => {
-    if (cookieHelper.getCookie("authUser")) {
-      const obj = JSON.parse(cookieHelper.getCookie("authUser"))
+    const authUser = cookieHelper.getCookie("authUser")
 
-      setname(obj.username)
-      setemail(obj.email)
-      setidx(obj.uid)
-      setTimeout(() => {
-        dispatch(resetProfileFlag())
-      }, 3000)
+    if (authUser) {
+      const user = JSON.parse(authUser)
+      setProfile(user.user)
+    }
+
+    if (success) {
+      setTimeout(() => dispatch(resetProfileFlag()), 3000)
     }
   }, [dispatch, success])
 
-  function handleValidSubmit(event, values) {
+  const handleValidSubmit = (_, values) => {
     dispatch(editProfile(values))
+  }
+
+  const handleUpdatePassword = async () => {
+    const newObj = {
+      id: profile?.user_id,
+      password: password?.password,
+    }
+
+    console.log(password)
+
+    if (password?.password === password?.conf_password) {
+      console.log("Password Update Obj:", newObj)
+      const { success, data } = await post("/v1/auth/update-password", newObj)
+      if (success) {
+        console.log(success)
+      }
+    } else {
+      alert("Password and Confirm Password must be same")
+    }
   }
 
   return (
     <React.Fragment>
       <div className="page-content">
         <MetaTags>
-          <title>Profile </title>
+          <title>Profile</title>
         </MetaTags>
+
         <Container fluid>
-          {/* Render Breadcrumb */}
           <Breadcrumb title="Oralstop" breadcrumbItem="Profile" />
 
           <Row>
             <Col lg="12">
-              {error && error ? <Alert color="danger">{error}</Alert> : null}
-              {success ? <Alert color="success">{success}</Alert> : null}
+              {error && <Alert color="danger">{error}</Alert>}
+              {success && <Alert color="success">{success}</Alert>}
 
               <Card>
                 <CardBody>
                   <Media>
-                    <div className="ms-3">
+                    <div className="me-3">
                       <img
                         src={avatar}
                         alt=""
                         className="avatar-md rounded-circle img-thumbnail"
                       />
                     </div>
+
                     <Media body className="align-self-center">
                       <div className="text-muted">
-                        <h5>{name}</h5>
-                        <p className="mb-1">{email}</p>
-                        <p className="mb-0">Id no: #{idx}</p>
+                        <h5>{profile?.user_name}</h5>
+                        <p className="mb-1">{profile?.email}</p>
+                        <p className="mb-0">ID: #{profile?.doc_code}</p>
                       </div>
                     </Media>
                   </Media>
@@ -95,31 +105,51 @@ const UserProfile = props => {
             </Col>
           </Row>
 
-          <h4 className="card-title mb-4">Change User Name</h4>
+          <h4 className="card-title mb-4">Update Password</h4>
 
           <Card>
             <CardBody>
-              <AvForm
-                className="form-horizontal"
-                onValidSubmit={(e, v) => {
-                  handleValidSubmit(e, v)
-                }}
-              >
-                <div className="form-group">
-                  <AvField
-                    name="username"
-                    label="User Name"
-                    value={name}
-                    className="form-control"
-                    placeholder="Enter User Name"
-                    type="text"
-                    required
-                  />
-                  <AvField name="idx" value={idx} type="hidden" />
-                </div>
+              <AvForm onValidSubmit={handleValidSubmit}>
+                <Row>
+                  <Col md="6">
+                    <AvField
+                      name="password"
+                      label="Password"
+                      value={password?.password || ""}
+                      type="password"
+                      onChange={e =>
+                        setPassword(p => ({ ...p, password: e.target.value }))
+                      }
+                      placeholder="Enter New Password"
+                    />
+                  </Col>
+
+                  <Col md="6">
+                    <AvField
+                      name="con_password"
+                      label="Confirm Password"
+                      value={password?.conf_password || ""}
+                      type="password"
+                      onChange={e =>
+                        setPassword(p => ({
+                          ...p,
+                          conf_password: e.target.value,
+                        }))
+                      }
+                      placeholder="Enter Confirm Password"
+                    />
+                  </Col>
+                </Row>
+
+                {/* <AvField name="uid" type="hidden" value={profile.uid || null} /> */}
+
                 <div className="text-center mt-4">
-                  <Button type="submit" color="danger">
-                    Update User Name
+                  <Button
+                    color="danger"
+                    type="button"
+                    onClick={handleUpdatePassword}
+                  >
+                    Save Changes
                   </Button>
                 </div>
               </AvForm>

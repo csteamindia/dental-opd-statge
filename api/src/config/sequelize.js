@@ -11,7 +11,8 @@ const sequelize = new Sequelize(
   {
     host: process.env.DATABASE_HOST,
     port: process.env.DATABASE_PORT,
-    dialect: "mysql",
+    dialect: process.env.DATABASE_DIALECT || "mysql",
+    storage: process.env.DATABASE_STORAGE,
     logging: true,
     timezone: "+00:00",
     isolationLevel: Transaction.ISOLATION_LEVELS.READ_COMMITTED,

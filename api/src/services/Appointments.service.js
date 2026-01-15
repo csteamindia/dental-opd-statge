@@ -4,6 +4,10 @@ const { Ttimelogs, Appointment, User, Clinics, Patients, Doctors, Sequelize } =
   db
 import { SendWpMessage } from "../controllers/Whatsapp.controller.js"
 import moment from "moment-timezone"
+import {
+  sendMailNotification,
+  sendWpNotification,
+} from "../utils/notification.js"
 
 const createAppointmentService = async req => {
   try {
@@ -11,33 +15,74 @@ const createAppointmentService = async req => {
       body,
       query: { client_id, clinic_id },
     } = req
+
     let result
 
+    const clinicData = await Clinics.findOne({
+      attributes: ["clinic_name", "clinic_url"],
+      where: { id: clinic_id },
+    })
+
+    const patientData = await Patients.findOne({
+      attributes: ["title", "first_name", "last_name", "email", "mobile"],
+      where: { id: body?.patient_id },
+    })
+
+    const patientName = `${patientData?.title} ${patientData?.first_name} ${patientData?.last_name}`
+
     if (body.id) {
-      // Update
-      result = await Appointment.update(body, {
+      // Update (Reschedule)
+      const [updated] = await Appointment.update(body, {
         where: { id: body.id },
         returning: true,
       })
 
-      const updated = result[1]?.[0] // sequelize returns [count, rows]
+      if (updated) {
+        const msgData = {
+          patientType: "reschedule",
+          patientEmail: patientData?.email,
+          patientMobile: patientData?.mobile,
+          patientName,
+          clinicName: clinicData?.clinic_name,
+          websiteLink: clinicData?.clinic_url,
+          appointmentDate: body?.appointment_date,
+          appointmentTime: body?.appointment_time,
+          doctorName: body?.doctor_name,
+        }
+
+        if (body?.email) sendMailNotification(msgData)
+        if (body?.mobile) sendWpNotification(msgData)
+      }
+
       return { success: true, body: updated }
     } else {
-      // Create
-
-      if (client_id) {
-        body.client_id = client_id
-      }
-
-      if (clinic_id) {
-        body.clinic_id = clinic_id
-      }
+      // Create New Appointment
+      if (client_id) body.client_id = client_id
+      if (clinic_id) body.clinic_id = clinic_id
 
       body.appointment_valid = moment(body.appointment_date)
         .add(60, "minutes")
         .format("YYYY-MM-DD HH:mm:ss")
 
       result = await Appointment.create(body)
+
+      if (result) {
+        const msgData = {
+          patientType: "newAppointment",
+          patientEmail: patientData?.email,
+          patientMobile: patientData?.mobile,
+          patientName,
+          clinicName: clinicData?.clinic_name,
+          websiteLink: clinicData?.clinic_url,
+          appointmentDate: body?.appointment_date,
+          appointmentTime: body?.appointment_time,
+          doctorName: body?.doctor_name,
+        }
+
+        if (body?.email) sendMailNotification(msgData)
+        if (body?.mobile) sendWpNotification(msgData)
+      }
+
       return { success: true, body: result }
     }
   } catch (error) {

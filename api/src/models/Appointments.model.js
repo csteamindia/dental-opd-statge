@@ -148,6 +148,11 @@ export default (sequelize, DataTypes) => {
       targetKey: "code",
       as: "doctor",
     })
+    Appointment.belongsTo(models.TretmentTypes, {
+      foreignKey: "tretment_code",
+      targetKey: "id",
+      as: "tretmenttypes",
+    })
   }
 
   return Appointment
