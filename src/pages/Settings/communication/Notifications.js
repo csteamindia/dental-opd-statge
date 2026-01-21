@@ -1,87 +1,67 @@
-import React, { useEffect, useState } from 'react';
-import { get, post } from 'helpers/api_helper';
-import { Nav, NavItem, NavLink, Row, Col, Card, CardBody, Form, FormGroup, Label, Input, Button } from 'reactstrap';
+import React, { useEffect, useMemo, useState, Suspense } from "react"
+import { Nav, NavItem, NavLink, Row, Col, Card, CardBody } from "reactstrap"
 import classnames from "classnames"
-import { useLocation } from "react-router-dom"
 import LoadingComponent from "../../utils/loadingComponent"
-import cookieHelper from "helpers/getCookieData";
+import cookieHelper from "helpers/getCookieData"
 
-
-const Compoents = {
-    EmailConfig: React.lazy(() => import("./emailConfig")),
-    WhatsappConfig: React.lazy(() => import("./whatsappConfig"))
-};
-
-const difinedtabs = [
-    "EmailConfig",
-    "WhatsappConfig"
-]
+const Components = {
+  EmailConfig: React.lazy(() => import("./emailConfig")),
+  WhatsappConfig: React.lazy(() => import("./whatsappConfig")),
+}
 
 const CommunicationAttribute = () => {
-    const clinic = cookieHelper.getCookie('_c') ? JSON.parse(atob(cookieHelper.getCookie('_c'))) : null;
-    const [tabs, setTabs] = useState(difinedtabs);
+  const clinic = cookieHelper.getCookie("_c")
+    ? JSON.parse(atob(cookieHelper.getCookie("_c")))
+    : {}
 
-    useEffect(() => {
-        const availableTabs = [];
+  const availableTabs = useMemo(() => {
+    const tabs = []
 
-        if (clinic.smtp) {
-            availableTabs.push("EmailConfig");
-        }
-        if (clinic.whatsapp) {
-            availableTabs.push("WhatsappConfig");
-        }
-
-        setTabs(availableTabs);
-    }, [clinic]);
-    const location = useLocation();
-    const queryParams = new URLSearchParams(location.search);
-    const tabName = queryParams.get('_t');
-    const [customIconActiveTab, setcustomIconActiveTab] = useState("1")
-    const [ActiveComponent, setActiveComponent] = useState(Compoents["EmailConfig"])
-
-
-    const toggleIconCustom = tab => {
-        if (customIconActiveTab !== tab) {
-            setcustomIconActiveTab(tab)
-            setActiveComponent(Compoents[tabs[tab - 1]])
-        }
+    if (clinic?.smtp) {
+      tabs.push({ key: "EmailConfig", label: "Email Config" })
     }
 
-    return (
-        <Row>
-            <Col>
-                <Card className="mb-1">
-                    <CardBody>
-                        <Nav className="navtab-bg nav-justified nav nav-pills">
-                            {
-                                tabs.map((tab, index) => {
-                                    return (
-                                        <NavItem key={index}>
-                                            <NavLink
-                                                style={{ cursor: "pointer" }}
-                                                className={classnames({
-                                                    active: customIconActiveTab === `${index + 1}`,
-                                                })}
-                                                onClick={() => {
-                                                    toggleIconCustom(`${index + 1}`)
-                                                }}
-                                            >
-                                                {tab}
-                                            </NavLink>
-                                        </NavItem>
-                                    )
-                                })
-                            }
-                        </Nav>
-                    </CardBody>
-                </Card>
-                <br />
-                <React.Suspense fallback={<LoadingComponent />}>
-                    {ActiveComponent ? <ActiveComponent /> : <LoadingComponent />}
-                </React.Suspense>
-            </Col>
-        </Row>
-    );
-};
+    if (clinic?.whatsapp) {
+      tabs.push({ key: "WhatsappConfig", label: "Whatsapp Config" })
+    }
 
-export default CommunicationAttribute;
+    return tabs
+  }, [clinic])
+
+  const [activeTab, setActiveTab] = useState(availableTabs[0]?.key)
+  const ActiveComponent = activeTab ? Components[activeTab] : null
+
+  return (
+    <Row>
+      <Col>
+        <Card className="mb-1">
+            <Nav className="navtab-bg nav-justified nav-pills">
+              {availableTabs.map(tab => (
+                <NavItem key={tab.key}>
+                  <NavLink
+                    style={{ cursor: "pointer" }}
+                    className={classnames({
+                      active: activeTab == tab.key,
+                    })}
+                    onClick={() => setActiveTab(tab.key)}
+                  >
+                    {tab.label}
+                  </NavLink>
+                </NavItem>
+              ))}
+            </Nav>
+        </Card>
+
+        <Suspense fallback={<LoadingComponent />}>
+          {ActiveComponent ? (
+            <ActiveComponent clinicData={clinic} />
+          ) : (
+            <LoadingComponent />
+          )}
+        </Suspense>
+      </Col>
+    </Row>
+  )
+}
+
+export default CommunicationAttribute

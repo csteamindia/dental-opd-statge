@@ -21,7 +21,7 @@ const sequelize = new Sequelize(
 
 // Enable logging for debugging
 const loggingFunction = sql => {
-  // console.log({ sql })
+  console.log({ sql })
 }
 
 try {

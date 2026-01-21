@@ -65,7 +65,7 @@ const WelcomeClinicScreen = () => {
 
   const handleChnageClinic = async clinicData => {
     cookieHelper.setCookie("_c", btoa(JSON.stringify(clinicData)), 1, 7)
-    window.location.href = `https://909dental.oralstop.com/panel/chairs`
+    window.location.href = `/chairs`
   }
 
   const handleChange = e => {

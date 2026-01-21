@@ -394,61 +394,61 @@ const WelcomeChairScreen = () => {
             </span>
           </div>
 
-          <div className="row g-3">
+          <div className="row" style={{ justifyCntent: "space-around" }}>
             {tableData?.map(
               (chair, chairIndex) =>
                 chair.slots.length > 0 && (
                   <div key={chairIndex} className="col-12 col-md-6">
                     <div className="card shadow-sm p-3 position-relative">
                       <h5 className="text-primary mb-3">{chair.title}</h5>
+                      {chair.slots.map((slot, slotIndex) => {
+                        const startTime = getZoneDateTime(slot.start_time)
+                        const endTime = getZoneDateTime(slot.end_time)
+                        const displayTime = `${startTime.format(
+                          "hh:mm A"
+                        )} - ${endTime.format("hh:mm A")}`
 
-                      <div className="d-flex flex-wrap gap-3 justify-start">
-                        {chair.slots.map((slot, slotIndex) => {
-                          const startTime = getZoneDateTime(slot.start_time)
-                          const endTime = getZoneDateTime(slot.end_time)
-                          const displayTime = `${startTime.format(
-                            "hh:mm A"
-                          )} - ${endTime.format("hh:mm A")}`
+                        const bookedItem = todoListData
+                          ?.filter(v => v.canceled_at === "Invalid date")
+                          ?.find(
+                            v =>
+                              v.index_position === `${chairIndex}${slotIndex}`
+                          )
 
-                          const bookedItem = todoListData
-                            ?.filter(v => v.canceled_at === "Invalid date")
-                            ?.find(
-                              v =>
-                                v.index_position === `${chairIndex}${slotIndex}`
-                            )
+                        const isPast = isPastSlot(slot.start_time)
+                        const isCurrent =
+                          !bookedItem &&
+                          !isPast &&
+                          startTime.isBefore(getZoneDateTime()) &&
+                          endTime.isAfter(getZoneDateTime())
 
-                          const isPast = isPastSlot(slot.start_time)
-                          const isCurrent =
-                            !bookedItem &&
-                            !isPast &&
-                            startTime.isBefore(getZoneDateTime()) &&
-                            endTime.isAfter(getZoneDateTime())
+                        // Slot styling
+                        const slotStyle = {
+                          borderRadius: "8px",
+                          padding: "12px",
+                          margin: "6px ",
+                          textAlign: "center",
+                          transition: "0.3s",
+                          border: bookedItem
+                            ? "2px solid #f0ad4e"
+                            : isCurrent
+                            ? "2px solid #198754"
+                            : isPast
+                            ? "2px solid #ccc"
+                            : "2px solid #0d6efd",
+                          backgroundColor: bookedItem
+                            ? "#fff8e1"
+                            : isCurrent
+                            ? "#d1e7dd"
+                            : isPast
+                            ? "#f8f9fa"
+                            : "#e7f1ff",
+                        }
 
-                          // Slot styling
-                          const slotStyle = {
-                            width: "238px",
-                            borderRadius: "8px",
-                            padding: "12px",
-                            textAlign: "center",
-                            transition: "0.3s",
-                            border: bookedItem
-                              ? "2px solid #f0ad4e"
-                              : isCurrent
-                              ? "2px solid #198754"
-                              : isPast
-                              ? "2px solid #ccc"
-                              : "2px solid #0d6efd",
-                            backgroundColor: bookedItem
-                              ? "#fff8e1"
-                              : isCurrent
-                              ? "#d1e7dd"
-                              : isPast
-                              ? "#f8f9fa"
-                              : "#e7f1ff",
-                          }
-
-                          return (
-                            <div key={slotIndex} style={slotStyle}>
+                        return (
+                          // !isPast ? (
+                          <div className="row m-0" key={slotIndex}>
+                            <div className="col-12" style={slotStyle}>
                               <div
                                 className="fw-bold mb-2"
                                 style={{
@@ -486,53 +486,86 @@ const WelcomeChairScreen = () => {
                                 )
                               ) : bookedItem.is_show ? (
                                 bookedItem.reporting_time ? (
-                                  <>
-                                    <div className="mb-2 text-start">
+                                  <div className="row m-0">
+                                    <div className="col-10 mb-2 text-start">
                                       <div className="fw-semibold">
-                                        Case No:{" "}
-                                        {bookedItem.patient?.case_no ?? "—"}
+                                        <b>
+                                          Case No:{" "}
+                                          {bookedItem.patient?.case_no ?? "—"}
+                                        </b>
                                       </div>
                                       <div>
                                         Patient:{" "}
-                                        {bookedItem.patient?.first_name}{" "}
-                                        {bookedItem.patient?.last_name}
+                                        <b>
+                                          {bookedItem.patient?.first_name}{" "}
+                                          {bookedItem.patient?.last_name}
+                                        </b>
                                       </div>
                                       <div>
-                                        Contact: {bookedItem.patient?.mobile}
+                                        Contact:{" "}
+                                        <b>{bookedItem.patient?.mobile}</b>
                                       </div>
                                       <div className="text-success fw-semibold">
-                                        Reported:{" "}
-                                        {getZoneDateTime(
-                                          bookedItem.reporting_time
-                                        ).format("hh:mm A")}
+                                        <b style={{ fontSize: "16px" }}>
+                                          Reported:{" "}
+                                          {getZoneDateTime(
+                                            bookedItem.reporting_time
+                                          ).format("hh:mm A")}
+                                        </b>
                                       </div>
                                     </div>
-                                    <div className="d-flex gap-2">
+                                    <div
+                                      className="col-2"
+                                      style={{
+                                        position: "absolute",
+                                        right: 0,
+                                        top: "16px",
+                                      }}
+                                    >
                                       <button
-                                        className="btn btn-warning flex-grow-1"
+                                        className="btn btn-warning"
                                         onClick={() =>
                                           handleModifyBooking(bookedItem, chair)
                                         }
                                         title="Modify"
+                                        style={{
+                                          width: "92px",
+                                          height: "36px",
+                                          marginBottom: "4px",
+                                        }}
                                       >
-                                        <i className="bx bxs-analyse"></i>
+                                        <i className="bx bxs-analyse"></i>{" "}
+                                        Modify
                                       </button>
-                                      <button
-                                        className="btn btn-info flex-grow-1"
-                                        onClick={toggleModal}
+                                      <br />
+                                      <a
+                                        className="btn btn-info"
+                                        href={`/patient?_p=${bookedItem.patient_id}`}
                                         title="View"
+                                        style={{
+                                          width: "92px",
+                                          height: "36px",
+                                          marginBottom: "4px",
+                                        }}
                                       >
-                                        <i className="fas fa-eye"></i>
-                                      </button>
+                                        <i className="fas fa-eye"></i> View
+                                      </a>
+                                      <br />
                                       <button
-                                        className="btn btn-success flex-grow-1"
+                                        className="btn btn-success"
                                         onClick={toggleModal}
                                         title="Notify"
+                                        style={{
+                                          width: "92px",
+                                          height: "36px",
+                                          marginBottom: "4px",
+                                        }}
                                       >
-                                        <i className="fab fa-whatsapp"></i>
+                                        <i className="fab fa-whatsapp"></i>{" "}
+                                        Notify
                                       </button>
                                     </div>
-                                  </>
+                                  </div>
                                 ) : (
                                   <>
                                     <div className="mb-2 text-start">
@@ -568,9 +601,11 @@ const WelcomeChairScreen = () => {
                                 </div>
                               )}
                             </div>
-                          )
-                        })}
-                      </div>
+                          </div>
+                          // ) : (
+                          //   ""
+                        )
+                      })}
                     </div>
                   </div>
                 )

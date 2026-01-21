@@ -26,16 +26,16 @@ export const EXAMINATIONS_URL = "/examinations"
 export const EXAMINATIONS_OPTIONS_URL = "/examination-options"
 export const PATIENT_NOTES_URL = "/patient-notes"
 export const PATIENT_FOLLOWUP_URL = "/patient-follow-up"
-export const NOTIFICATION_URL = "/notification"
+export const NOTIFICATION_URL = "/notifications"
 export const PATIENT_VIEW_URL = "/patients/view"
 
 // Accounts
-export const VOUCHER_URL = '/accounts/voucher'
-export const BILLING_URL = '/accounts/billing'
+export const VOUCHER_URL = "/accounts/voucher"
+export const BILLING_URL = "/accounts/billing"
 
 // Files
-export const FILES_URL = '/files'
+export const FILES_URL = "/files"
 
 // Tags
-export const TAGS_URL = '/tags'
-export const LANGUAGES_URL = '/languages'
+export const TAGS_URL = "/tags"
+export const LANGUAGES_URL = "/languages"
