@@ -52,7 +52,7 @@ const authProtectedRoutes = [
     path: "/",
     exact: true,
     component: () => {
-      window.location.href = "https://909dental.oralstop.com/panel/chairs"
+      window.location.href = "/chairs"
       return null
     },
   },

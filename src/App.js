@@ -58,7 +58,7 @@ const App = props => {
   const Layout = getLayout()
   return (
     <React.Fragment>
-      <Router basename="/panel">
+      <Router>
         <Switch>
           {publicRoutes.map((route, idx) => (
             <Authmiddleware
